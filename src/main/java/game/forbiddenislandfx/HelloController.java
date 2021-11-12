@@ -34,6 +34,17 @@ public class HelloController {
     void startGame(ActionEvent event) {
         int num = (int) spinner.getValue();
         String d = dropdown.getValue();
+        while(true){
+            try{
+                if(num==0) throw new NumberFormatException();
+                if(d.isEmpty()) throw new NumberFormatException();
+            }catch(NumberFormatException ex){
+                System.out.println("error");
+            }
+            break;
+        }
         System.out.println(num + " " + d);
+        ParentPanel.menuPanel.hide();
+        ParentPanel.gamePanel.show();
     }
 }
