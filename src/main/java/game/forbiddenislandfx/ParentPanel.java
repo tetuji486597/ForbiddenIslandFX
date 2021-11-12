@@ -11,6 +11,10 @@ public class ParentPanel {
         menuPanel = s;
     }
 
+    public static void setGamePanel(Stage gamePanel) {
+        ParentPanel.gamePanel = gamePanel;
+    }
+
     public static void setHelpPanel(Stage s){
         helpPanel = s;
     }

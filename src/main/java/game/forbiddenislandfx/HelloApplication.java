@@ -23,6 +23,8 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add("moderna-darl.css");
         stage.show();
 
+
+
         Stage help = new Stage();
         FXMLLoader menuLoader = new FXMLLoader(HelloApplication.class.getResource("help-menu.fxml"));
         help.setTitle("How To Play");
@@ -32,6 +34,19 @@ public class HelloApplication extends Application {
         help.setScene(helpScene);
         helpScene.getStylesheets().add("moderna-darl.css");
         ParentPanel.setHelpPanel(help);
+
+
+        Stage game = new Stage();
+        FXMLLoader gameLoader = new FXMLLoader(HelloApplication.class.getResource("game-board.fxml"));
+        game.setTitle("How To Play");
+        Scene gameScene = new Scene(gameLoader.load(), 1350, 755);
+        game.setResizable(false);
+//        JMetro helpMetro = new JMetro(Style.DARK);
+//        helpMetro.setScene(helpScene);
+        game.setScene(gameScene);
+        gameScene.getStylesheets().add("moderna-darl.css");
+        ParentPanel.setGamePanel(game);
+
 
     }
 
