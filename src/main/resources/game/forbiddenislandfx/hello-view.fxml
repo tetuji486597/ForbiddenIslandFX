@@ -10,10 +10,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <VBox maxHeight="500" maxWidth="1000" minHeight="500.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.forbiddenislandfx.HelloController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-image: url(&quot;file:/D:/Nitheesh/School/2021-2022/DataStructures/ForbiddenIslandProject/src/main/resources/Images/TitleScreen.png&quot;);" VBox.vgrow="ALWAYS">
-         <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="500.0" prefWidth="1000.0" style="-fx-background-image: url(Images/TitleScreen.png);" VBox.vgrow="ALWAYS">
+        <ImageView fitHeight="500.0" fitWidth="1000.0">
+            <image>
+                <Image url="@../../Images/TitleScreen.png" />
+            </image>
+        </ImageView>
+        <children>
             <Button fx:id="button" alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="344.0" mnemonicParsing="false" onAction="#startGame" prefHeight="51.0" prefWidth="158.0" text="Play" />
             <Button fx:id="help" alignment="CENTER" contentDisplay="CENTER" layoutX="397.0" layoutY="406.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="51.0" prefWidth="158.0" text="How To Play" />
             <ComboBox fx:id="dropdown" layoutX="149.0" layoutY="277.0" prefWidth="150.0" promptText="Select" AnchorPane.leftAnchor="150.0">

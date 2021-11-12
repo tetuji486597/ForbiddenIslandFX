@@ -1,11 +1,19 @@
 package game.forbiddenislandfx;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.util.Objects;
 
 public class GameBoardController {
 
@@ -19,6 +27,51 @@ public class GameBoardController {
     private SplitPane splitPane;
 
     @FXML
+    private ImageView r0c2;
+
+    @FXML
+    private ImageView r0c3;
+
+    @FXML
+    private ImageView r1c1;
+
+    @FXML
+    private ImageView r1c2;
+
+    @FXML
+    private ImageView r1c3;
+
+    @FXML
+    private ImageView r1c4;
+
+    @FXML
+    private ImageView r2c0;
+
+    @FXML
+    private ImageView r2c1;
+
+    @FXML
+    private ImageView r2c2;
+
+    @FXML
+    private ImageView r2c3;
+
+    @FXML
+    private ImageView r2c4;
+
+    @FXML
+    private ImageView r2c5;
+
+    @FXML
+    private ImageView r3c0;
+
+    @FXML
+    private ImageView r3c1;
+
+    @FXML
+    private ImageView r3c2;
+
+    @FXML
     private Font x1;
 
     @FXML
@@ -29,5 +82,12 @@ public class GameBoardController {
 
     @FXML
     private Color x4;
+
+    public GameBoardController(){
+        Image image = new Image();
+        r0c2.setImage(image);
+//        r0c2.setImage(new Image("@../../Images/Tiles/Fools_ Landing@2x.png"));
+    }
+
 
 }
