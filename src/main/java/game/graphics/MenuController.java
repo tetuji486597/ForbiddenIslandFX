@@ -1,20 +1,16 @@
-package game.forbiddenislandfx;
+package game.graphics;
 
+import game.simulation.brains.GameState;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MenuController {
     @FXML
@@ -38,6 +34,12 @@ public class MenuController {
     void startGame(ActionEvent event) throws IOException {
         int num = (int) spinner.getValue();
         String d = dropdown.getValue();
+        int diff = 0;
+        if(d.equalsIgnoreCase("novice")) diff = 1;
+        else if(d.equalsIgnoreCase("normal")) diff = 2;
+        else if(d.equalsIgnoreCase("elite")) diff = 3;
+        else if(d.equalsIgnoreCase("legendary")) diff = 4;
+
         while(true){
             try{
                 if(num==0) throw new NumberFormatException();
@@ -60,5 +62,6 @@ public class MenuController {
         gameScene.getStylesheets().add("moderna-darl.css");
         ParentPanel.setGamePanel(game);
         ParentPanel.gamePanel.show();
+        GameState gameState = new GameState(diff,num);
     }
 }

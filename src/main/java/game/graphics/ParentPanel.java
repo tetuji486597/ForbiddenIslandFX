@@ -1,4 +1,4 @@
-package game.forbiddenislandfx;
+package game.graphics;
 
 import javafx.stage.Stage;
 

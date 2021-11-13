@@ -1,5 +1,6 @@
-package game.forbiddenislandfx;
+package game.graphics;
 
+import game.simulation.brains.Initialize;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,7 +32,7 @@ public class GameRunner extends Application {
         help.setScene(helpScene);
         helpScene.getStylesheets().add("moderna-darl.css");
         ParentPanel.setHelpPanel(help);
-
+        Initialize.init();
 
     }
 
