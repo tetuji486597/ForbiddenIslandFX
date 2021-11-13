@@ -105,7 +105,6 @@
                                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                             </textFill>
                         </Label>
-                        <Button layoutX="61.0" layoutY="210.0" mnemonicParsing="false" onAction="#startGame" text="Begin" />
                     </children>
                 </AnchorPane>
                 <ScrollPane fx:id="scrollPane" prefHeight="709.0" prefWidth="689.0">
@@ -140,122 +139,122 @@
                                     <children>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r0c2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r3c0" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r1c1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r1c2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r1c3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r1c4" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c4" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c0" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r2c5" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r3c1" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r3c2" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fx:id="r0c3" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <image>
-                                                <Image url="@../../Images/Tiles/Breakers Bridge@2x.png" />
+                                                <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -284,7 +283,7 @@
                         </AnchorPane>
                     </content>
                 </ScrollPane>
-                <AnchorPane>
+                <AnchorPane prefHeight="709.0" prefWidth="264.0">
                     <children>
                         <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Actions" textAlignment="CENTER" wrapText="false">
                             <font>
@@ -294,6 +293,7 @@
                                 <Color red="0.624" green="0.624" blue="0.624" fx:id="x8" />
                             </textFill>
                         </Label>
+                        <Button layoutX="21.0" layoutY="68.0" mnemonicParsing="false" onAction="#startGame" text="Shuffle Tiles" />
                     </children>
                 </AnchorPane>
             </children>

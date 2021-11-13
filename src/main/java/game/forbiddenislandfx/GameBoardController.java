@@ -86,7 +86,8 @@ public class GameBoardController {
 
     @FXML
     void startGame(ActionEvent event) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/Fools_ Landing@2x.png"));
+        Image image = new Image(new FileInputStream("/Images/Tiles/Fools_ Landing@2x.png"));
+
         r0c2.setImage(image);
 //        r0c2.setImage(new Image("@../../Images/Tiles/Fools_ Landing@2x.png"));
     }
