@@ -49,13 +49,14 @@ public class MenuController {
             }
             break;
         }
+
         System.out.println(num + " " + d);
         ParentPanel.menuPanel.hide();
         Stage game = new Stage();
         FXMLLoader gameLoader = new FXMLLoader(MenuController.class.getResource("game-board.fxml"));
         game.setTitle("How To Play");
-        Scene gameScene = new Scene(gameLoader.load(), 1350, 755);
-        game.setResizable(false);
+        Scene gameScene = new Scene(gameLoader.load(), 1375, 930);
+//        game.setResizable(false);
 //        JMetro helpMetro = new JMetro(Style.DARK);
 //        helpMetro.setScene(helpScene);
         game.setScene(gameScene);

@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 //
 public class GameState {
-    private int waterLevel;
+    public static int waterLevel;
     private TreasurePiece[] treasuresCollected;
-    private int numPlayers;
-    private final String[] allRoles;
-    private ArrayList<Player> allPlayers;
+    public static int numPlayers;
+    public String[] allRoles;
+    public static ArrayList<Player> allPlayers;
     private int playerTurn = 0;
     private Player currentPlayer;
     private WaterLevelMeter meter;
@@ -42,16 +42,13 @@ public class GameState {
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
 
-        meter = new WaterLevelMeter(difficulty);
+        waterLevel = difficulty;
+
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-        Random rnd = ThreadLocalRandom.current();
-        for (int i = allRoles.length - 1; i > 0; i--)
-        {
-            int index = rnd.nextInt(i + 1);
-            String a = allRoles[index];
-            allRoles[index] = allRoles[i];
-            allRoles[i] = a;
-        }
+        List<String> roleShuffle = Arrays.asList(allRoles);
+        Collections.shuffle(roleShuffle);
+        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+
         cardDeck = new Stack<>();
         for(int i = 0; i < 4; i++) cardDeck.push("CrystalOfFire");
         for(int i = 0; i < 4; i++) cardDeck.push("StatueOfWind");
@@ -60,6 +57,7 @@ public class GameState {
         for(int i = 0; i < 3; i++) cardDeck.push("HelicopterLift");
         for(int i = 0; i < 2; i++) cardDeck.push("Sandbag");
         Collections.shuffle(cardDeck);
+        allPlayers = new ArrayList<Player>();
         for(int i = 0; i < numPlayers; i++) {
             ArrayList<String> startingDeck = new ArrayList<>();
             startingDeck.add(cardDeck.pop());
@@ -88,7 +86,7 @@ public class GameState {
     }
 
     public Player nextTurn() {
-        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
+//        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
         return playerIterator.next();
     }
 
