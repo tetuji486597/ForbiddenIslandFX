@@ -1,11 +1,11 @@
 package game.simulation.brains;
 //
 import game.graphics.GameBoardController;
-import game.simulation.board.GameTile;
-import game.simulation.board.TreasurePiece;
-import game.simulation.board.WaterLevelMeter;
+import game.simulation.board.*;
+import game.simulation.board.*;
+import game.simulation.board.*;
 import game.simulation.card.Card;
-import game.simulation.player.Player;
+import game.simulation.player.*;
 
 import java.awt.*;
 import java.io.IOException;

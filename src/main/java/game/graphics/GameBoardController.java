@@ -1,9 +1,9 @@
 package game.graphics;
 
-import game.simulation.board.GameTile;
-import game.simulation.brains.GameState;
-import game.simulation.brains.Initialize;
-import game.simulation.player.Player;
+import game.simulation.brains.*;
+import game.simulation.player.*;
+import game.simulation.board.*;
+import game.simulation.card.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -296,20 +295,6 @@ public class GameBoardController {
         startButton.setVisible(false);
     }
 
-    private static Image convertToFxImage(BufferedImage image) {
-        WritableImage wr = null;
-        if (image != null) {
-            wr = new WritableImage(image.getWidth(), image.getHeight());
-            PixelWriter pw = wr.getPixelWriter();
-            for (int x = 0; x < image.getWidth(); x++) {
-                for (int y = 0; y < image.getHeight(); y++) {
-                    pw.setArgb(x, y, image.getRGB(x, y));
-                }
-            }
-        }
-
-        return new ImageView(wr).getImage();
-    }
 
     @FXML
     void showHelp(ActionEvent event) {

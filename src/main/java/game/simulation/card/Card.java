@@ -1,9 +1,10 @@
 package game.simulation.card;
 
-import java.awt.image.BufferedImage;
+
+import javafx.scene.image.Image;
 
 public interface Card {
 
     public String getType();
-    public BufferedImage getImage();
+    public Image getImage();
 }

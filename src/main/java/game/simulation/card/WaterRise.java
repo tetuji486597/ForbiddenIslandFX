@@ -1,16 +1,18 @@
 package game.simulation.card;
 
+import javafx.scene.image.Image;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class WaterRise implements Card {
     private String type;
-    private BufferedImage image;
+    private Image image;
 
     public WaterRise() throws IOException {
         type = "WatersRise";
-        image = ImageIO.read(getClass().getClassLoader().getResource("Images/TreasureCards/Card_Waters_Rise.png"));
+        //image = ImageIO.read(getClass().getClassLoader().getResource("Images/TreasureCards/Card_Waters_Rise.png"));
     }
 
     @Override
@@ -19,7 +21,7 @@ public class WaterRise implements Card {
     }
 
     @Override
-    public BufferedImage getImage() {
+    public Image getImage() {
         return image;
     }
 }
