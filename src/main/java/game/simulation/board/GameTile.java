@@ -13,6 +13,7 @@ public class GameTile {
     private boolean isFlooded;
     private boolean isTreasure;
     private boolean isStarting;
+    private boolean isGone;
 
 
     public GameTile(String str, javafx.scene.image.Image img) {
@@ -23,6 +24,7 @@ public class GameTile {
                 str.equals("TempleOfTheMoon") || str.equals("CaveOfEmbers") || str.equals("CoralPalace") ||
                 str.equals("TempleOfTheSun") || str.equals("HowlingGarden");
         isStarting = str.equals("FoolsLanding") || str.equals("IronGate") || str.equals("BronzeGate") || str.equals("GoldGate") || str.equals("CopperGate");
+        isGone = false;
     }
 
     public String getName(){
@@ -53,5 +55,5 @@ public class GameTile {
         return isStarting;
     }
 
-
+    public boolean isGone() {return isGone;}
 }
