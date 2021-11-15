@@ -6,7 +6,9 @@ import game.simulation.brains.Initialize;
 import game.simulation.player.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -17,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
@@ -227,6 +230,12 @@ public class GameBoardController {
     private Button startButton;
 
     @FXML
+    private Button helpButton;
+
+    @FXML
+    private Button settingsButton;
+
+    @FXML
     public void initialize() {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -241,6 +250,25 @@ public class GameBoardController {
         for(ImageView im : waterlevels){
             im.setVisible(false);
         }
+        ImageView helpImg = new ImageView(new Image("/Images/help.png"));
+        ImageView settingsImg = new ImageView(new Image("/Images/settings.png"));
+        helpButton.setGraphic(helpImg);
+        helpButton.setStyle(
+                "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 80; " +
+                        "-fx-min-height: 80px; " +
+                        "-fx-max-width: 80; " +
+                        "-fx-max-height: 80px;"
+        );
+        settingsButton.setGraphic(settingsImg);
+        settingsButton.setStyle(
+                "-fx-background-radius: 5em; " +
+                        "-fx-min-width: 80px; " +
+                        "-fx-min-height: 80px; " +
+                        "-fx-max-width: 80px; " +
+                        "-fx-max-height: 80px;"
+        );
+
     }
 
     @FXML
@@ -249,7 +277,7 @@ public class GameBoardController {
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
         for(int i = 0; i < 24; i++) {
-            imageViews[i].setImage(Initialize.tiles.get(tiles[i]));
+            imageViews[i].setImage(GameState.tiles[i].getTile());
         }
         waterlevels[GameState.waterLevel-1].setVisible(true);
         int numPlayers = GameState.numPlayers;
@@ -283,7 +311,10 @@ public class GameBoardController {
         return new ImageView(wr).getImage();
     }
 
-
+    @FXML
+    void showHelp(ActionEvent event) {
+        ParentPanel.helpPanel.show();
+    }
     public void r0c2Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 2 Clicked");
     }

@@ -16,6 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameState {
     public static int waterLevel;
     private TreasurePiece[] treasuresCollected;
+    public static GameTile[] tiles;
     public static int numPlayers;
     public String[] allRoles;
     public static ArrayList<Player> allPlayers;
@@ -41,6 +42,11 @@ public class GameState {
         List<String> tileShuffle = Arrays.asList(allTiles);
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
+        tiles = new GameTile[24];
+        for(int i = 0; i < 24; i++){
+            tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
+        }
+
 
         waterLevel = difficulty;
 

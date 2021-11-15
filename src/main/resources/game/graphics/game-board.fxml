@@ -39,7 +39,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
+<VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -84,7 +84,7 @@
             <children>
             <HBox prefHeight="100.0" prefWidth="386.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <VBox prefHeight="709.0" prefWidth="328.0">
+                  <VBox prefHeight="709.0" prefWidth="328.0" HBox.hgrow="SOMETIMES">
                      <children>
                               <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Players" textAlignment="CENTER" wrapText="false">
                                   <font>
@@ -594,6 +594,33 @@
                      </textFill>
                   </Label>
                         <Button fx:id="startButton" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
+                  <Pane layoutX="682.0">
+                     <children>
+                        <Separator orientation="VERTICAL" prefHeight="193.0" prefWidth="5.0" />
+                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/TreasureCards/Card_Back@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="135.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/TreasureCards/Pressed.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="555.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/TreasureCards/Pressed.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="425.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/FloodCards/Flood_Card_Back@2x.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="helpButton" layoutX="305.0" layoutY="14.0" mnemonicParsing="false" onAction="#showHelp" prefHeight="80.0" prefWidth="80.0" />
+                        <Button fx:id="settingsButton" layoutX="305.0" layoutY="104.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
+                     </children>
+                  </Pane>
                </children></Pane>
             </children>
             <padding>
