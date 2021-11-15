@@ -4,36 +4,16 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Engineer {
-    private ArrayList<ArrayList<Integer>>  moveableTiles;
+    private boolean[][] moveableTiles;
 
-    public Engineer(){
-        moveableTiles = new ArrayList<>();
-    }
+    public Engineer(){ moveableTiles = new boolean[6][6]; }
 
-    public ArrayList<ArrayList<Integer>> getMoveableTiles(int[] pos){
-       /* ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
-        ArrayList <Integer> newPos = new ArrayList<Integer>();
-        newPos.add(pos[0]);
-        newPos.add(pos[1]+1);
-        temp.add(newPos);
-        //newPos.removeAll();
-        newPos.add(pos[0] + 1);
-        newPos.add(pos[1]);
-        temp.add(newPos);
-      //  newPos.removeAll();
-        newPos.add(pos[0]);
-        newPos.add(pos[1]-1);
-        temp.add(newPos);
-    //    newPos.removeAll();
-        newPos.add(pos[0] -1);
-        newPos.add(pos[1]);
-        temp.add(newPos);
-        */
-        int[] temp = pos;
-        temp[1]++;
-
-
-
+    public boolean[][] getMoveableTiles(int[] pos){
+        for(int r = 0; r<pos[0]; r++){
+            for(int c = 0; c<pos[1]; c++){
+            //    moveableTiles[r][c] == false;
+            }
+        }
         return moveableTiles;
     }
 }
