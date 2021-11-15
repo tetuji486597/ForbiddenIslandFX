@@ -11,7 +11,7 @@ public class Engineer {
     }
 
     public ArrayList<ArrayList<Integer>> getMoveableTiles(int[] pos){
-        ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
+       /* ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
         ArrayList <Integer> newPos = new ArrayList<Integer>();
         newPos.add(pos[0]);
         newPos.add(pos[1]+1);
@@ -28,6 +28,10 @@ public class Engineer {
         newPos.add(pos[0] -1);
         newPos.add(pos[1]);
         temp.add(newPos);
+        */
+        int[] temp = pos;
+        temp[1]++;
+
 
         return moveableTiles;
     }
