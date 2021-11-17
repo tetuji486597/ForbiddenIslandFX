@@ -1,7 +1,6 @@
 package game.graphics;
 
 import game.simulation.brains.*;
-import game.simulation.player.*;
 import game.simulation.board.*;
 import game.simulation.card.*;
 import javafx.event.ActionEvent;

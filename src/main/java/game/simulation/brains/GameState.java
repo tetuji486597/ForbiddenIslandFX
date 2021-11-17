@@ -2,8 +2,7 @@ package game.simulation.brains;
 //
 import game.graphics.GameBoardController;
 import game.simulation.board.*;
-import game.simulation.board.*;
-import game.simulation.board.*;
+import game.simulation.card.*;
 import game.simulation.card.Card;
 import game.simulation.player.*;
 
