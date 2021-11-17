@@ -9,11 +9,14 @@ public class Engineer {
     public Engineer(){ moveableTiles = new boolean[6][6]; }
 
     public boolean[][] getMoveableTiles(int[] pos){
-        for(int r = 0; r<pos[0]; r++){
-            for(int c = 0; c<pos[1]; c++){
+        for(int r = 0; r<6; r++){
+            for(int c = 0; c<6; c++){
+
             //    moveableTiles[r][c] == false;
             }
         }
+        moveableTiles[pos[0]][pos[1]] = false;
+
         return moveableTiles;
     }
 }
