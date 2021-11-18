@@ -88,6 +88,7 @@ public class GameState {
     }
 
     public void drawCard(Graphics g) {
+
     }
 
     public void setWater(int waterLevel) {
@@ -104,7 +105,7 @@ public class GameState {
     }
 
     public void drawFlood(GameTile tile) {
-
+        tile.setFlooded(true);
     }
 
     public boolean checkWinning() {
@@ -126,28 +127,28 @@ public class GameState {
         moveable.add(new int[]{x-1,y});
         moveable.add(new int[]{x, y+1});
         moveable.add(new int[]{x, y-1});
-//        switch (role) {
-//            case "Explorer":
-//                moveable.add(new int[]{x+1,y+1});
-//                moveable.add(new int[]{x-1,y-1});
-//                moveable.add(new int[]{x-1, y+1});
-//                moveable.add(new int[]{x+1, y-1});
-//                break;
-//            case "Pilot":
-//                for(int i = -6; i < 6; i++) {
-//                    for(int j = -6; j < 6; j++) {
-//                        moveable.add(new int[]{i, j});
-//                    }
-//                }
-//                break;
-//            case "Navigator":
-//                Player temp = currentPlayer;
-//                currentPlayer =
-//                Player p =
-//      }
+        switch (role) {
+            case "Explorer":
+                moveable.add(new int[]{x+1,y+1});
+                moveable.add(new int[]{x-1,y-1});
+                moveable.add(new int[]{x-1, y+1});
+                moveable.add(new int[]{x+1, y-1});
+                break;
+            case "Pilot":
+                for(int[] i : posMap.keySet())
+                    moveable.add(new int[] {i[0], i[1]});
+                break;
+            case "Navigator":
+                Player temp = currentPlayer;
+                //currentPlayer =
+                //Player p =
+      }
         ArrayList<GameTile> asdf = new ArrayList<>();
         for(int[] i: moveable) {
-            if(posMap.get(i) != null) asdf.add(posMap.get(i));
+            if(posMap.get(i) != null) {
+                if (currentPlayer.getRole().equals("Diver")) asdf.add(posMap.get(i));
+                else if (!posMap.get(i).isGone()) asdf.add(posMap.get(i));
+            }
         }
         return asdf;
     }
