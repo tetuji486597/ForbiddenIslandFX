@@ -7,6 +7,7 @@ import game.simulation.card.Card;
 import game.simulation.player.*;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -103,7 +104,8 @@ public class GameState {
         return playerIterator.next();
     }
 
-    public void drawFlood(Graphics g) {
+    public void drawFlood(GameTile gameTile) throws FileNotFoundException {
+        GameBoardController.tilesMap.get(gameTile.getPosition()).setImage(gameTile.getTile());
     }
 
     public boolean checkWinning() {

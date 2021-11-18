@@ -30,6 +30,7 @@ public class GameBoardController {
     public static ImageView[] waterlevels;
     public static GridPane[] playerInv;
     public static ImageView[] playerRoles;
+    public static HashMap<int[],ImageView> tilesMap;
     public static Map<Integer,ImageView[]> playerCards;
 
     @FXML
@@ -272,6 +273,12 @@ public class GameBoardController {
     @FXML
     void startGame(ActionEvent event) throws FileNotFoundException, InterruptedException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        int[][] pos = {
+                {0,2},{0,3},{1,1},{1,2},{1,3},{1,4},{2,0},{2,1},{2,2},{2,3},{2,4},{2,5},{3,0},{3,1},{3,2},{3,3},{3,4},{3,5},{4,1},{4,2},{4,3},{4,4},{5,2},{5,3}
+        };
+        for(int i =0;i<24;i++) {
+            tilesMap.put(pos[i],imageViews[i]);
+        }
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
         for(int i = 0; i < 24; i++) {
@@ -372,7 +379,70 @@ public class GameBoardController {
         System.out.println("Row 5 Column 3 Clicked");
     }
 
+    public void player1card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 1 Clicked");
+        System.out.println(GameState.allPlayers.get(0).getDeck().get(0));
+    }
+    public void player1card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 2 Clicked");
+    }
+    public void player1card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 3 Clicked");
+    }
+    public void player1card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 4 Clicked");
+    }
+    public void player1card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 5 Clicked");
+    }
 
+    public void player2card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 1 Clicked");
+    }
+    public void player2card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 2 Clicked");
+    }
+    public void player2card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 3 Clicked");
+    }
+    public void player2card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 4 Clicked");
+    }
+    public void player2card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 5 Clicked");
+    }
+
+    public void player3card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 1 Clicked");
+    }
+    public void player3card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 2 Clicked");
+    }
+    public void player3card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 3 Clicked");
+    }
+    public void player3card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 4 Clicked");
+    }
+    public void player3card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 5 Clicked");
+    }
+
+    public void player4card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 1 Clicked");
+    }
+    public void player4card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 2 Clicked");
+    }
+    public void player4card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 3 Clicked");
+    }
+    public void player4card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 4 Clicked");
+    }
+    public void player4card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 5 Clicked");
+    }
 
 }
 
