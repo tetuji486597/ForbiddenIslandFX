@@ -46,12 +46,13 @@ public class GameState {
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
+        posMap = new HashMap<>();
         for(int i = 0; i < 24; i++){
             tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
             tiles[i].setPosition(pos[i]);
             posMap.put(pos[i],tiles[i]);
         }
-        posMap = new HashMap<>();
+
 
 
         waterLevel = difficulty;
