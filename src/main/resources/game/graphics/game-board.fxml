@@ -621,6 +621,7 @@
                         <Button fx:id="settingsButton" layoutX="305.0" layoutY="104.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
                      </children>
                   </Pane>
+                  <Button fx:id="floodButton" layoutX="132.0" layoutY="59.0" mnemonicParsing="false" onAction="#floodFoolsLanding" text="Flood Fools Landing" />
                </children></Pane>
             </children>
             <padding>

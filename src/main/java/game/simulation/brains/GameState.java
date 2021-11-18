@@ -104,7 +104,7 @@ public class GameState {
         return playerIterator.next();
     }
 
-    public void drawFlood(GameTile gameTile) throws FileNotFoundException {
+    public static void drawFlood(GameTile gameTile) throws FileNotFoundException {
         GameBoardController.tilesMap.get(gameTile.getPosition()).setImage(gameTile.getTile());
     }
 

@@ -235,6 +235,9 @@ public class GameBoardController {
     private Button settingsButton;
 
     @FXML
+    private Button floodButton;
+
+    @FXML
     public void initialize() {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -276,6 +279,7 @@ public class GameBoardController {
         int[][] pos = {
                 {0,2},{0,3},{1,1},{1,2},{1,3},{1,4},{2,0},{2,1},{2,2},{2,3},{2,4},{2,5},{3,0},{3,1},{3,2},{3,3},{3,4},{3,5},{4,1},{4,2},{4,3},{4,4},{5,2},{5,3}
         };
+        tilesMap = new HashMap<>();
         for(int i =0;i<24;i++) {
             tilesMap.put(pos[i],imageViews[i]);
         }
@@ -299,6 +303,12 @@ public class GameBoardController {
             }
         }
         startButton.setVisible(false);
+    }
+
+    @FXML
+    void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
+        GameState.tiles[1].setFlooded(true);
+        GameState.drawFlood(GameState.tiles[1]);
     }
 
 
