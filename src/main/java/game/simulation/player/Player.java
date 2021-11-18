@@ -1,6 +1,6 @@
 package game.simulation.player;
 //import game.simulation.brains.GameState;
-import game.simulation.board.GameTile;
+import game.simulation.board.*;
 import game.simulation.card.Card;
 import game.simulation.card.TreasureCard;
 
