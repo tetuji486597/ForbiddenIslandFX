@@ -92,11 +92,12 @@ public class GameState {
     }
 
     public Player nextTurn() {
-//        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
+        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
         return playerIterator.next();
     }
 
-    public void drawFlood(Graphics g) {
+    public void drawFlood(GameTile tile) {
+
     }
 
     public boolean checkWinning() {
@@ -107,17 +108,17 @@ public class GameState {
         return true;
     }
 
-//    public ArrayList<GameTile> findMovable() {
-//        String role = currentPlayer.getRole();
-//        int[] pos = currentPlayer.getPos();
-//        int x = pos[0];
-//        int y = pos[1];
-//        Set<int[]> moveable = new HashSet<>();
-//
-//        moveable.add(new int[]{x+1,y});
-//        moveable.add(new int[]{x-1,y});
-//        moveable.add(new int[]{x, y+1});
-//        moveable.add(new int[]{x, y-1});
+    public ArrayList<GameTile> findMovable() {
+        String role = currentPlayer.getRole();
+        int[] pos = currentPlayer.getPos();
+        int x = pos[0];
+        int y = pos[1];
+        Set<int[]> moveable = new HashSet<>();
+
+        moveable.add(new int[]{x+1,y});
+        moveable.add(new int[]{x-1,y});
+        moveable.add(new int[]{x, y+1});
+        moveable.add(new int[]{x, y-1});
 //        switch (role) {
 //            case "Explorer":
 //                moveable.add(new int[]{x+1,y+1});
@@ -136,10 +137,12 @@ public class GameState {
 //                Player temp = currentPlayer;
 //                currentPlayer =
 //                Player p =
-//
-//        }
-//        ArrayList<GameTile> asdf = new ArrayList<>();
-//
-//    }
+//      }
+        ArrayList<GameTile> asdf = new ArrayList<>();
+        for(int[] i: moveable) {
+            if(posMap.get(i) != null) asdf.add(posMap.get(i));
+        }
+        return asdf;
+    }
 
 }
