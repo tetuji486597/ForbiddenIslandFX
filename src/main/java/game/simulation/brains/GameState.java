@@ -16,6 +16,7 @@ public class GameState {
     public static int waterLevel;
     private TreasurePiece[] treasuresCollected;
     public static GameTile[] tiles;
+    private HashMap<int[],GameTile> posMap;
     public static int numPlayers;
     public String[] allRoles;
     public static ArrayList<Player> allPlayers;
@@ -38,13 +39,20 @@ public class GameState {
                 "TempleOfTheMoon", "LostLagoon", "CaveOfShadows", "PhantomRock", "SilverGate",
                 "Watchtower", "CopperGate", "CliffsOfAbandon", "WhisperingGarden", "TempleOfTheSun",
                 "CoralPalace", "GoldGate", "FoolsLanding", "HowlingGarden", "BronzeGate"};
+        int[][] pos = {
+                {0,2},{0,3},{1,1},{1,2},{1,3},{1,4},{2,0},{2,1},{2,2},{2,3},{2,4},{2,5},{3,0},{3,1},{3,2},{3,3},{3,4},{3,5},{4,1},{4,2},{4,3},{4,4},{5,2},{5,3}
+        };
         List<String> tileShuffle = Arrays.asList(allTiles);
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
+        posMap = new HashMap<>();
         for(int i = 0; i < 24; i++){
             tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
+            tiles[i].setPosition(pos[i]);
+            posMap.put(pos[i],tiles[i]);
         }
+
 
 
         waterLevel = difficulty;

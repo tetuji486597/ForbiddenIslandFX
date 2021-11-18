@@ -55,5 +55,9 @@ public class GameTile {
         return isStarting;
     }
 
+    public void setPosition(int[] position) {
+        this.position = position;
+    }
+
     public boolean isGone() {return isGone;}
 }
