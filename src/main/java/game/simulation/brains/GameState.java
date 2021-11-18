@@ -16,6 +16,7 @@ public class GameState {
     public static int waterLevel;
     private TreasurePiece[] treasuresCollected;
     public static GameTile[] tiles;
+    private HashMap<int[],GameTile> posMap;
     public static int numPlayers;
     public String[] allRoles;
     public static ArrayList<Player> allPlayers;
@@ -48,7 +49,9 @@ public class GameState {
         for(int i = 0; i < 24; i++){
             tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
             tiles[i].setPosition(pos[i]);
+            posMap.put(pos[i],tiles[i]);
         }
+        posMap = new HashMap<>();
 
 
         waterLevel = difficulty;
