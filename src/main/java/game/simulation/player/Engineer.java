@@ -18,7 +18,7 @@ public class Engineer {
             if(GameState.tiles[i].isGone()){
                 moveableTiles[i] = false;
             }
-            if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
+            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
                     (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
                 moveableTiles[i] = true;
             }
