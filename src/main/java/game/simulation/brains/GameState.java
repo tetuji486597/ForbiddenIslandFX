@@ -88,6 +88,10 @@ public class GameState {
         Collections.shuffle(pile);
     }
 
+    public void movePawn(GameTile tile, Player player) {
+
+    }
+
     public void drawCard(Graphics g) {
     }
 
@@ -106,6 +110,7 @@ public class GameState {
 
     public static void drawFlood(GameTile gameTile) throws FileNotFoundException {
         GameBoardController.tilesMap.get(gameTile.getPosition()).setImage(gameTile.getTile());
+        gameTile.setFlooded(true);
 //        System.out.println(gameTile.getName());
     }
 
@@ -117,39 +122,15 @@ public class GameState {
         return true;
     }
 
-//    public ArrayList<GameTile> findMovable() {
-//        String role = currentPlayer.getRole();
-//        int[] pos = currentPlayer.getPos();
-//        int x = pos[0];
-//        int y = pos[1];
-//        Set<int[]> moveable = new HashSet<>();
-//
-//        moveable.add(new int[]{x+1,y});
-//        moveable.add(new int[]{x-1,y});
-//        moveable.add(new int[]{x, y+1});
-//        moveable.add(new int[]{x, y-1});
-//        switch (role) {
-//            case "Explorer":
-//                moveable.add(new int[]{x+1,y+1});
-//                moveable.add(new int[]{x-1,y-1});
-//                moveable.add(new int[]{x-1, y+1});
-//                moveable.add(new int[]{x+1, y-1});
-//                break;
-//            case "Pilot":
-//                for(int i = -6; i < 6; i++) {
-//                    for(int j = -6; j < 6; j++) {
-//                        moveable.add(new int[]{i, j});
-//                    }
-//                }
-//                break;
-//            case "Navigator":
-//                Player temp = currentPlayer;
-//                currentPlayer =
-//                Player p =
-//
-//        }
-//        ArrayList<GameTile> asdf = new ArrayList<>();
-//
-//    }
+    public ArrayList<GameTile> findMovable() {
+        boolean[] moveable = currentPlayer.getMoveableTiles(posMap.get(currentPlayer.getPos()));
+        ArrayList<GameTile> asdf = new ArrayList<>();
+        for(int i = 0; i < moveable.length; i++) {
+            if(moveable[i]) asdf.add(posMap.get(pos[i]));
+        }
+        return asdf;
+
+
+    }
 
 }

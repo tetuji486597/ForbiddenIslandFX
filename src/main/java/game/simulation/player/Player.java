@@ -1,6 +1,7 @@
 package game.simulation.player;
 //import game.simulation.brains.GameState;
 import game.simulation.board.*;
+import game.simulation.brains.GameState;
 import game.simulation.card.Card;
 import game.simulation.card.TreasureCard;
 
@@ -14,6 +15,8 @@ public class Player
     private String role;
     private int moveNumber;
     private int[] position;
+    private boolean[] moveableTiles;
+    private boolean[] shoreableTiles;
 
     public Player(String role, ArrayList<String> startingDeck)
     {
@@ -23,6 +26,7 @@ public class Player
         this.role = role;
         moveNumber = 0;
         position = new int[2];
+        moveableTiles = new boolean[GameState.tiles.length];
     }
 
     public void drawCard(String c)
@@ -53,6 +57,47 @@ public class Player
                 player.remove(card);
             }
         }
+    }
+
+    public boolean[] getMoveableTiles(GameTile tile) {
+        int [] pos = tile.getPosition();
+        for(int i = 0; i< GameState.tiles.length; i++){
+            int[] temp = GameState.tiles[i].getPosition();
+            if(GameState.tiles[i].isGone()){
+                moveableTiles[i] = false;
+            }
+            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
+                    (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
+                moveableTiles[i] = true;
+            }
+            else{
+                moveableTiles[i] = false;
+            }
+
+        }
+
+
+        return moveableTiles;
+    }
+    public boolean[] getShoreableTiles(GameTile tile) {
+        int [] pos = tile.getPosition();
+        for(int i = 0; i< GameState.tiles.length; i++){
+            int[] temp = GameState.tiles[i].getPosition();
+            if(GameState.tiles[i].isGone() || GameState.tiles[i].getFloodState()){
+                shoreableTiles[i] = false;
+            }
+            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
+                    (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
+                shoreableTiles[i] = true;
+            }
+            else{
+                shoreableTiles[i] = false;
+            }
+
+        }
+
+
+        return shoreableTiles;
     }
 
     public void setDeckFilled(boolean deckFilled) {
