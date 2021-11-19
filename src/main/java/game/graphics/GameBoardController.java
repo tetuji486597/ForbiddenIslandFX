@@ -1,28 +1,16 @@
 package game.graphics;
 
 import game.simulation.brains.*;
-import game.simulation.board.*;
-import game.simulation.card.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.*;
 
 public class GameBoardController {
@@ -30,7 +18,7 @@ public class GameBoardController {
     public static ImageView[] waterlevels;
     public static GridPane[] playerInv;
     public static ImageView[] playerRoles;
-    public static HashMap<int[],ImageView> tilesMap;
+    public static HashMap<int[], ImageView> tilesMap;
     public static Map<Integer,ImageView[]> playerCards;
 
     @FXML
@@ -235,6 +223,9 @@ public class GameBoardController {
     private Button settingsButton;
 
     @FXML
+    private Button floodButton;
+
+    @FXML
     public void initialize() {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -273,12 +264,12 @@ public class GameBoardController {
     @FXML
     void startGame(ActionEvent event) throws FileNotFoundException, InterruptedException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
-        int[][] pos = {
-                {0,2},{0,3},{1,1},{1,2},{1,3},{1,4},{2,0},{2,1},{2,2},{2,3},{2,4},{2,5},{3,0},{3,1},{3,2},{3,3},{3,4},{3,5},{4,1},{4,2},{4,3},{4,4},{5,2},{5,3}
-        };
+        int[][] pos = GameState.pos;
+        tilesMap = new HashMap<int[], ImageView>();
         for(int i =0;i<24;i++) {
             tilesMap.put(pos[i],imageViews[i]);
         }
+//        System.out.println(tilesMap.get(tilesMap.));
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
         for(int i = 0; i < 24; i++) {
@@ -299,6 +290,12 @@ public class GameBoardController {
             }
         }
         startButton.setVisible(false);
+    }
+
+    @FXML
+    void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
+        GameState.tiles[1].setFlooded(true);
+        GameState.drawFlood(GameState.tiles[1]);
     }
 
 
