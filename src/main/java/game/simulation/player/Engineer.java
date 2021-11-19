@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Engineer {
-    private boolean[] moveableTiles;
+    private boolean[][] moveableTiles;
 
-    public Engineer(){ moveableTiles = new boolean[GameState.tiles.length]; }
+    public Engineer(){//
+        // moveableTiles = new boolean[GameState.tiles.length];
+        }
 
-    public boolean[] getMoveableTiles(GameTile tile){
+    public boolean[][] getMoveableTiles(GameTile tile){
        int [] pos = tile.getPosition();
         for(int i = 0; i<GameState.tiles.length; i++){
             int[] temp = GameState.tiles[i].getPosition();

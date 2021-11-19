@@ -36,11 +36,13 @@ public class Diver {
             else if(temp[1] == pos[1]) {
                 //same column
 
-                if(temp[0] < pos[0] -1 &&
-                        !GameState.tiles[i+1].isGone() && !GameState.tiles[i+1].getFloodState()){
-                    //on bottom of current tile
-                    //find next tile correctly
-                    moveableTiles[i] = false;
+                if(temp[0] < pos[0] -1 ) {
+                      //  GameTile below = GameState.tiles[];
+                    if (!GameState.tiles[i + 1].isGone() && !GameState.tiles[i + 1].getFloodState()) {
+                        //on bottom of current tile
+                        //find next tile correctly
+                        moveableTiles[i] = false;
+                    }
                 }
                 else if(temp[0] > pos[0] +1 &&
                         !GameState.tiles[i+1].isGone() && !GameState.tiles[i+1].getFloodState()){
