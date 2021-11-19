@@ -6,8 +6,15 @@ import java.util.ArrayList;
 public class Explorer
 {
     private boolean[][] moveable;
-    public Explorer()
+    private int[] moveTo, tilePos, coords;
+    private Player player;
+    private GameTile tile;
+
+    public Explorer(Player p, GameTile t, int[] c)
     {
+        player = p;
+        tile = t;
+        coords = c;
         moveable = new boolean[3][3];
     }
 
@@ -31,20 +38,27 @@ public class Explorer
         return moveable;
     }
 
-    public void movePawn(int[] coords, Player p, GameTile tile)
-    {
-        int[] moveTo = new int[2];
+    public void movePawn() {
+        moveTo = new int[2];
+
         moveTo[0] = coords[0]; // X Coord
         moveTo[1] = coords[1]; // Y Coord
 
-        if(moveable[moveTo[0]][moveTo[1]] && tile.getFloodState() == false && tile.isGone() == false)
+        if (moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
-            p.updatePosition(moveTo);
+            player.updatePosition(moveTo);
         }
     }
 
-    public void shoreUp(GameTile tile)
+    public void shoreUp()
     {
+        /*
+        tilePos = tile.getPosition();
 
+        if((player.getPos() == tilePos || moveTo[0] == tilePos[0] || moveTo[1] == tilePos[1] || moveTo[0] == tilePos[0] && moveTo[1] == tilePos[1]) && tile.getFloodState() == true)
+        {
+            tile.setFlooded(false);
+        }
+         */
     }
 }
