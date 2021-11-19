@@ -7,6 +7,7 @@ import game.simulation.card.Card;
 import game.simulation.player.*;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
@@ -88,7 +89,6 @@ public class GameState {
     }
 
     public void drawCard(Graphics g) {
-
     }
 
     public void setWater(int waterLevel) {
@@ -100,12 +100,12 @@ public class GameState {
     }
 
     public Player nextTurn() {
-        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
+//        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
         return playerIterator.next();
     }
 
-    public void drawFlood(GameTile tile) {
-        tile.setFlooded(true);
+    public void drawFlood(GameTile gameTile) throws FileNotFoundException {
+        GameBoardController.tilesMap.get(gameTile.getPosition()).setImage(gameTile.getTile());
     }
 
     public boolean checkWinning() {
@@ -116,41 +116,39 @@ public class GameState {
         return true;
     }
 
-    public ArrayList<GameTile> findMovable() {
-        String role = currentPlayer.getRole();
-        int[] pos = currentPlayer.getPos();
-        int x = pos[0];
-        int y = pos[1];
-        Set<int[]> moveable = new HashSet<>();
-
-        moveable.add(new int[]{x+1,y});
-        moveable.add(new int[]{x-1,y});
-        moveable.add(new int[]{x, y+1});
-        moveable.add(new int[]{x, y-1});
-        switch (role) {
-            case "Explorer":
-                moveable.add(new int[]{x+1,y+1});
-                moveable.add(new int[]{x-1,y-1});
-                moveable.add(new int[]{x-1, y+1});
-                moveable.add(new int[]{x+1, y-1});
-                break;
-            case "Pilot":
-                for(int[] i : posMap.keySet())
-                    moveable.add(new int[] {i[0], i[1]});
-                break;
-            case "Navigator":
-                Player temp = currentPlayer;
-                //currentPlayer =
-                //Player p =
-      }
-        ArrayList<GameTile> asdf = new ArrayList<>();
-        for(int[] i: moveable) {
-            if(posMap.get(i) != null) {
-                if (currentPlayer.getRole().equals("Diver")) asdf.add(posMap.get(i));
-                else if (!posMap.get(i).isGone()) asdf.add(posMap.get(i));
-            }
-        }
-        return asdf;
-    }
+//    public ArrayList<GameTile> findMovable() {
+//        String role = currentPlayer.getRole();
+//        int[] pos = currentPlayer.getPos();
+//        int x = pos[0];
+//        int y = pos[1];
+//        Set<int[]> moveable = new HashSet<>();
+//
+//        moveable.add(new int[]{x+1,y});
+//        moveable.add(new int[]{x-1,y});
+//        moveable.add(new int[]{x, y+1});
+//        moveable.add(new int[]{x, y-1});
+//        switch (role) {
+//            case "Explorer":
+//                moveable.add(new int[]{x+1,y+1});
+//                moveable.add(new int[]{x-1,y-1});
+//                moveable.add(new int[]{x-1, y+1});
+//                moveable.add(new int[]{x+1, y-1});
+//                break;
+//            case "Pilot":
+//                for(int i = -6; i < 6; i++) {
+//                    for(int j = -6; j < 6; j++) {
+//                        moveable.add(new int[]{i, j});
+//                    }
+//                }
+//                break;
+//            case "Navigator":
+//                Player temp = currentPlayer;
+//                currentPlayer =
+//                Player p =
+//
+//        }
+//        ArrayList<GameTile> asdf = new ArrayList<>();
+//
+//    }
 
 }
