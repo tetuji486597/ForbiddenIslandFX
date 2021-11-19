@@ -64,10 +64,10 @@ public class GameState {
         allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
-        for(int i = 0; i < 4; i++) cardDeck.push("CrystalOfFire");
-        for(int i = 0; i < 4; i++) cardDeck.push("StatueOfWind");
-        for(int i = 0; i < 4; i++) cardDeck.push("OceansChalice");
-        for(int i = 0; i < 4; i++) cardDeck.push("EarthStone");
+        for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
+        for(int i = 0; i < 5; i++) cardDeck.push("StatueOfWind");
+        for(int i = 0; i < 5; i++) cardDeck.push("OceansChalice");
+        for(int i = 0; i < 5; i++) cardDeck.push("EarthStone");
         for(int i = 0; i < 3; i++) cardDeck.push("HelicopterLift");
         for(int i = 0; i < 2; i++) cardDeck.push("Sandbag");
         Collections.shuffle(cardDeck);
