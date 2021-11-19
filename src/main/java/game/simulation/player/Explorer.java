@@ -6,25 +6,22 @@ import java.util.ArrayList;
 public class Explorer
 {
     private boolean[][] moveable;
-    private int[] moveTo, tilePos, coords;
+    private int[] moveTo;
     private Player player;
-    private GameTile tile;
 
-    public Explorer(Player p, GameTile t, int[] c)
+    public Explorer(Player p, int[] c)
     {
         player = p;
-        tile = t;
-        coords = c;
         moveable = new boolean[3][3];
     }
 
-    public boolean[][] moveableTiles()
+    public boolean[][] moveableTiles(GameTile tile)
     {
         for(int r = 0; r < 3; r++)
         {
             for(int c = 0; c < 3; c++)
             {
-                if(r == 1 && c == 1)
+                if(r == 1 && c == 1 || tile.isGone())
                 {
                     moveable[r][c] = false;
                 }
@@ -38,11 +35,9 @@ public class Explorer
         return moveable;
     }
 
-    public void movePawn() {
-        moveTo = new int[2];
-
-        moveTo[0] = coords[0]; // X Coord
-        moveTo[1] = coords[1]; // Y Coord
+    public void movePawn(GameTile tile, int[] coords)
+    {
+        moveTo = coords;
 
         if (moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
