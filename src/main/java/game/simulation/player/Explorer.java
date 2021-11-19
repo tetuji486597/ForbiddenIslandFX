@@ -6,18 +6,22 @@ import java.util.ArrayList;
 public class Explorer
 {
     private boolean[][] moveable;
-    public Explorer()
+    private int[] moveTo;
+    private Player player;
+
+    public Explorer(Player p, int[] c)
     {
+        player = p;
         moveable = new boolean[3][3];
     }
 
-    public boolean[][] moveableTiles()
+    public boolean[][] moveableTiles(GameTile tile)
     {
         for(int r = 0; r < 3; r++)
         {
             for(int c = 0; c < 3; c++)
             {
-                if(r == 1 && c == 1)
+                if(r == 1 && c == 1 || tile.isGone())
                 {
                     moveable[r][c] = false;
                 }
@@ -31,20 +35,25 @@ public class Explorer
         return moveable;
     }
 
-    public void movePawn(int[] coords, Player p, GameTile tile)
+    public void movePawn(GameTile tile, int[] coords)
     {
-        int[] moveTo = new int[2];
-        moveTo[0] = coords[0]; // X Coord
-        moveTo[1] = coords[1]; // Y Coord
+        moveTo = coords;
 
-        if(moveable[moveTo[0]][moveTo[1]] && tile.getFloodState() == false && tile.isGone() == false)
+        if (moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
-            p.updatePosition(moveTo);
+            player.updatePosition(moveTo);
         }
     }
 
-    public void shoreUp(GameTile tile)
+    public void shoreUp()
     {
+        /*
+        tilePos = tile.getPosition();
 
+        if((player.getPos() == tilePos || moveTo[0] == tilePos[0] || moveTo[1] == tilePos[1] || moveTo[0] == tilePos[0] && moveTo[1] == tilePos[1]) && tile.getFloodState() == true)
+        {
+            tile.setFlooded(false);
+        }
+         */
     }
 }

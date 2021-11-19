@@ -26,6 +26,8 @@ public class GameState {
     private ArrayList<Card> currentDeck;
     public static Stack<String> cardDeck;
     public static Stack<String> discardPile;
+    public static Stack<String> floodDiscard;
+    public static Stack<String> floodDeck;
     private ArrayList<GameTile> moveableSpaces;
     public static String[] allTiles;
     public static int[][] pos;
@@ -48,12 +50,15 @@ public class GameState {
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
         posMap = new HashMap<>();
+        floodDeck = new Stack<>();
+        floodDiscard = new Stack<>();
         for(int i = 0; i < 24; i++){
+            floodDeck.push(allTiles[i]);
             tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
             tiles[i].setPosition(pos[i]);
             posMap.put(pos[i],tiles[i]);
         }
-
+        Collections.shuffle(floodDeck);
 
 
         waterLevel = difficulty;
@@ -82,6 +87,14 @@ public class GameState {
         for(int i = 0; i < 3; i++) cardDeck.push("WatersRise");
         Collections.shuffle(cardDeck);
         playerIterator = allPlayers.iterator();
+        for(int i = 0; i < 6; i++){
+            floodDiscard.push(floodDeck.pop());
+            for(int j = 0; j < 24; j++){
+                if(tiles[j].getName().equals(floodDiscard.peek()))
+                    tiles[j].flood();
+            }
+        }
+
     }
 
     public void shuffle(Stack<Card> pile) {

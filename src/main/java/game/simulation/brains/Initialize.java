@@ -124,7 +124,8 @@ public class Initialize {
                 Map.entry("Watchtower", new Image(new FileInputStream("src/main/resources/Images/Tiles/Watchtower@2x.png"))),
                 Map.entry("WatchtowerFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Watchtower_flood@2x.png"))),
                 Map.entry("WhisperingGarden", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden@2x.png"))),
-                Map.entry("WhisperingGardenFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden_flood@2x.png")))
+                Map.entry("WhisperingGardenFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden_flood@2x.png"))),
+                Map.entry("Sunk",new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Water@2x.png")))
         );
 
     }

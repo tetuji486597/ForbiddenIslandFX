@@ -26,6 +26,7 @@ public class GameTile {
         tile = img;
         position = new int[]{-1,-1};
         floodedTile = Initialize.tiles.get(name+"Flooded");
+        sunkTile = Initialize.tiles.get("Sunk");
         isFlooded = false;
         isTreasure = str.equals("CaveOfShadows") || str.equals("TidalPalace") || str.equals("WhisperingGarden") ||
                 str.equals("TempleOfTheMoon") || str.equals("CaveOfEmbers") || str.equals("CoralPalace") ||
@@ -42,7 +43,7 @@ public class GameTile {
         if(!isFlooded)
             return tile;
         else if(isGone)
-            return new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Water@2x.png"));
+            return sunkTile;
         else if(isFlooded)
             return floodedTile;
         return new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Moat@2x.png"));
@@ -60,6 +61,14 @@ public class GameTile {
         this.isFlooded = floodState;
     }
 
+    public void flood(){
+        if(isFlooded){
+            isGone = true;
+        }else{
+            isFlooded = true;
+        }
+    }
+
     public boolean getTreasureState(){
         return isTreasure;
     }
@@ -70,6 +79,10 @@ public class GameTile {
 
     public void setPosition(int[] position) {
         this.position = position;
+    }
+
+    public void setGone(boolean sunk){
+        isGone = sunk;
     }
 
     public boolean isGone() {return isGone;}
