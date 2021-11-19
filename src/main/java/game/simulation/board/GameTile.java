@@ -24,6 +24,7 @@ public class GameTile {
     public GameTile(String str, javafx.scene.image.Image img) throws FileNotFoundException {
         name = str;
         tile = img;
+        position = new int[]{-1,-1};
         floodedTile = Initialize.tiles.get(name+"Flooded");
         isFlooded = false;
         isTreasure = str.equals("CaveOfShadows") || str.equals("TidalPalace") || str.equals("WhisperingGarden") ||
