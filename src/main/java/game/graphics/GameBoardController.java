@@ -272,9 +272,7 @@ public class GameBoardController {
 //        System.out.println(tilesMap.get(tilesMap.));
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
-        for(int i = 0; i < 24; i++) {
-            imageViews[i].setImage(GameState.tiles[i].getTile());
-        }
+        drawBoard();
         waterlevels[GameState.waterLevel-1].setVisible(true);
         int numPlayers = GameState.numPlayers;
         for(int i = 0; i < numPlayers; i++){
@@ -294,10 +292,22 @@ public class GameBoardController {
 
     @FXML
     void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
+        GameState.tiles[1].setGone(true);
         GameState.tiles[1].setFlooded(true);
-        GameState.drawFlood(GameState.tiles[1]);
+        GameState.tiles[2].setFlooded(true);
+        GameState.tiles[3].setFlooded(true);
+        GameState.tiles[4].setFlooded(true);
+//        GameState.drawFlood(GameState.tiles[1]);
+        drawBoard();
+        System.out.println("clicked");
     }
 
+    void drawBoard() throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        for(int i = 0; i < 24; i++) {
+            imageViews[i].setImage(GameState.tiles[i].getTile());
+        }
+    }
 
     @FXML
     void showHelp(ActionEvent event) {
