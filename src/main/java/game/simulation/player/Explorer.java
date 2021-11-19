@@ -1,17 +1,14 @@
 package game.simulation.player;
 
 import game.simulation.board.GameTile;
-import java.util.ArrayList;
 
 public class Explorer
 {
     private boolean[][] moveable;
     private int[] moveTo;
-    private Player player;
 
-    public Explorer(Player p, int[] c)
+    public Explorer()
     {
-        player = p;
         moveable = new boolean[3][3];
     }
 
@@ -35,25 +32,21 @@ public class Explorer
         return moveable;
     }
 
-    public void movePawn(GameTile tile, int[] coords)
+    public void movePawn(GameTile tile, int[] coords, Player p)
     {
         moveTo = coords;
-
-        if (moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
+        if(moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
-            player.updatePosition(moveTo);
+            p.updatePosition(moveTo);
         }
     }
 
-    public void shoreUp()
+    public void shoreUp(GameTile tile, Player p)
     {
-        /*
-        tilePos = tile.getPosition();
-
-        if((player.getPos() == tilePos || moveTo[0] == tilePos[0] || moveTo[1] == tilePos[1] || moveTo[0] == tilePos[0] && moveTo[1] == tilePos[1]) && tile.getFloodState() == true)
+        int[] tilePos = tile.getPosition();
+        if((p.getPos() == tilePos || moveable[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
         }
-         */
     }
 }
