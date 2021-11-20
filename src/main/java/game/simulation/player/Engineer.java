@@ -6,10 +6,11 @@ import game.simulation.brains.GameState;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class Engineer {
+public class Engineer extends Player{
     private boolean[][] moveableTiles;
 
-    public Engineer(){//
+    public Engineer(String role, ArrayList<String> startingDeck){
+        super(role, startingDeck);//
         // moveableTiles = new boolean[GameState.tiles.length];
         moveableTiles = new boolean[3][3];
         }
