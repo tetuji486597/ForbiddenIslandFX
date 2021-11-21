@@ -81,21 +81,20 @@ public class GameState {
             ArrayList<String> startingDeck = new ArrayList<>();
             startingDeck.add(cardDeck.pop());
             startingDeck.add(cardDeck.pop());
-            Player p = null;
+            currentPlayer = null;
             if(allRoles[i].equals("Engineer")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Engineer(allRoles[i],startingDeck);
             }else if(allRoles[i].equals("Diver")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Diver(allRoles[i],startingDeck);
             }else if(allRoles[i].equals("Explorer")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Explorer(allRoles[i],startingDeck);
             }else if(allRoles[i].equals("Messenger")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Messenger(allRoles[i],startingDeck);
             }else if(allRoles[i].equals("Navigator")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Navigator(allRoles[i],startingDeck);
             }else if(allRoles[i].equals("Pilot")){
-                p = new Engineer(allRoles[i],startingDeck);
+                currentPlayer = new Pilot(allRoles[i],startingDeck);
             }
-//            Player p = new Player(allRoles[i], startingDeck);
             allPlayers.add(p);
         }
         for(int i = 0; i < 3; i++) cardDeck.push("WatersRise");
