@@ -20,8 +20,12 @@ public class GameTile {
     private boolean isStarting;
     private boolean isGone;
 
+    public GameTile(String str, Image img, int[] pos) {
+        this(str,img);
+        position = pos;
+    }
 
-    public GameTile(String str, javafx.scene.image.Image img) throws FileNotFoundException {
+    public GameTile(String str, javafx.scene.image.Image img) {
         name = str;
         tile = img;
         position = new int[]{-1,-1};

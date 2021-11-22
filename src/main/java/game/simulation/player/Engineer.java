@@ -3,13 +3,14 @@ package game.simulation.player;
 import game.simulation.board.GameTile;
 import game.simulation.brains.GameState;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Engineer extends Player{
     private boolean[][] moveableTiles;
 
-    public Engineer(String role, ArrayList<String> startingDeck){
+    public Engineer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role, startingDeck);//
         // moveableTiles = new boolean[GameState.tiles.length];
         moveableTiles = new boolean[3][3];

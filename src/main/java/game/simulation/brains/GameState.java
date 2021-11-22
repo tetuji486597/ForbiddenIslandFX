@@ -13,25 +13,26 @@ import java.util.List;
 
 //
 public class GameState {
-    public static int waterLevel;
-    private TreasurePiece[] treasuresCollected;
-    public static GameTile[] tiles;
-    private HashMap<int[],GameTile> posMap;
-    public static int numPlayers;
-    public String[] allRoles;
-    public static ArrayList<Player> allPlayers;
-    private int playerTurn = 0;
-    private Player currentPlayer;
-    private WaterLevelMeter meter;
-    private ArrayList<Card> currentDeck;
-    public static Stack<String> cardDeck;
-    public static Stack<String> discardPile;
-    public static Stack<String> floodDiscard;
-    public static Stack<String> floodDeck;
-    private ArrayList<GameTile> moveableSpaces;
-    public static String[] allTiles;
-    public static int[][] pos;
-    Iterator<Player> playerIterator;
+    public static int                       waterLevel;
+    private TreasurePiece[]                 treasuresCollected;
+    public static GameTile[]                tiles;
+    public static HashMap<String,GameTile>  tilesMap;
+    private HashMap<int[],GameTile>         posMap;
+    public static int                       numPlayers;
+    public String[]                         allRoles;
+    public static ArrayList<Player>         allPlayers;
+    private int                             playerTurn = 0;
+    private Player                          currentPlayer;
+    private WaterLevelMeter                 meter;
+    private ArrayList<Card>                 currentDeck;
+    public static Stack<String>             cardDeck;
+    public static Stack<String>             discardPile;
+    public static Stack<String>             floodDiscard;
+    public static Stack<String>             floodDeck;
+    private ArrayList<GameTile>             moveableSpaces;
+    public static String[]                  allTiles;
+    public static int[][]                   pos;
+    Iterator<Player>                        playerIterator;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
@@ -49,13 +50,15 @@ public class GameState {
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
+        tilesMap = new HashMap<>();
         posMap = new HashMap<>();
         floodDeck = new Stack<>();
         floodDiscard = new Stack<>();
         for(int i = 0; i < 24; i++){
             floodDeck.push(allTiles[i]);
-            tiles[i] = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]));
-            tiles[i].setPosition(pos[i]);
+            GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]),pos[i]);
+            tiles[i] = gameTile;
+            tilesMap.put(allTiles[i], gameTile);
             posMap.put(pos[i],tiles[i]);
         }
         Collections.shuffle(floodDeck);
@@ -77,6 +80,7 @@ public class GameState {
         for(int i = 0; i < 2; i++) cardDeck.push("Sandbag");
         Collections.shuffle(cardDeck);
         allPlayers = new ArrayList<Player>();
+        System.out.println(Arrays.toString(allRoles));
         for(int i = 0; i < numPlayers; i++) {
             ArrayList<String> startingDeck = new ArrayList<>();
             startingDeck.add(cardDeck.pop());
@@ -95,7 +99,9 @@ public class GameState {
             }else if(allRoles[i].equals("Pilot")){
                 currentPlayer = new Pilot(allRoles[i],startingDeck);
             }
-            allPlayers.add(p);
+            assert currentPlayer != null;
+            currentPlayer.setIndex(i);
+            allPlayers.add(currentPlayer);
         }
         for(int i = 0; i < 3; i++) cardDeck.push("WatersRise");
         Collections.shuffle(cardDeck);

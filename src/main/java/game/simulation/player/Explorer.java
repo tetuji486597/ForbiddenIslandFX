@@ -2,13 +2,16 @@ package game.simulation.player;
 
 import game.simulation.board.GameTile;
 
-public class Explorer
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class Explorer extends Player
 {
     private boolean[][] moveable;
     private int[] moveTo;
 
-    public Explorer()
-    {
+    public Explorer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
+        super(role,startingDeck);
         moveable = new boolean[3][3];
     }
 

@@ -3,10 +3,16 @@ package game.simulation.player;
 import game.simulation.board.GameTile;
 import game.simulation.brains.GameState;
 
-public class Diver {
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class Diver extends Player{
     private boolean[] moveableTiles;
 
-    public Diver(){ moveableTiles = new boolean[GameState.tiles.length]; }
+    public Diver(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
+        super(role,startingDeck);
+        moveableTiles = new boolean[GameState.tiles.length];
+    }
 
     public boolean[] getMoveableTiles(GameTile tile){
         int [] pos = tile.getPosition();

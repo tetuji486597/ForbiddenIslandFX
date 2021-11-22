@@ -1,6 +1,7 @@
 package game.graphics;
 
 import game.simulation.brains.*;
+import game.simulation.player.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
 import java.io.FileNotFoundException;
@@ -15,11 +17,12 @@ import java.util.*;
 
 public class GameBoardController {
 
-    public static ImageView[] waterlevels;
-    public static GridPane[] playerInv;
-    public static ImageView[] playerRoles;
-    public static HashMap<int[], ImageView> tilesMap;
-    public static Map<Integer,ImageView[]> playerCards;
+    public static ImageView[]                   waterlevels;
+    public static GridPane[]                    playerInv;
+    public static ImageView[]                   playerRoles;
+    public static HashMap<String, GridPane> gridMap;
+    public static HashMap<int[], ImageView>     tilesMap;
+    public static Map<Integer,ImageView[]>      playerCards;
 
     @FXML
     private ImageView Player1Card1;
@@ -223,7 +226,86 @@ public class GameBoardController {
     private Button settingsButton;
 
     @FXML
+    private ImageView blackpawn;
+
+    @FXML
+    private ColumnConstraints blkn;
+
+    @FXML
     private Button floodButton;
+
+    @FXML
+    private GridPane g0p2;
+
+    @FXML
+    private GridPane g0p3;
+
+    @FXML
+    private GridPane g1p1;
+
+    @FXML
+    private GridPane g1p2;
+
+    @FXML
+    private GridPane g1p3;
+
+    @FXML
+    private GridPane g1p4;
+
+    @FXML
+    private GridPane g2p0;
+
+    @FXML
+    private GridPane g2p1;
+
+    @FXML
+    private GridPane g2p2;
+
+    @FXML
+    private GridPane g2p3;
+
+    @FXML
+    private GridPane g2p4;
+
+    @FXML
+    private GridPane g2p5;
+
+    @FXML
+    private GridPane g3p0;
+
+    @FXML
+    private GridPane g3p1;
+
+    @FXML
+    private GridPane g3p2;
+
+    @FXML
+    private GridPane g3p3;
+
+    @FXML
+    private GridPane g3p4;
+
+    @FXML
+    private GridPane g3p5;
+
+    @FXML
+    private GridPane g4p1;
+
+    @FXML
+    private GridPane g4p2;
+
+    @FXML
+    private GridPane g4p3;
+
+    @FXML
+    private GridPane g4p4;
+
+    @FXML
+    private GridPane g5p2;
+
+    @FXML
+    private GridPane g5p3;
+
 
     @FXML
     public void initialize() {
@@ -258,16 +340,19 @@ public class GameBoardController {
                         "-fx-max-width: 80px; " +
                         "-fx-max-height: 80px;"
         );
-
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
+        gridMap = new HashMap<String, GridPane>();
     }
 
     @FXML
-    void startGame(ActionEvent event) throws FileNotFoundException, InterruptedException {
+    void startGame(ActionEvent event) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
         int[][] pos = GameState.pos;
-        tilesMap = new HashMap<int[], ImageView>();
+        tilesMap = new HashMap<>();
         for(int i =0;i<24;i++) {
             tilesMap.put(pos[i],imageViews[i]);
+            gridMap.put(Arrays.toString(pos[i]),gridPanes[i]);
         }
 //        System.out.println(tilesMap.get(tilesMap.));
         String tiles[] = GameState.allTiles;
@@ -287,19 +372,25 @@ public class GameBoardController {
                 imageviewdeck[j].setImage(Initialize.treasurecards.get(playerdeck.get(j)));
             }
         }
+
+//        System.out.println(GameState.allPlayers.get(0).getStartingPos());
+//        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
+        for(Player p: GameState.allPlayers){
+            ImageView pawn = new ImageView(p.getPawn());
+            p.setCurrentTile(gridMap.get(p.getStartingPos()));
+            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
+        }
         startButton.setVisible(false);
     }
 
     @FXML
     void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
-        GameState.tiles[1].setGone(true);
-        GameState.tiles[1].setFlooded(true);
-        GameState.tiles[2].setFlooded(true);
-        GameState.tiles[3].setFlooded(true);
-        GameState.tiles[4].setFlooded(true);
-//        GameState.drawFlood(GameState.tiles[1]);
-        drawBoard();
         System.out.println("clicked");
+//        qwerty.getChildren().remove(blackpawn);
+//        qwert.getChildren().add(blackpawn);
+//        qwert.add(blackpawn,1,0,1,1);
+
+//        qwert.add(qwerty.getChildren().remove(3))
     }
 
     void drawBoard() throws FileNotFoundException {
@@ -389,6 +480,7 @@ public class GameBoardController {
     public void player1card1Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 1 Clicked");
         System.out.println(GameState.allPlayers.get(0).getDeck().get(0));
+
     }
     public void player1card2Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 2 Clicked");
@@ -450,6 +542,104 @@ public class GameBoardController {
     public void player4card5Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 5 Clicked");
     }
+
+//    public void startMovingPiece(MouseEvent evt) {
+//        circle.setOpacity(0.4d);
+//        offset = new Point2D(evt.getX(), evt.getY());
+//
+//        origPositionCircle.setOpacity(1.0d);
+//        origPositionCircle.setLayoutX( circle.getLayoutX() );
+//        origPositionCircle.setLayoutY( circle.getLayoutY() );
+//
+//        movingPiece = true;
+//    }
+//
+//    public void movePiece(MouseEvent evt) {
+//
+//        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
+//        Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
+//
+//        if( !inBoard(mousePoint_s) ) {
+//            return;  // don't relocate() b/c will resize Pane
+//        }
+//
+//        Point2D mousePoint_p = circle.localToParent(mousePoint);
+//        circle.relocate(mousePoint_p.getX()-offset.getX(), mousePoint_p.getY()-offset.getY());
+//    }
+//
+//    private boolean inBoard(Point2D pt) {
+//        Point2D panePt = boardPane.sceneToLocal(pt);
+//        return panePt.getX()-offset.getX() >= 0.0d
+//                && panePt.getY()-offset.getY() >= 0.0d
+//                && panePt.getX() <= boardPane.getWidth()
+//                && panePt.getY() <= boardPane.getHeight();
+//    }
+//
+//    public void finishMovingPiece(MouseEvent evt) {
+//
+//        offset = new Point2D(0.0d, 0.0d);
+//
+//        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
+//        Point2D mousePointScene = circle.localToScene(mousePoint);
+//
+//        Rectangle r = pickRectangle( mousePointScene.getX(), mousePointScene.getY() );
+//
+//        final Timeline timeline = new Timeline();
+//        timeline.setCycleCount(1);
+//        timeline.setAutoReverse(false);
+//
+//        if( r != null ) {
+//
+//            Point2D rectScene =r.localToScene(r.getX(), r.getY());
+//            Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
+//
+//            timeline.getKeyFrames().add(
+//                    new KeyFrame(Duration.millis(100),
+//                            new KeyValue(circle.layoutXProperty(), parent.getX()),
+//                            new KeyValue(circle.layoutYProperty(), parent.getY()),
+//                            new KeyValue(circle.opacityProperty(), 1.0d),
+//                            new KeyValue(origPositionCircle.opacityProperty(), 0.0d)
+//                    )
+//            );
+//        } else {
+//
+//            timeline.getKeyFrames().add(
+//                    new KeyFrame(Duration.millis(100),
+//                            new KeyValue(circle.opacityProperty(), 1.0d),
+//                            new KeyValue(origPositionCircle.opacityProperty(), 0.0d)
+//                    )
+//            );
+//        }
+//
+//        timeline.play();
+//
+////        movingPiece = false;
+//    }
+//
+//
+//    private Rectangle pickRectangle(MouseEvent evt) {
+//        return pickRectangle(evt.getSceneX(), evt.getSceneY());
+//    }
+//
+//    private Rectangle pickRectangle(double sceneX, double sceneY) {
+//        Rectangle pickedRectangle = null;
+//        for( Pane row : panes ) {
+//            Point2D mousePoint = new Point2D(sceneX, sceneY);
+//            Point2D mpLocal = row.sceneToLocal(mousePoint);
+//            if( row.contains(mpLocal) ) {
+//                for( Node cell : row.getChildrenUnmodifiable() ) {
+//                    Point2D mpLocalCell = cell.sceneToLocal(mousePoint);
+//
+//                    if( cell.contains(mpLocalCell) ) {
+//                        pickedRectangle = (Rectangle) cell;
+//                        break;
+//                    }
+//                }
+//                break;
+//            }
+//        }
+//        return pickedRectangle;
+//    }
 
 }
 
