@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Circle;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -306,6 +308,35 @@ public class GameBoardController {
     @FXML
     private GridPane g5p3;
 
+    @FXML
+    private Circle action1;
+
+    @FXML
+    private Circle action2;
+
+    @FXML
+    private Circle action3;
+
+    @FXML
+    private ToggleButton moveButton;
+
+    @FXML
+    private Button retrieveButton;
+
+    @FXML
+    private Button shoreButton;
+
+    @FXML
+    private Button tradeButton;
+
+    @FXML
+    private Button useButton;
+
+    @FXML
+    private ImageView floodDiscardImage;
+
+    @FXML
+    private ImageView treasureDiscardImage;
 
     @FXML
     public void initialize() {
@@ -376,7 +407,7 @@ public class GameBoardController {
 //        System.out.println(GameState.allPlayers.get(0).getStartingPos());
 //        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
         for(Player p: GameState.allPlayers){
-            ImageView pawn = new ImageView(p.getPawn());
+            ImageView pawn = p.getCurrentPawn();
             p.setCurrentTile(gridMap.get(p.getStartingPos()));
             p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
@@ -393,6 +424,11 @@ public class GameBoardController {
 //        qwert.add(qwerty.getChildren().remove(3))
     }
 
+    public void updateDiscard(){
+        floodDiscardImage.setImage(Initialize.floodcards.get(GameState.floodDiscard.peek()));
+        treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
+    }
+
     void drawBoard() throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         for(int i = 0; i < 24; i++) {
@@ -406,6 +442,9 @@ public class GameBoardController {
     }
     public void r0c2Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 2 Clicked");
+        if(moveButton.isSelected()){
+
+        }
     }
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");
@@ -543,103 +582,9 @@ public class GameBoardController {
         System.out.println("Player 4 Card 5 Clicked");
     }
 
-//    public void startMovingPiece(MouseEvent evt) {
-//        circle.setOpacity(0.4d);
-//        offset = new Point2D(evt.getX(), evt.getY());
-//
-//        origPositionCircle.setOpacity(1.0d);
-//        origPositionCircle.setLayoutX( circle.getLayoutX() );
-//        origPositionCircle.setLayoutY( circle.getLayoutY() );
-//
-//        movingPiece = true;
-//    }
-//
-//    public void movePiece(MouseEvent evt) {
-//
-//        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
-//        Point2D mousePoint_s = new Point2D(evt.getSceneX(), evt.getSceneY());
-//
-//        if( !inBoard(mousePoint_s) ) {
-//            return;  // don't relocate() b/c will resize Pane
-//        }
-//
-//        Point2D mousePoint_p = circle.localToParent(mousePoint);
-//        circle.relocate(mousePoint_p.getX()-offset.getX(), mousePoint_p.getY()-offset.getY());
-//    }
-//
-//    private boolean inBoard(Point2D pt) {
-//        Point2D panePt = boardPane.sceneToLocal(pt);
-//        return panePt.getX()-offset.getX() >= 0.0d
-//                && panePt.getY()-offset.getY() >= 0.0d
-//                && panePt.getX() <= boardPane.getWidth()
-//                && panePt.getY() <= boardPane.getHeight();
-//    }
-//
-//    public void finishMovingPiece(MouseEvent evt) {
-//
-//        offset = new Point2D(0.0d, 0.0d);
-//
-//        Point2D mousePoint = new Point2D(evt.getX(), evt.getY());
-//        Point2D mousePointScene = circle.localToScene(mousePoint);
-//
-//        Rectangle r = pickRectangle( mousePointScene.getX(), mousePointScene.getY() );
-//
-//        final Timeline timeline = new Timeline();
-//        timeline.setCycleCount(1);
-//        timeline.setAutoReverse(false);
-//
-//        if( r != null ) {
-//
-//            Point2D rectScene =r.localToScene(r.getX(), r.getY());
-//            Point2D parent = boardPane.sceneToLocal(rectScene.getX(), rectScene.getY());
-//
-//            timeline.getKeyFrames().add(
-//                    new KeyFrame(Duration.millis(100),
-//                            new KeyValue(circle.layoutXProperty(), parent.getX()),
-//                            new KeyValue(circle.layoutYProperty(), parent.getY()),
-//                            new KeyValue(circle.opacityProperty(), 1.0d),
-//                            new KeyValue(origPositionCircle.opacityProperty(), 0.0d)
-//                    )
-//            );
-//        } else {
-//
-//            timeline.getKeyFrames().add(
-//                    new KeyFrame(Duration.millis(100),
-//                            new KeyValue(circle.opacityProperty(), 1.0d),
-//                            new KeyValue(origPositionCircle.opacityProperty(), 0.0d)
-//                    )
-//            );
-//        }
-//
-//        timeline.play();
-//
-////        movingPiece = false;
-//    }
-//
-//
-//    private Rectangle pickRectangle(MouseEvent evt) {
-//        return pickRectangle(evt.getSceneX(), evt.getSceneY());
-//    }
-//
-//    private Rectangle pickRectangle(double sceneX, double sceneY) {
-//        Rectangle pickedRectangle = null;
-//        for( Pane row : panes ) {
-//            Point2D mousePoint = new Point2D(sceneX, sceneY);
-//            Point2D mpLocal = row.sceneToLocal(mousePoint);
-//            if( row.contains(mpLocal) ) {
-//                for( Node cell : row.getChildrenUnmodifiable() ) {
-//                    Point2D mpLocalCell = cell.sceneToLocal(mousePoint);
-//
-//                    if( cell.contains(mpLocalCell) ) {
-//                        pickedRectangle = (Rectangle) cell;
-//                        break;
-//                    }
-//                }
-//                break;
-//            }
-//        }
-//        return pickedRectangle;
-//    }
+    public void movePawn(ImageView pawn, GridPane tile){
+
+    }
 
 }
 

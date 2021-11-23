@@ -56,7 +56,7 @@ public class GameState {
         floodDiscard = new Stack<>();
         for(int i = 0; i < 24; i++){
             floodDeck.push(allTiles[i]);
-            GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]),pos[i]);
+            GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]), pos[i]);
             tiles[i] = gameTile;
             tilesMap.put(allTiles[i], gameTile);
             posMap.put(pos[i],tiles[i]);
@@ -149,39 +149,6 @@ public class GameState {
         return true;
     }
 
-//    public ArrayList<GameTile> findMovable() {
-//        String role = currentPlayer.getRole();
-//        int[] pos = currentPlayer.getPos();
-//        int x = pos[0];
-//        int y = pos[1];
-//        Set<int[]> moveable = new HashSet<>();
-//
-//        moveable.add(new int[]{x+1,y});
-//        moveable.add(new int[]{x-1,y});
-//        moveable.add(new int[]{x, y+1});
-//        moveable.add(new int[]{x, y-1});
-//        switch (role) {
-//            case "Explorer":
-//                moveable.add(new int[]{x+1,y+1});
-//                moveable.add(new int[]{x-1,y-1});
-//                moveable.add(new int[]{x-1, y+1});
-//                moveable.add(new int[]{x+1, y-1});
-//                break;
-//            case "Pilot":
-//                for(int i = -6; i < 6; i++) {
-//                    for(int j = -6; j < 6; j++) {
-//                        moveable.add(new int[]{i, j});
-//                    }
-//                }
-//                break;
-//            case "Navigator":
-//                Player temp = currentPlayer;
-//                currentPlayer =
-//                Player p =
-//
-//        }
-//        ArrayList<GameTile> asdf = new ArrayList<>();
-//
-//    }
+
 
 }

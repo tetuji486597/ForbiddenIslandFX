@@ -6,6 +6,7 @@ import game.simulation.brains.GameState;
 import game.simulation.card.Card;
 import game.simulation.card.TreasureCard;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 //import java.lang.reflect.Array;
@@ -23,6 +24,7 @@ public class Player
     private int[]               position;
     private String               startingPos;
     private int                 index;
+    private ImageView           currentPawn;
     private Image               pawn;
     private Image               activePawn;
     private Image               givePawn;
@@ -80,6 +82,7 @@ public class Player
                 startingPos = Arrays.toString(GameState.tilesMap.get("FoolsLanding").getPosition());
                 break;
         }
+        currentPawn = new ImageView(pawn);
     }
 
     public void drawCard(String c)
@@ -114,6 +117,10 @@ public class Player
                 player.remove(card);
             }
         }
+    }
+
+    public ImageView getCurrentPawn() {
+        return currentPawn;
     }
 
     public void setDeckFilled(boolean deckFilled) {

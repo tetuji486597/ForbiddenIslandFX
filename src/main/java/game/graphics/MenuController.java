@@ -56,7 +56,7 @@ public class MenuController {
         FXMLLoader gameLoader = new FXMLLoader(MenuController.class.getResource("game-board.fxml"));
         game.setTitle("How To Play");
         Scene gameScene = new Scene(gameLoader.load(), 1375, 930);
-//        game.setResizable(false);
+        game.setResizable(false);
 //        JMetro helpMetro = new JMetro(Style.DARK);
 //        helpMetro.setScene(helpScene);
         game.setScene(gameScene);
