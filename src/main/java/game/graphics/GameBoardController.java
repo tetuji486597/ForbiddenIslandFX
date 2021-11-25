@@ -420,7 +420,6 @@ public class GameBoardController {
 //        qwerty.getChildren().remove(blackpawn);
 //        qwert.getChildren().add(blackpawn);
 //        qwert.add(blackpawn,1,0,1,1);
-
 //        qwert.add(qwerty.getChildren().remove(3))
     }
 
