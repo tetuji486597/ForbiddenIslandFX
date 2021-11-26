@@ -1,36 +1,30 @@
 package game.graphics;
 
 import game.simulation.brains.*;
-import game.simulation.board.*;
-import game.simulation.card.*;
+import game.simulation.player.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.*;
 
 public class GameBoardController {
 
-    public static ImageView[] waterlevels;
-    public static GridPane[] playerInv;
-    public static ImageView[] playerRoles;
-    public static Map<Integer,ImageView[]> playerCards;
+    public static ImageView[]                   waterlevels;
+    public static GridPane[]                    playerInv;
+    public static ImageView[]                   playerRoles;
+    public static HashMap<String, GridPane> gridMap;
+    public static HashMap<int[], ImageView>     tilesMap;
+    public static Map<Integer,ImageView[]>      playerCards;
 
     @FXML
     private ImageView Player1Card1;
@@ -234,6 +228,117 @@ public class GameBoardController {
     private Button settingsButton;
 
     @FXML
+    private ImageView blackpawn;
+
+    @FXML
+    private ColumnConstraints blkn;
+
+    @FXML
+    private Button floodButton;
+
+    @FXML
+    private GridPane g0p2;
+
+    @FXML
+    private GridPane g0p3;
+
+    @FXML
+    private GridPane g1p1;
+
+    @FXML
+    private GridPane g1p2;
+
+    @FXML
+    private GridPane g1p3;
+
+    @FXML
+    private GridPane g1p4;
+
+    @FXML
+    private GridPane g2p0;
+
+    @FXML
+    private GridPane g2p1;
+
+    @FXML
+    private GridPane g2p2;
+
+    @FXML
+    private GridPane g2p3;
+
+    @FXML
+    private GridPane g2p4;
+
+    @FXML
+    private GridPane g2p5;
+
+    @FXML
+    private GridPane g3p0;
+
+    @FXML
+    private GridPane g3p1;
+
+    @FXML
+    private GridPane g3p2;
+
+    @FXML
+    private GridPane g3p3;
+
+    @FXML
+    private GridPane g3p4;
+
+    @FXML
+    private GridPane g3p5;
+
+    @FXML
+    private GridPane g4p1;
+
+    @FXML
+    private GridPane g4p2;
+
+    @FXML
+    private GridPane g4p3;
+
+    @FXML
+    private GridPane g4p4;
+
+    @FXML
+    private GridPane g5p2;
+
+    @FXML
+    private GridPane g5p3;
+
+    @FXML
+    private Circle action1;
+
+    @FXML
+    private Circle action2;
+
+    @FXML
+    private Circle action3;
+
+    @FXML
+    private ToggleButton moveButton;
+
+    @FXML
+    private Button retrieveButton;
+
+    @FXML
+    private Button shoreButton;
+
+    @FXML
+    private Button tradeButton;
+
+    @FXML
+    private Button useButton;
+
+    @FXML
+    private ImageView floodDiscardImage;
+
+    @FXML
+    private ImageView treasureDiscardImage;
+
+    @FXML
     public void initialize() {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -266,17 +371,24 @@ public class GameBoardController {
                         "-fx-max-width: 80px; " +
                         "-fx-max-height: 80px;"
         );
-
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
+        gridMap = new HashMap<String, GridPane>();
     }
 
     @FXML
-    void startGame(ActionEvent event) throws FileNotFoundException, InterruptedException {
+    void startGame(ActionEvent event) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
+        int[][] pos = GameState.pos;
+        tilesMap = new HashMap<>();
+        for(int i =0;i<24;i++) {
+            tilesMap.put(pos[i],imageViews[i]);
+            gridMap.put(Arrays.toString(pos[i]),gridPanes[i]);
+        }
+//        System.out.println(tilesMap.get(tilesMap.));
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
-        for(int i = 0; i < 24; i++) {
-            imageViews[i].setImage(GameState.tiles[i].getTile());
-        }
+        drawBoard();
         waterlevels[GameState.waterLevel-1].setVisible(true);
         int numPlayers = GameState.numPlayers;
         for(int i = 0; i < numPlayers; i++){
@@ -291,9 +403,37 @@ public class GameBoardController {
                 imageviewdeck[j].setImage(Initialize.treasurecards.get(playerdeck.get(j)));
             }
         }
+
+//        System.out.println(GameState.allPlayers.get(0).getStartingPos());
+//        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
+        for(Player p: GameState.allPlayers){
+            ImageView pawn = p.getCurrentPawn();
+            p.setCurrentTile(gridMap.get(p.getStartingPos()));
+            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
+        }
         startButton.setVisible(false);
     }
 
+    @FXML
+    void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
+        System.out.println("clicked");
+//        qwerty.getChildren().remove(blackpawn);
+//        qwert.getChildren().add(blackpawn);
+//        qwert.add(blackpawn,1,0,1,1);
+//        qwert.add(qwerty.getChildren().remove(3))
+    }
+
+    public void updateDiscard(){
+        floodDiscardImage.setImage(Initialize.floodcards.get(GameState.floodDiscard.peek()));
+        treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
+    }
+
+    void drawBoard() throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        for(int i = 0; i < 24; i++) {
+            imageViews[i].setImage(GameState.tiles[i].getTile());
+        }
+    }
 
     @FXML
     void showHelp(ActionEvent event) {
@@ -301,6 +441,9 @@ public class GameBoardController {
     }
     public void r0c2Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 2 Clicked");
+        if(moveButton.isSelected()){
+
+        }
     }
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");
@@ -372,7 +515,75 @@ public class GameBoardController {
         System.out.println("Row 5 Column 3 Clicked");
     }
 
+    public void player1card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 1 Clicked");
+        System.out.println(GameState.allPlayers.get(0).getDeck().get(0));
 
+    }
+    public void player1card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 2 Clicked");
+    }
+    public void player1card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 3 Clicked");
+    }
+    public void player1card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 4 Clicked");
+    }
+    public void player1card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 1 Card 5 Clicked");
+    }
+
+    public void player2card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 1 Clicked");
+    }
+    public void player2card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 2 Clicked");
+    }
+    public void player2card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 3 Clicked");
+    }
+    public void player2card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 4 Clicked");
+    }
+    public void player2card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 2 Card 5 Clicked");
+    }
+
+    public void player3card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 1 Clicked");
+    }
+    public void player3card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 2 Clicked");
+    }
+    public void player3card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 3 Clicked");
+    }
+    public void player3card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 4 Clicked");
+    }
+    public void player3card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 3 Card 5 Clicked");
+    }
+
+    public void player4card1Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 1 Clicked");
+    }
+    public void player4card2Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 2 Clicked");
+    }
+    public void player4card3Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 3 Clicked");
+    }
+    public void player4card4Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 4 Clicked");
+    }
+    public void player4card5Clicked(MouseEvent mouseEvent){
+        System.out.println("Player 4 Card 5 Clicked");
+    }
+
+    public void movePawn(ImageView pawn, GridPane tile){
+
+    }
 
 }
 

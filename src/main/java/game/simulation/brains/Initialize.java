@@ -92,15 +92,15 @@ public class Initialize {
                 Map.entry("CoralPalace", new Image(new FileInputStream("src/main/resources/Images/Tiles/Coral Palace@2x.png"))),
                 Map.entry("CoralPalaceFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Coral Palace_flood@2x.png"))),
                 Map.entry("CrimsonForest", new Image(new FileInputStream("src/main/resources/Images/Tiles/Crimson Forest@2x.png"))),
-                Map.entry("CrimsonForest Flooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Crimson Forest_flood@2x.png"))),
+                Map.entry("CrimsonForestFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Crimson Forest_flood@2x.png"))),
                 Map.entry("DunesOfDeception", new Image(new FileInputStream("src/main/resources/Images/Tiles/Dunes of Deception@2x.png"))),
-                Map.entry("DunesOfDeception Flooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Dunes of Deception_flood@2x.png"))),
+                Map.entry("DunesOfDeceptionFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Dunes of Deception_flood@2x.png"))),
                 Map.entry("FoolsLanding", new Image(new FileInputStream("src/main/resources/Images/Tiles/Fools_ Landing@2x.png"))),
                 Map.entry("FoolsLandingFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Fools_ Landing_flood@2x.png"))),
                 Map.entry("GoldGate", new Image(new FileInputStream("src/main/resources/Images/Tiles/Gold Gate@2x.png"))),
                 Map.entry("GoldGateFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Gold Gate_flood@2x.png"))),
                 Map.entry("HowlingGarden", new Image(new FileInputStream("src/main/resources/Images/Tiles/Howling Garden@2x.png"))),
-                Map.entry("HowlingGarden Flooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Howling Garden_flood@2x.png"))),
+                Map.entry("HowlingGardenFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Howling Garden_flood@2x.png"))),
                 Map.entry("IronGate", new Image(new FileInputStream("src/main/resources/Images/Tiles/Iron Gate@2x.png"))),
                 Map.entry("IronGateFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Iron Gate_flood@2x.png"))),
                 Map.entry("LostLagoon", new Image(new FileInputStream("src/main/resources/Images/Tiles/Lost Lagoon@2x.png"))),
@@ -108,7 +108,7 @@ public class Initialize {
                 Map.entry("MistyMarsh", new Image(new FileInputStream("src/main/resources/Images/Tiles/Misty Marsh@2x.png"))),
                 Map.entry("MistyMarshFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Misty Marsh_flood@2x.png"))),
                 Map.entry("Observatory", new Image(new FileInputStream("src/main/resources/Images/Tiles/Observatory@2x.png"))),
-                Map.entry("Observatory Flooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Observatory_flood@2x.png"))),
+                Map.entry("ObservatoryFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Observatory_flood@2x.png"))),
                 Map.entry("PhantomRock", new Image(new FileInputStream("src/main/resources/Images/Tiles/Phantom Rock@2x.png"))),
                 Map.entry("PhantomRockFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Phantom Rock_flood@2x.png"))),
                 Map.entry("SilverGate", new Image(new FileInputStream("src/main/resources/Images/Tiles/Silver Gate@2x.png"))),
@@ -124,7 +124,8 @@ public class Initialize {
                 Map.entry("Watchtower", new Image(new FileInputStream("src/main/resources/Images/Tiles/Watchtower@2x.png"))),
                 Map.entry("WatchtowerFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Watchtower_flood@2x.png"))),
                 Map.entry("WhisperingGarden", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden@2x.png"))),
-                Map.entry("WhisperingGardenFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden_flood@2x.png")))
+                Map.entry("WhisperingGardenFlooded", new Image(new FileInputStream("src/main/resources/Images/Tiles/Whispering Garden_flood@2x.png"))),
+                Map.entry("Sunk",new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Water@2x.png")))
         );
 
     }
