@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Pilot extends Player{
     private boolean[][] moveableTiles;
+    private int[] moveTo;
+
 
     public Pilot(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role,startingDeck);
@@ -25,5 +27,14 @@ public class Pilot extends Player{
             }
         }
         return moveableTiles;
+    }
+
+    public void movePawn(GameTile tile, int[] coords, Player p)
+    {
+        moveTo = coords;
+        if(moveableTiles[moveTo[0]][moveTo[1]] )
+        {
+            p.updatePosition(moveTo);
+        }
     }
 }
