@@ -17,24 +17,20 @@ public class Messenger extends Player{
 
     @Override
     public boolean[][] getMoveableTiles(GameTile tile){
+        char[][] board = GameState.getCurrentState();
         int [] pos = tile.getPosition();
-        int i = 0;
         for(int r = 0; r < 3; r++)
         {
             for(int c = 0; c < 3; c++)
             {
-
-                if(r == 1 && c == 1 || GameState.tiles[i].isGone()||
-                        r == 0 && c != 1 || r == 2 && c!= 1)
-                {
+                if(board[r][c] == 'S' || r == pos[0] && c == pos[1])
                     moveableTiles[r][c] = false;
-                }
-
-                else
-                {
+                else if(r == pos[0]-1 && c == pos[1] || r == pos[0] && c == pos[1]-1 || r == pos[0] && c == pos[1]+1
+                        || r == pos[0] +1 && c == pos[1]){
                     moveableTiles[r][c] = true;
                 }
-                i++;
+                else moveableTiles[r][c] = false;
+
             }
         }
         return moveableTiles;
