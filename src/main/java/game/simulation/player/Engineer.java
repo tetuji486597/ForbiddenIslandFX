@@ -11,23 +11,23 @@ public class Engineer extends Player {
 
     public Engineer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role, startingDeck);
-        moveableTiles = new boolean[3][3];
+        moveableTiles = new boolean[6][6];
     }
 
     @Override
     public boolean[][] getMoveableTiles(GameTile tile) {
+        char[][] board = GameState.getCurrentState();
         int[] pos = tile.getPosition();
-        int i = 0;
-        for (int r = 0; r < 3; r++) {
-            for (int c = 0; c < 3; c++) {
-
-                if (r == 1 && c == 1 || GameState.tiles[i].isGone() ||
-                        r == 0 && c != 1 || r == 2 && c != 1) {
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 6; c++) {
+                if(board[r][c] == 'S' || r == pos[0] && c == pos[1])
                     moveableTiles[r][c] = false;
-                } else {
+                else if(r == pos[0]-1 && c == pos[1] || r == pos[0] && c == pos[1]-1 || r == pos[0] && c == pos[1]+1
+                || r == pos[0] +1 && c == pos[1]){
                     moveableTiles[r][c] = true;
                 }
-                i++;
+                else moveableTiles[r][c] = false;
+
             }
         }
         return moveableTiles;
