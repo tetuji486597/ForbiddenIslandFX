@@ -49,8 +49,10 @@ public class Navigator extends Player{
             for(int c = 0; c < 5; c++)
             {
 
-                if(r == 3 && c == 3 || GameState.tiles[i].isGone())
+                if(r == 2 && c == 2 || GameState.tiles[i].isGone() || r == 0 && c != 2 || r == 1 && c!= 2 ||
+                        r == 3 && c != 2|| r == 4 && c != 2)
                 {
+
                     moveableTiles[r][c] = false;
                 }
 
