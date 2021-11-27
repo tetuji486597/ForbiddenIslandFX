@@ -18,12 +18,15 @@ public class Pilot extends Player{
 
     @Override
     public boolean[][] getMoveableTiles(GameTile gameTile){
+        char[][] board = GameState.getCurrentState();
         for(int r = 0; r < 6; r++)
         {
             for(int c = 0; c < 6; c++)
             {
-                moveableTiles[r][c] = true;
+                if(board[r][c] == 'S')
+                    moveableTiles[r][c] = false;
 
+                else moveableTiles[r][c] = true;
             }
         }
         return moveableTiles;
