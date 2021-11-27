@@ -15,6 +15,7 @@ public class Messenger extends Player{
 
     }
 
+    @Override
     public boolean[][] getMoveableTiles(GameTile tile){
         int [] pos = tile.getPosition();
         int i = 0;

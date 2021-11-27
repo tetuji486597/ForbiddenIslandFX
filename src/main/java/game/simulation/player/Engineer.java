@@ -5,32 +5,26 @@ import game.simulation.brains.GameState;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-public class Engineer extends Player{
+public class Engineer extends Player {
     private boolean[][] moveableTiles;
 
     public Engineer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role, startingDeck);
         moveableTiles = new boolean[3][3];
-        }
+    }
 
-    public boolean[][] getMoveableTiles(GameTile tile){
-       int [] pos = tile.getPosition();
-       int i = 0;
-        for(int r = 0; r < 3; r++)
-        {
-            for(int c = 0; c < 3; c++)
-            {
+    @Override
+    public boolean[][] getMoveableTiles(GameTile tile) {
+        int[] pos = tile.getPosition();
+        int i = 0;
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
 
-                if(r == 1 && c == 1 || GameState.tiles[i].isGone()||
-                        r == 0 && c != 1 || r == 2 && c!= 1)
-                {
+                if (r == 1 && c == 1 || GameState.tiles[i].isGone() ||
+                        r == 0 && c != 1 || r == 2 && c != 1) {
                     moveableTiles[r][c] = false;
-                }
-
-                else
-                {
+                } else {
                     moveableTiles[r][c] = true;
                 }
                 i++;

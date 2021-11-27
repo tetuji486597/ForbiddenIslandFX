@@ -15,7 +15,8 @@ public class Explorer extends Player
         moveable = new boolean[3][3];
     }
 
-    public boolean[][] moveableTiles(GameTile tile)
+    @Override
+    public boolean[][] getMoveableTiles(GameTile tile)
     {
         for(int r = 0; r < 3; r++)
         {

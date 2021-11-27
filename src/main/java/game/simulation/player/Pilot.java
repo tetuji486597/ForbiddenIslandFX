@@ -16,8 +16,8 @@ public class Pilot extends Player{
         moveableTiles = new boolean[6][6];
     }
 
-
-    public boolean[][] getMoveableTiles(){
+    @Override
+    public boolean[][] getMoveableTiles(GameTile gameTile){
         for(int r = 0; r < 6; r++)
         {
             for(int c = 0; c < 6; c++)

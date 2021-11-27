@@ -17,12 +17,12 @@ public class GameState {
     private TreasurePiece[]                 treasuresCollected;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
-    private HashMap<int[],GameTile>         posMap;
+    public static HashMap<String,GameTile>  posMap;
     public static int                       numPlayers;
     public String[]                         allRoles;
     public static ArrayList<Player>         allPlayers;
     private int                             playerTurn = 0;
-    private Player                          currentPlayer;
+    public static Player                    currentPlayer;
     private WaterLevelMeter                 meter;
     private ArrayList<Card>                 currentDeck;
     public static Stack<String>             cardDeck;
@@ -59,7 +59,7 @@ public class GameState {
             GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]), pos[i]);
             tiles[i] = gameTile;
             tilesMap.put(allTiles[i], gameTile);
-            posMap.put(pos[i],tiles[i]);
+            posMap.put(Arrays.toString(pos[i]),tiles[i]);
         }
         Collections.shuffle(floodDeck);
 
@@ -113,6 +113,7 @@ public class GameState {
                     tiles[j].flood();
             }
         }
+        currentPlayer = allPlayers.get(0);
 
 
     }

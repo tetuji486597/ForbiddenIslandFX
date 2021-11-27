@@ -16,6 +16,7 @@ public class Navigator extends Player{
         otherMoveableTiles = new boolean [5][5];
     }
 
+    @Override
     public boolean[][] getMoveableTiles(GameTile tile){
         int [] pos = tile.getPosition();
         int i = 0;

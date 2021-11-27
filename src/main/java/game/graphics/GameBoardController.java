@@ -7,11 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.io.FileNotFoundException;
@@ -22,7 +24,7 @@ public class GameBoardController {
     public static ImageView[]                   waterlevels;
     public static GridPane[]                    playerInv;
     public static ImageView[]                   playerRoles;
-    public static HashMap<String, GridPane> gridMap;
+    public static HashMap<String, GridPane>     gridMap;
     public static HashMap<int[], ImageView>     tilesMap;
     public static Map<Integer,ImageView[]>      playerCards;
 
@@ -385,6 +387,12 @@ public class GameBoardController {
             tilesMap.put(pos[i],imageViews[i]);
             gridMap.put(Arrays.toString(pos[i]),gridPanes[i]);
         }
+        for(GridPane gp : playerInv){
+            gp.setVisible(false);
+        }
+        for(int i = 0; i < GameState.numPlayers; i++){
+            playerInv[i].setVisible(true);
+        }
 //        System.out.println(tilesMap.get(tilesMap.));
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
@@ -408,7 +416,7 @@ public class GameBoardController {
 //        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
         for(Player p: GameState.allPlayers){
             ImageView pawn = p.getCurrentPawn();
-            p.setCurrentTile(gridMap.get(p.getStartingPos()));
+            p.setCurrentTile(gridMap.get(Arrays.toString(p.getStartingPos())));
             p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
         startButton.setVisible(false);
@@ -445,6 +453,34 @@ public class GameBoardController {
 
         }
     }
+
+    public void moveClicked(MouseEvent mouseEvent) {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        System.out.println(GameState.currentPlayer.getRole());
+        DropShadow borderGlow = new DropShadow();
+        borderGlow.setColor(Color.GREEN);
+        borderGlow.setHeight(5);
+        int i = 0;
+        for(int r = 0; r < moveableTiles.length; r++){
+            for(int c = 0; c < moveableTiles[r].length; c++){
+                if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                else if(moveableTiles[r][c]) {
+                    if(moveButton.isSelected()) {
+                        imageViews[i].setEffect(borderGlow);
+                    }
+                    else imageViews[i].setEffect(null);
+                    i++;
+                }
+                else i++;
+            }
+        }
+    }
+
+
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");
     }
