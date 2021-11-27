@@ -7,13 +7,41 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Diver extends Player{
-    private boolean[] moveableTiles;
+    private boolean[][] moveableTiles;
 
     public Diver(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role,startingDeck);
-        moveableTiles = new boolean[GameState.tiles.length];
+        moveableTiles = new boolean[6][6];
     }
 
+    public boolean[][] getMoveableTiles(GameTile tile) {
+        int [] pos = tile.getPosition();
+        int i = 0;
+        for(int r = 0; r < 6; r++)
+        {
+            for(int c = 0; c < 6; c++)
+            {
+                if(r == pos[0] && c == pos[1] || GameState.tiles[i].isGone() || r != pos[0] && c != pos[1]) {
+                    moveableTiles[r][c] = false;
+                }
+                else if(r != pos[0] && c == pos[1] && r > pos[0]){
+                    //fix condition
+                    if(moveableTiles[r][c-1] = false)
+                    moveableTiles[r][c] = true;
+                }
+                else
+                {
+                    moveableTiles[r][c] = true;
+                }
+                i++;
+            }
+        }
+
+        return moveableTiles;
+    }
+
+
+    /*
     public boolean[] getMoveableTiles(GameTile tile){
         int [] pos = tile.getPosition();
         for(int i = 0; i<GameState.tiles.length; i++){
@@ -66,4 +94,7 @@ public class Diver extends Player{
 
         return moveableTiles;
     }
+
+
+     */
 }
