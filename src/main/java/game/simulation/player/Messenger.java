@@ -11,7 +11,7 @@ public class Messenger extends Player{
 
     public Messenger(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role,startingDeck);
-        moveableTiles = new boolean[3][3];
+        moveableTiles = new boolean[6][6];
 
     }
 
