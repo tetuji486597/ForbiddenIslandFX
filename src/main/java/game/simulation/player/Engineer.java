@@ -24,8 +24,7 @@ public class Engineer extends Player{
             {
 
                 if(r == 1 && c == 1 || GameState.tiles[i].isGone()||
-                        r == 0 && c == 0 || r == 0 && c == 2 ||
-                r == 2 && c == 0 || r == 2 && c == 2)
+                        r == 0 && c != 1 || r == 2 && c!= 1)
                 {
                     moveableTiles[r][c] = false;
                 }
