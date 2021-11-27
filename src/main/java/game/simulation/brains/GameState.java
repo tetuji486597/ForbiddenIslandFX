@@ -151,6 +151,34 @@ public class GameState {
         return true;
     }
 
+    public static char[][] getCurrentState(){
+        char[][] board = new char[6][6];
+        int i = 0;
+        for(int r = 0; r < 6; r++){
+            for(int c = 0; c < 6; c++){
+                if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) board[r][c] = 'X';
+                else if(r == 1 && c == 0 || r == 1 && c == 5) board[r][c] = 'X';
+                else if(r == 4 && c == 0 || r == 4 && c == 5) board[r][c] = 'X';
+                else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) board[r][c] = 'X';
+                else if(tiles[i].isGone()){
+                    board[r][c] = 'S';
+                    i++;
+                }
+                else if(tiles[i].getFloodState()){
+                    board[r][c] = 'F';
+                    i++;
+                }
+                else{
+                    board[r][c] = 'O';
+                    i++;
+                }
+
+            }
+        }
+        System.out.println(Arrays.deepToString(board));
+        return board;
+    }
+
 
 
 }
