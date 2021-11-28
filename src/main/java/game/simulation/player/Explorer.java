@@ -20,21 +20,69 @@ public class Explorer extends Player
     public boolean[][] getMoveableTiles(GameTile tile)
     {   char[][] board = GameState.getCurrentState();
         int[] pos = tile.getPosition();
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 6; c++) {
-                if(board[r][c] == 'S' || r == pos[0] && c == pos[1])
-                    moveableTiles[r][c] = false;
-                else if(r == pos[0]-1 && c == pos[1] -1||r == pos[0]-1 && c == pos[1]||r == pos[0]-1 && c == pos[0]+1||
-                        r == pos[0] && c == pos[1]-1 || r == pos[0] && c == pos[1]+1 ||
-                       r == pos[0] + 1 && c == pos[1] -1||r == pos[0] +1 && c == pos[1]||r == pos[0]+1 && c == pos[1] +1)
-                {
-                    moveableTiles[r][c] = true;
-                }
-                else moveableTiles[r][c] = false;
+        moveableTiles = new boolean[6][6];
+        int r = pos[0], c = pos[1];
 
-            }
+        try {
+            checkMoveable(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
         }
+
+        try {
+            checkMoveable(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r - 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r - 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r + 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
+        try {
+            checkMoveable(r + 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("null");
+        }
+
         return moveableTiles;
+    }
+
+    public void checkMoveable(int r, int c) {
+        char[][] board = GameState.getCurrentState();
+        if (board[r][c] == 'O') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'F') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'S') {
+            moveableTiles[r][c] = false;
+        }
     }
 
     public void movePawn(GameTile tile, int[] coords, Player p)

@@ -4,6 +4,8 @@ import game.graphics.GameBoardController;
 import game.simulation.board.*;
 import game.simulation.card.Card;
 import game.simulation.player.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -67,9 +69,10 @@ public class GameState {
         waterLevel = difficulty;
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-        List<String> roleShuffle = Arrays.asList(allRoles);
-        Collections.shuffle(roleShuffle);
-        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+        allRoles = new String[]{"Diver", "Navigator", "Messenger", "Engineer"};
+//        List<String> roleShuffle = Arrays.asList(allRoles);
+//        Collections.shuffle(roleShuffle);
+//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -175,7 +178,6 @@ public class GameState {
 
             }
         }
-        System.out.println(Arrays.deepToString(board));
         return board;
     }
 

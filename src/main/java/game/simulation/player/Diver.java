@@ -19,12 +19,6 @@ public class Diver extends Player {
         int[] pos = tile.getPosition();
         checkedTiles = new boolean[6][6];
         setSurroundings(pos[0], pos[1]);
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 6; c++) {
-                System.out.print("\t\t" + moveableTiles[r][c]);
-            }
-            System.out.println();
-        }
         moveableTiles[pos[0]][pos[1]] = false;
         return moveableTiles;
     }
@@ -32,38 +26,34 @@ public class Diver extends Player {
     public void setSurroundings(int r, int c) {
         try {
             if (!checkMoveable(r - 1, c)) {
-                System.out.println("cant go up");
                 setSurroundings(r - 1, c);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("asd");
+            System.out.println("null");
         }
 
         try {
             if (!checkMoveable(r + 1, c)) {
-                System.out.println("cant go down");
                 setSurroundings(r + 1, c);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("ads");
+            System.out.println("null");
         }
 
         try {
             if (!checkMoveable(r, c - 1)) {
-                System.out.println("cant go left");
                 setSurroundings(r, c - 1);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("asd");
+            System.out.println("null");
         }
 
         try {
             if (!checkMoveable(r, c + 1)) {
-                System.out.println("cant go right");
                 setSurroundings(r, c + 1);
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("asd");
+            System.out.println("null");
         }
     }
 

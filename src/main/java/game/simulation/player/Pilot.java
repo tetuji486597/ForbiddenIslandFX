@@ -29,6 +29,8 @@ public class Pilot extends Player{
                 else moveableTiles[r][c] = true;
             }
         }
+        int pos[] = gameTile.getPosition();
+        moveableTiles[pos[0]][pos[1]] = false;
         return moveableTiles;
     }
 

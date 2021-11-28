@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -119,73 +120,145 @@ public class GameBoardController {
     private ImageView r0c2;
 
     @FXML
+    private ImageView r0c21;
+
+    @FXML
     private ImageView r0c3;
+
+    @FXML
+    private ImageView r0c31;
 
     @FXML
     private ImageView r1c1;
 
     @FXML
+    private ImageView r1c11;
+
+    @FXML
     private ImageView r1c2;
+
+    @FXML
+    private ImageView r1c21;
 
     @FXML
     private ImageView r1c3;
 
     @FXML
+    private ImageView r1c31;
+
+    @FXML
     private ImageView r1c4;
+
+    @FXML
+    private ImageView r1c41;
 
     @FXML
     private ImageView r2c0;
 
     @FXML
+    private ImageView r2c01;
+
+    @FXML
     private ImageView r2c1;
+
+    @FXML
+    private ImageView r2c11;
 
     @FXML
     private ImageView r2c2;
 
     @FXML
+    private ImageView r2c21;
+
+    @FXML
     private ImageView r2c3;
+
+    @FXML
+    private ImageView r2c31;
 
     @FXML
     private ImageView r2c4;
 
     @FXML
+    private ImageView r2c41;
+
+    @FXML
     private ImageView r2c5;
+
+    @FXML
+    private ImageView r2c51;
 
     @FXML
     private ImageView r3c0;
 
     @FXML
+    private ImageView r3c01;
+
+    @FXML
     private ImageView r3c1;
+
+    @FXML
+    private ImageView r3c11;
 
     @FXML
     private ImageView r3c2;
 
     @FXML
+    private ImageView r3c21;
+
+    @FXML
     private ImageView r3c3;
+
+    @FXML
+    private ImageView r3c31;
 
     @FXML
     private ImageView r3c4;
 
     @FXML
+    private ImageView r3c41;
+
+    @FXML
     private ImageView r3c5;
+
+    @FXML
+    private ImageView r3c51;
 
     @FXML
     private ImageView r4c1;
 
     @FXML
+    private ImageView r4c11;
+
+    @FXML
     private ImageView r4c2;
+
+    @FXML
+    private ImageView r4c21;
 
     @FXML
     private ImageView r4c3;
 
     @FXML
+    private ImageView r4c31;
+
+    @FXML
     private ImageView r4c4;
+
+    @FXML
+    private ImageView r4c41;
 
     @FXML
     private ImageView r5c2;
 
     @FXML
+    private ImageView r5c21;
+
+    @FXML
     private ImageView r5c3;
+
+    @FXML
+    private ImageView r5c31;
 
     @FXML
     private ScrollPane scrollPane;
@@ -425,15 +498,8 @@ public class GameBoardController {
         dropShadow.setColor(Color.GREEN);
         dropShadow.setHeight(21);
         Player1Inv.setEffect(dropShadow);
-    }
 
-    @FXML
-    void floodFoolsLanding(ActionEvent event) throws FileNotFoundException, InterruptedException {
-        System.out.println("clicked");
-//        qwerty.getChildren().remove(blackpawn);
-//        qwert.getChildren().add(blackpawn);
-//        qwert.add(blackpawn,1,0,1,1);
-//        qwert.add(qwerty.getChildren().remove(3))
+
     }
 
     public void updateDiscard(){
@@ -474,10 +540,10 @@ public class GameBoardController {
     }
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
         if(!moveButton.isSelected()) {
             for (ImageView im : imageViews)
-                im.setEffect(null);
+                im.setImage(null);
             GameState.currentPlayer.setActivePawn("active");
             drawBoard();
             return;
@@ -498,7 +564,7 @@ public class GameBoardController {
                 else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                 else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                 else if(moveableTiles[r][c]) {
-                    imageViews[i].setEffect(borderGlow);
+                    imageViews[i].setImage(new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png")));
                     i++;
                 }
                 else i++;
