@@ -414,12 +414,17 @@ public class GameBoardController {
 
 //        System.out.println(GameState.allPlayers.get(0).getStartingPos());
 //        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
-        for(Player p: GameState.allPlayers){
-            ImageView pawn = p.getCurrentPawn();
-            p.setCurrentTile(gridMap.get(Arrays.toString(p.getStartingPos())));
-            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
-        }
+//        for(Player p: GameState.allPlayers){
+//            ImageView pawn = p.getCurrentPawn();
+//            p.setCurrentTile(gridMap.get(Arrays.toString(p.getStartingPos())));
+//            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
+//        }
         startButton.setVisible(false);
+
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.GREEN);
+        dropShadow.setHeight(21);
+        Player1Inv.setEffect(dropShadow);
     }
 
     @FXML
@@ -437,9 +442,23 @@ public class GameBoardController {
     }
 
     void drawBoard() throws FileNotFoundException {
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         for(int i = 0; i < 24; i++) {
             imageViews[i].setImage(GameState.tiles[i].getTile());
+        }
+        for(Player p: GameState.allPlayers){
+            try {
+                ImageView pawn = p.getCurrentPawn();
+                p.getCurrentTile().getChildren().remove(pawn);
+            }catch (NullPointerException ex){
+                System.out.println("null");
+            }
+        }
+        for(Player p: GameState.allPlayers){
+            ImageView pawn = p.getCurrentPawn();
+            p.setCurrentTile(gridMap.get(Arrays.toString(p.getStartingPos())));
+            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
     }
 
@@ -454,9 +473,18 @@ public class GameBoardController {
         }
     }
 
-    public void moveClicked(MouseEvent mouseEvent) {
-        GameState.getCurrentState();
+    public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        if(!moveButton.isSelected()) {
+            for (ImageView im : imageViews)
+                im.setEffect(null);
+            GameState.currentPlayer.setActivePawn("active");
+            drawBoard();
+            return;
+        }
+        GameState.currentPlayer.setActivePawn("move");
+        drawBoard();
+        GameState.getCurrentState();
         boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
         System.out.println(GameState.currentPlayer.getRole());
         DropShadow borderGlow = new DropShadow();
@@ -470,10 +498,7 @@ public class GameBoardController {
                 else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                 else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                 else if(moveableTiles[r][c]) {
-                    if(moveButton.isSelected()) {
-                        imageViews[i].setEffect(borderGlow);
-                    }
-                    else imageViews[i].setEffect(null);
+                    imageViews[i].setEffect(borderGlow);
                     i++;
                 }
                 else i++;

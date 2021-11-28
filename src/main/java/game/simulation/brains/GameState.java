@@ -114,7 +114,7 @@ public class GameState {
             }
         }
         currentPlayer = allPlayers.get(0);
-
+        currentPlayer.setActivePawn("active");
 
     }
 
