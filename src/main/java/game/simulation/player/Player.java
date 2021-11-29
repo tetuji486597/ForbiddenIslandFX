@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player
 {
@@ -237,9 +238,14 @@ public class Player
         tile.setFlooded(false);
     }
 
-    public void movePawn(int[] pos)
+    public boolean movePawn( int[] pos)
     {
+        boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
         position = pos;
+        if(move[position[0]][position[1]] == true)
+             return true;
+        else
+            return false;
     }
 
     public int[] getPos()
@@ -263,4 +269,5 @@ public class Player
     public void setPosition(int[] pos) {
         position = pos;
     }
+
 }
