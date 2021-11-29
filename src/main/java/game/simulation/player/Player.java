@@ -29,6 +29,7 @@ public class Player
     private Image               givePawn;
     private Image               movePawn;
     private GridPane            currentTile;
+    private boolean[][]         shoreableTiles;
 
     public Player(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         playerDeck = startingDeck;
@@ -95,6 +96,22 @@ public class Player
         if(playerDeck.size()==5){
             this.setDeckFilled(true);
         }
+    }
+
+    public boolean[][] getShoreableTiles(GameTile gameTile){
+        shoreableTiles = new boolean[6][6];
+        int[] pos = gameTile.getPosition();
+        int r = pos[0], c = pos[1];
+        checkShoreableSurroundings(r-1,c);
+        checkShoreableSurroundings(r+1,c);
+        checkShoreableSurroundings(r,c-1);
+        checkShoreableSurroundings(r,c+1);
+        return shoreableTiles;
+    }
+
+    public void checkShoreableSurroundings(int r, int c){
+        char[][] board = GameState.getCurrentState();
+        if(board[r][c] == 'F') shoreableTiles[r][c] = true;
     }
 
     public void setIndex(int ind){

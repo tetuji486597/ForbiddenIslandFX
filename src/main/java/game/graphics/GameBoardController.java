@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -399,7 +400,7 @@ public class GameBoardController {
     private Button retrieveButton;
 
     @FXML
-    private Button shoreButton;
+    private ToggleButton shoreButton;
 
     @FXML
     private Button tradeButton;
@@ -417,10 +418,8 @@ public class GameBoardController {
     public void initialize() throws FileNotFoundException {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
-        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(ImageView im : imageViews) {
-            im.setImage(image);
-            im.setVisible(false);
+            im.setImage(null);
         }
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         playerCards = Map.ofEntries(
@@ -454,6 +453,9 @@ public class GameBoardController {
         );
         GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
         gridMap = new HashMap<String, GridPane>();
+        ToggleGroup toggleGroup = new ToggleGroup();
+        moveButton.setToggleGroup(toggleGroup);
+        shoreButton.setToggleGroup(toggleGroup);
     }
 
     @FXML
@@ -489,6 +491,7 @@ public class GameBoardController {
             for(int j = 0; j < playerdecksize; j++){
                 imageviewdeck[j].setImage(Initialize.treasurecards.get(playerdeck.get(j)));
             }
+            updateDiscard();
         }
 
 //        System.out.println(GameState.allPlayers.get(0).getStartingPos());
@@ -510,7 +513,7 @@ public class GameBoardController {
 
     public void updateDiscard(){
         floodDiscardImage.setImage(Initialize.floodcards.get(GameState.floodDiscard.peek()));
-        treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
+//        treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
     }
 
     void drawBoard() throws FileNotFoundException {
@@ -567,23 +570,21 @@ public class GameBoardController {
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        for (ImageView im : imageViews)
+            im.setImage(null);
         if(!moveButton.isSelected()) {
-            for (ImageView im : imageViews)
-                im.setVisible(false);
             removePawns();
             GameState.currentPlayer.setActivePawn("active");
             drawPawns();
             return;
         }
+
         removePawns();
         GameState.currentPlayer.setActivePawn("move");
         drawPawns();
-        GameState.getCurrentState();
         boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
-        DropShadow borderGlow = new DropShadow();
-        borderGlow.setColor(Color.GREEN);
-        borderGlow.setHeight(5);
         int i = 0;
+        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(int r = 0; r < moveableTiles.length; r++){
             for(int c = 0; c < moveableTiles[r].length; c++){
                 if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -591,7 +592,7 @@ public class GameBoardController {
                 else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                 else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                 else if(moveableTiles[r][c]) {
-                    imageViews[i].setVisible(true);
+                    imageViews[i].setImage(image);
                     i++;
                 }
                 else i++;
@@ -599,6 +600,31 @@ public class GameBoardController {
         }
     }
 
+
+    public void shoreClicked(MouseEvent mouseEvent) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        for (ImageView im : imageViews)
+            im.setImage(null);
+        if(!shoreButton.isSelected()) {
+            return;
+        }
+        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+        boolean[][] shoreableTiles = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        int i = 0;
+        for(int r = 0; r < shoreableTiles.length; r++){
+            for(int c = 0; c < shoreableTiles[r].length; c++){
+                if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                else if(shoreableTiles[r][c]) {
+                    imageViews[i].setImage(image);
+                    i++;
+                }
+                else i++;
+            }
+        }
+    }
 
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");

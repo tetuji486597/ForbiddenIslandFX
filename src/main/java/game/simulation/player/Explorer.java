@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Explorer extends Player
 {
     private boolean[][] moveableTiles;
+    private boolean[][] shoreableTiles;
     private int[] moveTo;
 
     public Explorer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
@@ -25,50 +26,42 @@ public class Explorer extends Player
 
         try {
             checkMoveable(r - 1, c);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r + 1, c);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r, c - 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r, c + 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r - 1, c - 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r - 1, c + 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r + 1, c - 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         try {
             checkMoveable(r + 1, c + 1);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 
         return moveableTiles;
@@ -101,5 +94,60 @@ public class Explorer extends Player
         {
             tile.setFlooded(false);
         }
+    }
+
+    @Override
+    public boolean[][] getShoreableTiles(GameTile gameTile){
+        shoreableTiles = new boolean[6][6];
+        System.out.println("4");
+        int[] pos = gameTile.getPosition();
+        int r = pos[0], c = pos[1];
+
+        try {
+            checkShoreableSurroundings(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r - 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r - 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        return shoreableTiles;
+    }
+
+    public void checkShoreableSurroundings(int r, int c){
+        char[][] board = GameState.getCurrentState();
+        if(board[r][c] == 'F') shoreableTiles[r][c] = true;
     }
 }
