@@ -233,17 +233,23 @@ public class Player
         return currentTile;
     }
 
-    public void shoreUp(GameTile tile)
+    public boolean shoreUp(int[] pos)
     {
-        tile.setFlooded(false);
+        boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        if(shore[pos[0]][pos[1]] == true)
+            return true;
+        else
+            return false;
     }
 
     public boolean movePawn( int[] pos)
     {
         boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
-        position = pos;
-        if(move[position[0]][position[1]] == true)
+
+        if(move[position[0]][position[1]] == true){
+            position = pos;
              return true;
+        }
         else
             return false;
     }
@@ -269,5 +275,7 @@ public class Player
     public void setPosition(int[] pos) {
         position = pos;
     }
+
+
 
 }
