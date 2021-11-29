@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class Pilot extends Player{
     private boolean[][] moveableTiles;
     private int[] moveTo;
+    private boolean[][] shoreableTiles;
+
 
 
     public Pilot(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
