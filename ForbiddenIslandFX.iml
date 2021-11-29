@@ -13,6 +13,8 @@
     <orderEntry type="library" name="jfxtras.jmetro" level="project" />
     <orderEntry type="library" name="jmetro-11.6.15" level="project" />
     <orderEntry type="library" name="jfxtras.jmetro1" level="project" />
+    <orderEntry type="library" name="bin" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:16" level="project" />
@@ -33,8 +35,5 @@
     <orderEntry type="library" name="Maven: org.jfxtras:jmetro:11.6.15" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:11.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:11.0.2" level="project" />
-    <orderEntry type="library" name="bin" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="library" name="libB" level="project" />
   </component>
 </module>

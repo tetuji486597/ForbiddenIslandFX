@@ -42,6 +42,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,6 +54,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
@@ -102,13 +104,16 @@
                <children>
                   <VBox prefHeight="709.0" prefWidth="328.0" HBox.hgrow="SOMETIMES">
                      <children>
-                              <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Players" textAlignment="CENTER" wrapText="false">
+                              <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="  Players" textAlignment="CENTER" wrapText="false">
                                   <font>
                                       <Font size="18.0" fx:id="x1" />
                                   </font>
                                   <textFill>
                                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                                   </textFill>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                               </Label>
                         <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" textAlignment="CENTER" wrapText="false">
                            <font>
@@ -156,13 +161,10 @@
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
                                  </image></ImageView>
-                              <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 1" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
+                              <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 1" textAlignment="CENTER" textFill="#8f8f8f" wrapText="false" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" fx:id="x12" />
                                  </font>
-                                 <textFill>
-                                    <Color red="0.624" green="0.624" blue="0.624" fx:id="x22" />
-                                 </textFill>
                               </Label>
                            </children>
                         </GridPane>
@@ -318,15 +320,7 @@
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="707.0" prefWidth="680.0">
                             <children>
-                                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Board" textAlignment="CENTER" wrapText="false">
-                                    <font>
-                                        <Font size="18.0" fx:id="x5" />
-                                    </font>
-                                    <textFill>
-                                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x6" />
-                                    </textFill>
-                                </Label>
-                                <GridPane fx:id="gridPane" alignment="CENTER" layoutY="41.0" prefHeight="660.0" prefWidth="680.0">
+                                <GridPane fx:id="gridPane" alignment="CENTER" prefHeight="695.0" prefWidth="680.0">
                                     <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -486,6 +480,530 @@
                                         </ImageView>
                                     </children>
                                 </GridPane>
+                        <GridPane fx:id="gridPane1" alignment="CENTER" prefHeight="695.0" prefWidth="680.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <GridPane fx:id="g0p2" onMouseClicked="#r0c2Clicked" GridPane.columnIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints fx:id="blkn" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g0p3" onMouseClicked="#r0c3Clicked" GridPane.columnIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g1p2" layoutX="351.0" layoutY="10.0" onMouseClicked="#r1c2Clicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g1p3" layoutX="10.0" layoutY="10.0" onMouseClicked="#r1c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p2" onMouseClicked="#r3c2Clicked" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g1p1" onMouseClicked="#r1c1Clicked" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g1p4" onMouseClicked="#r1c4Clicked" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p5" onMouseClicked="#r2c5Clicked" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p4" onMouseClicked="#r2c4Clicked" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p3" onMouseClicked="#r2c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p2" onMouseClicked="#r2c2Clicked" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p1" onMouseClicked="#r2c1Clicked" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g2p0" onMouseClicked="#r2c0Clicked" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p0" onMouseClicked="#r3c0Clicked" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p1" onMouseClicked="#r3c1Clicked" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p3" onMouseClicked="#r3c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p4" onMouseClicked="#r3c4Clicked" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g3p5" onMouseClicked="#r3c5Clicked" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g4p1" onMouseClicked="#r4c1Clicked" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g4p2" onMouseClicked="#r4c2Clicked" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g4p3" onMouseClicked="#r4c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g4p4" onMouseClicked="#r4c4Clicked" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g5p2" onMouseClicked="#r5c2Clicked" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                              <GridPane fx:id="g5p3" onMouseClicked="#r5c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <GridPane.margin>
+                                    <Insets left="5.0" right="10.0" />
+                                 </GridPane.margin>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="gridPane2" alignment="CENTER" prefHeight="695.0" prefWidth="680.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fx:id="r5c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r5c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r0c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r0c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c01" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c0Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r1c11" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r1c1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r1c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r1c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r1c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r1c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r1c41" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r1c4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c41" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c11" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c01" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c0Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r2c51" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r2c5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c11" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c41" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r3c51" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r3c5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r4c11" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r4c1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r4c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r4c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r4c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r4c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r4c41" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r4c4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r5c21" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r5c2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="r0c31" fitHeight="110.0" fitWidth="110.0" onMouseClicked="#r0c3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Treasures/AIR.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Treasures/EAU.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Treasures/FEU.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../../Images/Treasures/TERRE.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </GridPane>
+                              <Button fx:id="startButton" layoutX="268.0" layoutY="340.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="150.0" text="Start Game">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </content>
@@ -590,6 +1108,9 @@
                            <textFill>
                               <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
                            </textFill>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </Label>
                      </children>
                   </StackPane>
@@ -599,7 +1120,7 @@
         </HBox>
         <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="165.0" prefWidth="1350.0" spacing="5.0" VBox.vgrow="NEVER">
             <children>
-                <Pane HBox.hgrow="ALWAYS">
+                <Pane prefHeight="191.0" prefWidth="1369.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Actions" textAlignment="CENTER" wrapText="false">
                      <font>
@@ -609,7 +1130,6 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x81" />
                      </textFill>
                   </Label>
-                        <Button fx:id="startButton" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
                   <Pane layoutX="682.0">
                      <children>
                         <Separator orientation="VERTICAL" prefHeight="193.0" prefWidth="5.0" />
@@ -623,7 +1143,7 @@
                               <Image url="@../../Images/TreasureCards/Pressed.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="555.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="floodDiscardImage" fitHeight="201.0" fitWidth="130.0" layoutX="555.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/TreasureCards/Pressed.png" />
                            </image>
@@ -637,7 +1157,22 @@
                         <Button fx:id="settingsButton" layoutX="305.0" layoutY="104.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
                      </children>
                   </Pane>
-                  <Button fx:id="floodButton" layoutX="132.0" layoutY="59.0" mnemonicParsing="false" onAction="#floodFoolsLanding" text="Flood Fools Landing" />
+                  <Button fx:id="tradeButton" layoutX="150.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="59.0" text="Trade" />
+                  <Button fx:id="useButton" layoutX="215.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="78.0" text="Use Item" />
+                  <Button fx:id="retrieveButton" layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
+                  <Label alignment="CENTER" layoutX="529.0" layoutY="62.0" style="&#10;" text="Actions Used:" textAlignment="CENTER" wrapText="false">
+                     <font>
+                        <Font size="13.0" fx:id="x711" />
+                     </font>
+                     <textFill>
+                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x811" />
+                     </textFill>
+                  </Label>
+                  <Circle fx:id="action1" fill="#a3be8c" layoutX="542.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action2" fill="#a3be8c" layoutX="581.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action3" fill="#a3be8c" layoutX="620.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ToggleButton fx:id="moveButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#moveClicked" prefHeight="34.0" prefWidth="46.0" text="Move" />
+                  <ToggleButton fx:id="shoreButton" layoutX="66.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Shore Up" />
                </children></Pane>
             </children>
             <padding>

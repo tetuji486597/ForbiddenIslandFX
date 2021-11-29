@@ -3,34 +3,35 @@ package game.simulation.player;
 import game.simulation.board.GameTile;
 import game.simulation.brains.GameState;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-public class Engineer {
+public class Engineer extends Player {
     private boolean[][] moveableTiles;
 
-    public Engineer(){//
-        // moveableTiles = new boolean[GameState.tiles.length];
+    public Engineer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
+        super(role, startingDeck);
+        moveableTiles = new boolean[6][6];
+    }
+
+    @Override
+    public boolean[][] getMoveableTiles(GameTile tile) {
+        char[][] board = GameState.getCurrentState();
+        int[] pos = tile.getPosition();
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 6; c++) {
+                if(board[r][c] == 'S' || r == pos[0] && c == pos[1])
+                    moveableTiles[r][c] = false;
+                else if(r == pos[0]-1 && c == pos[1] || r == pos[0] && c == pos[1]-1 || r == pos[0] && c == pos[1]+1
+                || r == pos[0] +1 && c == pos[1]){
+                    moveableTiles[r][c] = true;
+                }
+                else moveableTiles[r][c] = false;
+
+            }
         }
-
-    public boolean[][] getMoveableTiles(GameTile tile){
-       int [] pos = tile.getPosition();
-        for(int i = 0; i<GameState.tiles.length; i++){
-            int[] temp = GameState.tiles[i].getPosition();
-            if(GameState.tiles[i].isGone()){
-                moveableTiles[i] = false;
-            }
-            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
-                    (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
-                moveableTiles[i] = true;
-            }
-            else{
-                moveableTiles[i] = false;
-            }
-
-        }
-
-
         return moveableTiles;
+
+
     }
 }

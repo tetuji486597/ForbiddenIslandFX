@@ -1,41 +1,87 @@
 package game.simulation.player;
 
 import game.simulation.board.GameTile;
+import game.simulation.brains.GameState;
 
-public class Explorer
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class Explorer extends Player
 {
-    private boolean[][] moveable;
+    private boolean[][] moveableTiles;
+    private boolean[][] shoreableTiles;
     private int[] moveTo;
 
-    public Explorer()
-    {
-        moveable = new boolean[3][3];
+    public Explorer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
+        super(role,startingDeck);
+        moveableTiles = new boolean[6][6];
     }
 
-    public boolean[][] moveableTiles(GameTile tile)
-    {
-        for(int r = 0; r < 3; r++)
-        {
-            for(int c = 0; c < 3; c++)
-            {
-                if(r == 1 && c == 1 || tile.isGone())
-                {
-                    moveable[r][c] = false;
-                }
+    @Override
+    public boolean[][] getMoveableTiles(GameTile tile)
+    {   char[][] board = GameState.getCurrentState();
+        int[] pos = tile.getPosition();
+        moveableTiles = new boolean[6][6];
+        int r = pos[0], c = pos[1];
 
-                else
-                {
-                    moveable[r][c] = true;
-                }
-            }
+        try {
+            checkMoveable(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
         }
-        return moveable;
+
+        try {
+            checkMoveable(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r - 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r - 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r + 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkMoveable(r + 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        return moveableTiles;
+    }
+
+    public void checkMoveable(int r, int c) {
+        char[][] board = GameState.getCurrentState();
+        if (board[r][c] == 'O') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'F') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'S') {
+            moveableTiles[r][c] = false;
+        }
     }
 
     public void movePawn(GameTile tile, int[] coords, Player p)
     {
         moveTo = coords;
-        if(moveable[moveTo[0]][moveTo[1]] && tile.isGone() == false)
+        if(moveableTiles[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
             p.updatePosition(moveTo);
         }
@@ -44,9 +90,64 @@ public class Explorer
     public void shoreUp(GameTile tile, Player p)
     {
         int[] tilePos = tile.getPosition();
-        if((p.getPos() == tilePos || moveable[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
+        if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
         }
+    }
+
+    @Override
+    public boolean[][] getShoreableTiles(GameTile gameTile){
+        shoreableTiles = new boolean[6][6];
+        System.out.println("4");
+        int[] pos = gameTile.getPosition();
+        int r = pos[0], c = pos[1];
+
+        try {
+            checkShoreableSurroundings(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r - 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r - 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        return shoreableTiles;
+    }
+
+    public void checkShoreableSurroundings(int r, int c){
+        char[][] board = GameState.getCurrentState();
+        if(board[r][c] == 'F') shoreableTiles[r][c] = true;
     }
 }

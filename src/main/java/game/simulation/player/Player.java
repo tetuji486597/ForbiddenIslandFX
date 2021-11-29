@@ -2,31 +2,88 @@ package game.simulation.player;
 //import game.simulation.brains.GameState;
 import game.simulation.board.*;
 import game.simulation.brains.GameState;
-import game.simulation.card.Card;
-import game.simulation.card.TreasureCard;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 //import java.lang.reflect.Array;
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Player
 {
-    private ArrayList<String> playerDeck;
-    private boolean deckFilled, hasSunk;
-    private String role;
-    private int moveNumber;
-    private int[] position;
-    private boolean[] moveableTiles;
-    private boolean[] shoreableTiles;
+    private ArrayList<String>   playerDeck;
+    private boolean             deckFilled, hasSunk;
+    private String              role;
+    private int                 moveNumber;
+    private int[]               position;
+    private int[]               startingPos;
+    private int                 index;
+    private ImageView           currentPawn;
+    private Image               pawn;
+    private Image               activePawn;
+    private Image               givePawn;
+    private Image               movePawn;
+    private GridPane            currentTile;
+    private boolean[][]         shoreableTiles;
 
-    public Player(String role, ArrayList<String> startingDeck)
-    {
+    public Player(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         playerDeck = startingDeck;
         deckFilled = false;
         hasSunk = false;
         this.role = role;
         moveNumber = 0;
         position = new int[2];
-        moveableTiles = new boolean[GameState.tiles.length];
+        switch (role){
+            case "Diver":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("IronGate").getPosition();
+                break;
+            case "Engineer":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("BronzeGate").getPosition();
+                break;
+            case "Explorer":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("CopperGate").getPosition();
+                break;
+            case "Messenger":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("SilverGate").getPosition();
+                break;
+            case "Navigator":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("GoldGate").getPosition();
+                break;
+            case "Pilot":
+                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon_move@2x.png"));
+                startingPos = GameState.tilesMap.get("FoolsLanding").getPosition();
+                break;
+        }
+        position = startingPos;
+        currentPawn = new ImageView(pawn);
     }
 
     public void drawCard(String c)
@@ -39,6 +96,26 @@ public class Player
         if(playerDeck.size()==5){
             this.setDeckFilled(true);
         }
+    }
+
+    public boolean[][] getShoreableTiles(GameTile gameTile){
+        shoreableTiles = new boolean[6][6];
+        int[] pos = gameTile.getPosition();
+        int r = pos[0], c = pos[1];
+        checkShoreableSurroundings(r-1,c);
+        checkShoreableSurroundings(r+1,c);
+        checkShoreableSurroundings(r,c-1);
+        checkShoreableSurroundings(r,c+1);
+        return shoreableTiles;
+    }
+
+    public void checkShoreableSurroundings(int r, int c){
+        char[][] board = GameState.getCurrentState();
+        if(board[r][c] == 'F') shoreableTiles[r][c] = true;
+    }
+
+    public void setIndex(int ind){
+        index = ind;
     }
 
     public void updatePosition(int[] newPos)
@@ -59,49 +136,41 @@ public class Player
         }
     }
 
-    public boolean[] getMoveableTiles(GameTile tile) {
-        int [] pos = tile.getPosition();
-        for(int i = 0; i< GameState.tiles.length; i++){
-            int[] temp = GameState.tiles[i].getPosition();
-            if(GameState.tiles[i].isGone()){
-                moveableTiles[i] = false;
-            }
-            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
-                    (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
-                moveableTiles[i] = true;
-            }
-            else{
-                moveableTiles[i] = false;
-            }
-
-        }
-
-
-        return moveableTiles;
+    public boolean[][] getMoveableTiles(GameTile tile) {
+        return new boolean[6][6];
     }
-    public boolean[] getShoreableTiles(GameTile tile) {
-        int [] pos = tile.getPosition();
-        for(int i = 0; i< GameState.tiles.length; i++){
-            int[] temp = GameState.tiles[i].getPosition();
-            if(GameState.tiles[i].isGone() || GameState.tiles[i].getFloodState()){
-                shoreableTiles[i] = false;
-            }
-            else if((temp[0] == pos[0] && temp[1] == pos[1] + 1) || (temp[0] == pos[0] && temp[1] == pos[1]-1) ||
-                    (temp[0] == pos[0]+1 && temp[1] == pos[1]) || (temp[0] == pos[0] -1 && temp[1]==pos[1])){
-                shoreableTiles[i] = true;
-            }
-            else{
-                shoreableTiles[i] = false;
-            }
 
-        }
-
-
-        return shoreableTiles;
+    public ImageView getCurrentPawn() {
+        return currentPawn;
     }
 
     public void setDeckFilled(boolean deckFilled) {
         this.deckFilled = deckFilled;
+    }
+
+    public int[] getStartingPos() {
+        return startingPos;
+    }
+
+    public void setCurrentTile(GridPane currentTile) {
+        this.currentTile = currentTile;
+    }
+
+    public void setActivePawn(String str){
+        switch (str){
+            case "move":
+                currentPawn = new ImageView(movePawn);
+                break;
+            case "active":
+                currentPawn = new ImageView(activePawn);
+                break;
+            case "give":
+                currentPawn = new ImageView(givePawn);
+                break;
+            default:
+                currentPawn = new ImageView(pawn);
+                break;
+        }
     }
 
     public void disposeCard()
@@ -133,6 +202,34 @@ public class Player
                 break;
             }
         }
+    }
+
+    public int[] getPosition() {
+        return position;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Image getPawn() {
+        return pawn;
+    }
+
+    public Image getActivePawn() {
+        return activePawn;
+    }
+
+    public Image getGivePawn() {
+        return givePawn;
+    }
+
+    public Image getMovePawn() {
+        return movePawn;
+    }
+
+    public GridPane getCurrentTile() {
+        return currentTile;
     }
 
     public void shoreUp(GameTile tile)
