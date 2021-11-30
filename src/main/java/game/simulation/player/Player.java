@@ -195,6 +195,13 @@ public class Player
     }
 
 
+    public ArrayList<Player> tradeablePlayers (Player sender){
+        ArrayList<Player> tradePlayer = new ArrayList<>();
+        if(sender.getRole().equals("Messenger")){
+        }
+        return tradePlayer;
+    }
+
     public void giveTreasure(String treasure, Player send, Player receive)
     {
         ArrayList<String> rec = receive.getDeck();
@@ -225,6 +232,7 @@ public class Player
         return false;
 
     }
+
 
 
     public int[] getPosition() {
@@ -298,10 +306,6 @@ public class Player
     }
 
 
-
-
-
-            //gamestate.allplayers
 
 
 
