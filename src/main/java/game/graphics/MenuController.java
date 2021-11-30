@@ -54,7 +54,7 @@ public class MenuController {
         ParentPanel.menuPanel.hide();
         Stage game = new Stage();
         FXMLLoader gameLoader = new FXMLLoader(MenuController.class.getResource("game-board.fxml"));
-        game.setTitle("How To Play");
+        game.setTitle("Forbidden Island");
         Scene gameScene = new Scene(gameLoader.load(), 1375, 930);
         game.setResizable(false);
 //        JMetro helpMetro = new JMetro(Style.DARK);
