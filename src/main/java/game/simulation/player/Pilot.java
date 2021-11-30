@@ -21,14 +21,6 @@ public class Pilot extends Player{
         specialMove = false;
     }
 
-    public void setSpecialMove(int[] oldPos, int[] newPos) {
-        if(oldPos[0] == newPos[0]+1 && oldPos[1] == newPos[1] || oldPos[0] == newPos[0] && oldPos[1] == newPos[1] -1 ||
-        oldPos[0] == newPos[0] && oldPos[1] == newPos[1] +1 || oldPos[0] == newPos[0] -1 && oldPos[1] == newPos[1])
-            specialMove = false;
-        else
-            specialMove = true;
-    }
-
     @Override
     public boolean[][] getMoveableTiles(GameTile gameTile){
         char[][] board = GameState.getCurrentState();
@@ -62,6 +54,21 @@ public class Pilot extends Player{
             moveableTiles[pos[0]][pos[1]] = false;
             return moveableTiles;
         }
+    }
+
+    public void checkMoveable(int r, int c) {
+        char[][] board = GameState.getCurrentState();
+        if (board[r][c] == 'O') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'F') {
+            moveableTiles[r][c] = true;
+        } else if (board[r][c] == 'S') {
+            moveableTiles[r][c] = false;
+        }
+    }
+
+    public void resetSpecialMove(){
+        specialMove = true;
     }
 
     public void movePawn(GameTile tile, int[] coords, Player p)
