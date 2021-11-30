@@ -1,6 +1,7 @@
 package game.simulation.brains;
 //
 import game.graphics.GameBoardController;
+import game.graphics.ParentPanel;
 import game.simulation.board.*;
 import game.simulation.card.Card;
 import game.simulation.player.*;
@@ -17,15 +18,16 @@ import java.util.List;
 public class GameState {
     public static int                       waterLevel;
     private TreasurePiece[]                 treasuresCollected;
+    private static int                      numPlayers;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
     public static HashMap<String,GameTile>  posMap;
-    public static int                       numPlayers;
+    public static WaterLevelMeter           waterLevelMeter;
     public String[]                         allRoles;
     public static ArrayList<Player>         allPlayers;
     private int                             playerTurn = 0;
     public static Player                    currentPlayer;
-    private WaterLevelMeter                 meter;
+    public static boolean                   gameFinished;
     private ArrayList<Card>                 currentDeck;
     public static Stack<String>             cardDeck;
     public static Stack<String>             discardPile;
@@ -52,6 +54,7 @@ public class GameState {
         Collections.shuffle(tileShuffle);
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
+        this.numPlayers = numPlayers;
         tilesMap = new HashMap<>();
         posMap = new HashMap<>();
         floodDeck = new Stack<>();
@@ -67,12 +70,13 @@ public class GameState {
 
 
         waterLevel = difficulty;
+        waterLevelMeter = new WaterLevelMeter(difficulty);
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-        allRoles = new String[]{"Explorer", "Navigator", "Messenger", "Engineer"};
-//        List<String> roleShuffle = Arrays.asList(allRoles);
-//        Collections.shuffle(roleShuffle);
-//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+//        allRoles = new String[]{"Explorer", "Navigator", "Messenger", "Engineer"};
+        List<String> roleShuffle = Arrays.asList(allRoles);
+        Collections.shuffle(roleShuffle);
+        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -121,6 +125,33 @@ public class GameState {
 
     }
 
+    public void simulate() {
+        while(!gameFinished) {
+            currentPlayer = nextTurn();
+            while(currentPlayer.hasActionsRemaining()) {
+                //complete actions
+                ArrayList<String> cardsToAdd = new ArrayList<>();
+                if(cardDeck.isEmpty()) {
+                    while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
+                }
+                for(int i = 0; i < waterLevelMeter.getNumCards()) {
+                    cardsToAdd.add(discardPile.push(cardDeck.pop()));
+                }
+                currentPlayer.addCards(cardsToAdd);
+
+            }
+        }
+        //if(currentPlayer.movePawn() || )
+        //check winning after helicopter item is used
+        int count = 0;
+        for(Player p : allPlayers)
+            if(posMap.get(Arrays.toString(p.getPos()).equals("FoolsLanding")) count++;
+        if(count == numPlayers)  {
+            //show winning panel
+            gameFinished = true;
+        }
+    }
+
     public void shuffle(Stack<Card> pile) {
         Collections.shuffle(pile);
     }
@@ -137,7 +168,7 @@ public class GameState {
     }
 
     public Player nextTurn() {
-//        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
+        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
         return playerIterator.next();
     }
 

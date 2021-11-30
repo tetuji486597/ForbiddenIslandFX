@@ -2,6 +2,7 @@ package game.simulation.player;
 //import game.simulation.brains.GameState;
 import game.simulation.board.*;
 import game.simulation.brains.GameState;
+import game.simulation.card.Card;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player
 {
@@ -30,6 +32,7 @@ public class Player
     private Image               movePawn;
     private GridPane            currentTile;
     private boolean[][]         shoreableTiles;
+
 
     public Player(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         playerDeck = startingDeck;
@@ -232,14 +235,25 @@ public class Player
         return currentTile;
     }
 
-    public void shoreUp(GameTile tile)
+    public boolean shoreUp(int[] pos)
     {
-        tile.setFlooded(false);
+        boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        if(shore[pos[0]][pos[1]] == true)
+            return true;
+        else
+            return false;
     }
 
-    public void movePawn(int[] pos)
+    public boolean movePawn( int[] pos)
     {
-        position = pos;
+        boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+
+        if(move[position[0]][position[1]] == true){
+            position = pos;
+             return true;
+        }
+        else
+            return false;
     }
 
     public int[] getPos()
@@ -263,4 +277,11 @@ public class Player
     public void setPosition(int[] pos) {
         position = pos;
     }
+
+    public void addCards(ArrayList<String> cards) {
+        for(String card : cards) {
+            playerDeck.add(c.getType());
+        }
+    }
+
 }
