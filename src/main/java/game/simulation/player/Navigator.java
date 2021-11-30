@@ -16,6 +16,8 @@ public class Navigator extends Player{
         super(role,startingDeck);
         moveableTiles = new boolean[6][6];
         otherMoveableTiles = new boolean [6][6];
+        shoreableTiles = new boolean[6][6];
+
     }
 
     @Override

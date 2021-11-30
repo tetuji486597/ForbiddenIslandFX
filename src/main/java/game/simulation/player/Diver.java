@@ -15,6 +15,8 @@ public class Diver extends Player {
     public Diver(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role, startingDeck);
         moveableTiles = new boolean[6][6];
+        shoreableTiles = new boolean[6][6];
+
     }
 
     public boolean[][] getMoveableTiles(GameTile tile) {

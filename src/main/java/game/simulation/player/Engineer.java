@@ -14,6 +14,7 @@ public class Engineer extends Player {
     public Engineer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role, startingDeck);
         moveableTiles = new boolean[6][6];
+        shoreableTiles = new boolean[6][6];
     }
 
     @Override

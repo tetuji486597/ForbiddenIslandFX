@@ -15,6 +15,8 @@ public class Explorer extends Player
     public Explorer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role,startingDeck);
         moveableTiles = new boolean[6][6];
+        shoreableTiles = new boolean[6][6];
+
     }
 
     @Override
