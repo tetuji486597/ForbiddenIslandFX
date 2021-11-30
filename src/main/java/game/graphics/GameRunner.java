@@ -30,9 +30,13 @@ public class GameRunner extends Application {
 //        JMetro helpMetro = new JMetro(Style.DARK);
 //        helpMetro.setScene(helpScene);
         help.setScene(helpScene);
+        help.setResizable(false);
         helpScene.getStylesheets().add("moderna-darl.css");
         ParentPanel.setHelpPanel(help);
         Initialize.init();
+
+        Stage settings = new Stage();
+        settings.setTitle("Settings");
 
     }
 
