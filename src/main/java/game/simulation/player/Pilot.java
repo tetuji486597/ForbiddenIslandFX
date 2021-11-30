@@ -44,4 +44,50 @@ public class Pilot extends Player{
             p.updatePosition(moveTo);
         }
     }
+
+    public void shoreUp(GameTile tile, Player p)
+    {
+        int[] tilePos = tile.getPosition();
+        if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
+        {
+            tile.setFlooded(false);
+        }
+    }
+
+    @Override
+    public boolean[][] getShoreableTiles(GameTile gameTile){
+        shoreableTiles = new boolean[6][6];
+        System.out.println("4");
+        int[] pos = gameTile.getPosition();
+        int r = pos[0], c = pos[1];
+
+        try {
+            checkShoreableSurroundings(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+        try {
+            checkShoreableSurroundings(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+
+
+
+        return shoreableTiles;
+    }
+
+    public void checkShoreableSurroundings(int r, int c){
+        char[][] board = GameState.getCurrentState();
+        if(board[r][c] == 'F') shoreableTiles[r][c] = true;
+    }
 }
