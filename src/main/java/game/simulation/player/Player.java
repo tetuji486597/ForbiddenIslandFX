@@ -2,6 +2,7 @@ package game.simulation.player;
 //import game.simulation.brains.GameState;
 import game.simulation.board.*;
 import game.simulation.brains.GameState;
+import game.simulation.card.TreasureCard;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -205,6 +206,22 @@ public class Player
         }
     }
 
+    public boolean getRetrievable(Player retriever, String treasure){
+        ArrayList<String> deck = retriever.getDeck();
+        int i = 0;
+        for(String card: deck){
+            if(card.equals(treasure)){
+                i++;
+            }
+        }
+        if(i == 4){
+            return true;
+        }
+        return false;
+
+    }
+
+
     public int[] getPosition() {
         return position;
     }
@@ -275,6 +292,12 @@ public class Player
     public void setPosition(int[] pos) {
         position = pos;
     }
+
+
+
+
+
+            //gamestate.allplayers
 
 
 
