@@ -103,10 +103,16 @@ public class Player
         shoreableTiles = new boolean[6][6];
         int[] pos = gameTile.getPosition();
         int r = pos[0], c = pos[1];
-        checkShoreableSurroundings(r-1,c);
-        checkShoreableSurroundings(r+1,c);
-        checkShoreableSurroundings(r,c-1);
-        checkShoreableSurroundings(r,c+1);
+        try {checkShoreableSurroundings(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
         return shoreableTiles;
     }
 
@@ -246,8 +252,7 @@ public class Player
     {
         boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
 
-        if(move[position[0]][position[1]] == true){
-            position = pos;
+        if(move[pos[0]][pos[1]]){
              return true;
         }
         else

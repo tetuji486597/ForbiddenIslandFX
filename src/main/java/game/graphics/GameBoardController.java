@@ -514,7 +514,7 @@ public class GameBoardController {
         startButton.setVisible(false);
 
         for(int i = 0; i < 4; i ++){
-            labels[i].setText(GameState.allPlayers.get(0).getRole());
+            labels[i].setText(GameState.allPlayers.get(i).getRole());
         }
 
         DropShadow dropShadow = new DropShadow();
@@ -552,6 +552,14 @@ public class GameBoardController {
         }
     }
 
+    void updateTiles() throws FileNotFoundException {
+        GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        for(int i = 0; i < 24; i++) {
+            imageViews[i].setImage(GameState.tiles[i].getTile());
+        }
+    }
+
     void removePawns(){
         for(Player p: GameState.allPlayers){
             try {
@@ -566,7 +574,6 @@ public class GameBoardController {
     void drawPawns(){
         for(Player p: GameState.allPlayers){
             ImageView pawn = p.getCurrentPawn();
-            p.setCurrentTile(gridMap.get(Arrays.toString(p.getPos())));
             p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
     }
@@ -636,13 +643,13 @@ public class GameBoardController {
 
     public void r0c2Clicked(MouseEvent mouseEvent){
         System.out.println("Row 0 Column 2 Clicked");
-        try { movePawn(new int[]{1, 2}, mouseEvent);
+        try { movePawn(new int[]{0, 2}, mouseEvent);
         }catch (FileNotFoundException ignored){}
     }
 
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");
-        try { movePawn(new int[]{1, 2}, mouseEvent);
+        try { movePawn(new int[]{0, 3}, mouseEvent);
         }catch (FileNotFoundException ignored){}
     }
     public void r1c1Clicked(MouseEvent mouseEvent) {
@@ -824,7 +831,10 @@ public class GameBoardController {
 
     public void movePawn(int[] pos, MouseEvent mouseEvent) throws FileNotFoundException {
         if(moveButton.isSelected()){
+            boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+            System.out.println(move[pos[0]][pos[1]]);
             if(GameState.currentPlayer.movePawn(pos)){
+                System.out.println("alsdkjal");
                 ImageView pawn = GameState.currentPlayer.getCurrentPawn();
                 GameState.currentPlayer.setPosition(pos);
 
@@ -837,7 +847,14 @@ public class GameBoardController {
             }
         }
         else if(shoreButton.isSelected()){
-//            if(GameState.currentPlayer.shoreUp)
+            if(GameState.currentPlayer.shoreUp(pos)){
+                GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
+                GameState.posMap.get(Arrays.toString(pos)).setGone(false);
+                System.out.println(Arrays.deepToString(GameState.getCurrentState()));
+                updateTiles();
+                shoreButton.setSelected(false);
+                shoreClicked(mouseEvent);
+            }
         }
     }
 

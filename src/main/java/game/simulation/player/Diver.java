@@ -73,7 +73,7 @@ public class Diver extends Player {
             return false;
         } else if (board[r][c] == 'S') {
             moveableTiles[r][c] = false;
-            return false;
+            return true;
         }
         return true;
     }

@@ -144,6 +144,10 @@ public class Explorer extends Player
             checkShoreableSurroundings(r + 1, c + 1);
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
+        try {
+            checkShoreableSurroundings(r, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
 
         return shoreableTiles;
     }
