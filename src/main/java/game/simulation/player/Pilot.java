@@ -33,7 +33,7 @@ public class Pilot extends Player{
     public boolean[][] getMoveableTiles(GameTile gameTile){
         char[][] board = GameState.getCurrentState();
         if(specialMove){
-            int[] pos = tile.getPosition();
+            int[] pos = gameTile.getPosition();
             for (int r = 0; r < 6; r++) {
                 for (int c = 0; c < 6; c++) {
                     if(board[r][c] == 'S' || r == pos[0] && c == pos[1])
