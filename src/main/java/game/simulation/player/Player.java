@@ -111,8 +111,7 @@ public class Player
         } catch (ArrayIndexOutOfBoundsException ignored) {}
         try {checkShoreableSurroundings(r, c + 1);
         } catch (ArrayIndexOutOfBoundsException ignored) {}
-        try {checkShoreableSurroundings(r, c);
-        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        checkShoreableSurroundings(r, c);
         return shoreableTiles;
     }
 
