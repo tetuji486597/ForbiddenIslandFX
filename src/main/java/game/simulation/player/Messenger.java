@@ -66,7 +66,7 @@ public class Messenger extends Player{
     public void shoreUp(GameTile tile, Player p)
     {
         int[] tilePos = tile.getPosition();
-        if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
+        if((p.getPosition() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
         }

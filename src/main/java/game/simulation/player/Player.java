@@ -203,6 +203,27 @@ public class Player
     public ArrayList<Player> tradeablePlayers (Player sender){
         ArrayList<Player> tradePlayer = new ArrayList<>();
         if(sender.getRole().equals("Messenger")){
+          for(int i = 0; i<GameState.allPlayers.size(); i++){
+              if(GameState.allPlayers.get(i).equals(sender.getRole())){
+                  continue;
+              }
+              else{
+                  tradePlayer.add(GameState.allPlayers.get(i));
+              }
+
+          }
+        }
+
+        else{
+            for(int i = 0; i<GameState.allPlayers.size(); i++){
+                if(GameState.allPlayers.get(i).equals(sender.getRole())){
+                    continue;
+                }
+                else if(GameState.allPlayers.get(i).getPosition().equals(sender.getPosition())){
+                    tradePlayer.add(GameState.allPlayers.get(i));
+                }
+
+            }
         }
         return tradePlayer;
     }
@@ -243,6 +264,10 @@ public class Player
     public int[] getPosition() {
         return position;
     }
+    public int[] getPos() {
+        return position;
+    }
+
 
     public int getIndex() {
         return index;
@@ -270,7 +295,7 @@ public class Player
 
     public boolean shoreUp(int[] pos)
     {
-        boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPosition())));
         if(shore[pos[0]][pos[1]] == true)
             return true;
         else
@@ -279,7 +304,7 @@ public class Player
 
     public boolean movePawn( int[] pos)
     {
-        boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPosition())));
 
         if(move[pos[0]][pos[1]]){
              return true;
@@ -288,10 +313,6 @@ public class Player
             return false;
     }
 
-    public int[] getPos()
-    {
-        return position;
-    }
 
     public int getMoveNumber()
     {
