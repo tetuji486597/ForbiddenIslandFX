@@ -791,6 +791,7 @@ public class GameBoardController {
                     cards[i][j].setEffect(null);
                 }
             }
+
             useHelicopter = false;
             useCardPlayer = -1;
         }
