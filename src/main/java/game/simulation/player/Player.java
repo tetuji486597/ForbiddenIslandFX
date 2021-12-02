@@ -335,4 +335,11 @@ public class Player
     public void addCards(ArrayList<String> cardsToAdd) {
         for(String card: cardsToAdd) playerDeck.add(card);
     }
+
+    public boolean hasActionsRemaining(){
+        if(GameState.actionsRemaining != 0){
+            return true;
+        }
+        else return false;
+    }
 }
