@@ -3,26 +3,30 @@ import game.simulation.player.Player;
 
 public class WinCondition
 {
-    private boolean winOrLose;
+    private boolean win;
     public WinCondition(GameState g)
     {
         if(g.checkWinning())
-            winOrLose = true;
+            win= true;
         else if(g.checkLosing())
-            winOrLose = false;
+            win = false;
     }
 
     public void displayWinOrLose()
     {
-        if(winOrLose)
+        if(win)
         {
             System.out.println("WINNER");
         }
 
-        else if(!winOrLose)
+        else if(!win)
         {
             System.out.println("LOSER");
         }
+    }
+
+    public boolean isWin() {
+        return win;
     }
 }
 
