@@ -264,6 +264,10 @@ public class Player
     public int[] getPosition() {
         return position;
     }
+    public int[] getPos() {
+        return position;
+    }
+
 
     public int getIndex() {
         return index;
