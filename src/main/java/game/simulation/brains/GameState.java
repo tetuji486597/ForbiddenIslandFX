@@ -69,10 +69,10 @@ public class GameState {
         waterLevel = difficulty;
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-//        allRoles = new String[]{"Explorer", "Navigator", "Messenger", "Engineer"};
-        List<String> roleShuffle = Arrays.asList(allRoles);
-        Collections.shuffle(roleShuffle);
-        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+        allRoles = new String[]{"Diver", "Navigator", "Messenger", "Engineer"};
+//        List<String> roleShuffle = Arrays.asList(allRoles);
+//        Collections.shuffle(roleShuffle);
+//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");

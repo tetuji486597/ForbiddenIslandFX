@@ -5,6 +5,7 @@ import game.simulation.brains.GameState;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Diver extends Player {
     private boolean[][] moveableTiles;
@@ -19,46 +20,58 @@ public class Diver extends Player {
 
     }
 
+    @Override
     public boolean[][] getMoveableTiles(GameTile tile) {
         int[] pos = tile.getPosition();
+        System.out.println(Arrays.toString(pos));
         checkedTiles = new boolean[6][6];
         setSurroundings(pos[0], pos[1]);
         moveableTiles[pos[0]][pos[1]] = false;
         return moveableTiles;
     }
 
+//    @Override
+//    public boolean[][] getMoveableTiles(int[] pos) {
+//        System.out.println(Arrays.toString(pos));
+//        checkedTiles = new boolean[6][6];
+//        setSurroundings(pos[0], pos[1]);
+//        moveableTiles[pos[0]][pos[1]] = false;
+//        return moveableTiles;
+//    }
+
+    public boolean[][] getMoveableTiles(int[] pos){
+        char[][] board = GameState.getCurrentState();
+        int r = pos[0], c = pos[1];
+        moveableTiles = new boolean[6][6];
+        checkedTiles = new boolean[6][6];
+        setSurroundings(r,c);
+        moveableTiles[r][c] = false;
+        return moveableTiles;
+    }
+
     public void setSurroundings(int r, int c) {
         try {
-            if (!checkMoveable(r - 1, c)) {
-                setSurroundings(r - 1, c);
+            if(!checkMoveable(r-1,c)){
+                setSurroundings(r-1,c);
             }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
-        }
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try{
+            if(!checkMoveable(r+1,c)){
+                setSurroundings(r+1,c);
+            }
+        }catch (ArrayIndexOutOfBoundsException ignored){}
 
-        try {
-            if (!checkMoveable(r + 1, c)) {
-                setSurroundings(r + 1, c);
+        try{
+            if(!checkMoveable(r,c-1)){
+                setSurroundings(r,c-1);
             }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
-        }
+        }catch (ArrayIndexOutOfBoundsException ignored){}
 
-        try {
-            if (!checkMoveable(r, c - 1)) {
-                setSurroundings(r, c - 1);
+        try{
+            if(!checkMoveable(r,c+1)){
+                setSurroundings(r,c+1);
             }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
-        }
-
-        try {
-            if (!checkMoveable(r, c + 1)) {
-                setSurroundings(r, c + 1);
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.println("null");
-        }
+        }catch (ArrayIndexOutOfBoundsException ignored){}
     }
 
     public boolean checkMoveable(int r, int c) {
@@ -73,7 +86,7 @@ public class Diver extends Player {
             return false;
         } else if (board[r][c] == 'S') {
             moveableTiles[r][c] = false;
-            return true;
+            return false;
         }
         return true;
     }

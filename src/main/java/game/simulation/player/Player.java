@@ -116,6 +116,7 @@ public class Player
         return shoreableTiles;
     }
 
+
     public void checkShoreableSurroundings(int r, int c){
         char[][] board = GameState.getCurrentState();
         if(board[r][c] == 'F') shoreableTiles[r][c] = true;
@@ -144,6 +145,10 @@ public class Player
     }
 
     public boolean[][] getMoveableTiles(GameTile tile) {
+        return new boolean[6][6];
+    }
+
+    public boolean[][] getMoveableTiles(int[] tile) {
         return new boolean[6][6];
     }
 

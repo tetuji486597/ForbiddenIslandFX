@@ -415,7 +415,10 @@ public class GameBoardController {
     private Button tradeButton;
 
     @FXML
-    private Button useButton;
+    private Button cancelButton;
+
+    @FXML
+    private ToggleButton useButton;
 
     @FXML
     private ImageView floodDiscardImage;
@@ -578,6 +581,23 @@ public class GameBoardController {
         }
     }
 
+    void updateCards() throws FileNotFoundException {
+        for(int i = 0; i < GameState.numPlayers; i++){
+            ImageView[] imageviewdeck = playerCards.get(i+1);
+            for(int j = 0; j < 5; j++){
+                imageviewdeck[j].setImage(new Image(new FileInputStream("src/main/resources/Images/TreasureCards/Pressed.png")));
+            }
+        }
+        for(int i = 0; i < GameState.numPlayers; i++){
+            ArrayList<String> playerdeck  = GameState.allPlayers.get(i).getDeck();
+            int playerdecksize  = GameState.allPlayers.get(i).getDeck().size();
+            ImageView[] imageviewdeck = playerCards.get(i+1);
+            for(int j = 0; j < playerdecksize; j++){
+                imageviewdeck[j].setImage(Initialize.treasurecards.get(playerdeck.get(j)));
+            }
+        }
+    }
+
     @FXML
     void showHelp(ActionEvent event) {
         ParentPanel.helpPanel.show();
@@ -597,7 +617,7 @@ public class GameBoardController {
         removePawns();
         GameState.currentPlayer.setActivePawn("move");
         drawPawns();
-        boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.currentPlayer.getPos());
         int i = 0;
         Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(int r = 0; r < moveableTiles.length; r++){
@@ -638,6 +658,172 @@ public class GameBoardController {
                 }
                 else i++;
             }
+        }
+    }
+    private boolean useHelicopter;
+    private boolean useSandbag;
+    private int useCardPlayer;
+
+    public void cardClicked(int player, int card) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        String[] tiles = new String[]{"[0, 2]","[0, 3]","[1, 1]","[1, 2]","[1, 3]","[1, 4]","[2, 0]","[2, 1]","[2, 2]","[2, 3]","[2, 4]","[2, 5]","[3, 0]","[3, 1]","[3, 2]","[3, 3]","[3, 4]","[3, 5]","[4, 1]","[4, 2]","[4, 3]","[4, 4]","[5, 2]","[5, 3]"};
+        ImageView[][] cards = {
+                {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
+                {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
+                {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
+                {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
+        };
+        DropShadow highlight = new DropShadow();
+        highlight.setColor(Color.YELLOW);
+        if(!useButton.isSelected()) return;
+        else{
+            switch (GameState.allPlayers.get(player-1).getDeck().get(card-1)){
+                case "Sandbag":
+                    cancelButton.setVisible(true);
+                    useSandbag = true;
+                    cards[player-1][card-1].setEffect(highlight);
+                    Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+                    char[][] shoreableTiles = GameState.getCurrentState();
+                    int i = 0;
+                    for(int r = 0; r < shoreableTiles.length; r++){
+                        for(int c = 0; c < shoreableTiles[r].length; c++){
+                            if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                            else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                            else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                            else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                            else if(shoreableTiles[r][c] == 'F') {
+                                imageViews[i].setImage(image);
+                            }
+                            i++;
+                        }
+                    }
+                    useCardPlayer = player-1;
+                    break;
+                case "HelicopterLift":
+                    cancelButton.setVisible(true);
+                    useHelicopter = true;
+                    cards[player-1][card-1].setEffect(highlight);
+                    int[] pos = GameState.allPlayers.get(player-1).getPos();
+                    System.out.println(Arrays.toString(pos));
+                    int iu = 0;
+                    removePawns();
+                    GameState.allPlayers.get(player-1).setActivePawn("move");
+                    drawPawns();
+                    Image imagee = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+                    for(int r = 0; r < 6; r++){
+                        for(int c = 0; c < 6; c++){
+                            if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                            else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                            else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                            else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                            else if(tiles[iu].equals(Arrays.toString(pos))) iu++;
+                            else {
+                                imageViews[iu].setImage(imagee);
+                                iu++;
+                            }
+                        }
+                    }
+                    useCardPlayer = player-1;
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    @FXML
+    void cancelUseCard(ActionEvent event){
+        removePawns();
+        if(GameState.currentPlayer.equals(GameState.allPlayers.get(useCardPlayer))) GameState.currentPlayer.setActivePawn("active");
+        GameState.allPlayers.get(useCardPlayer).setActivePawn("pawn");
+        drawPawns();
+        useCardPlayer = -1;
+        useHelicopter = false;
+        useSandbag = false;
+        ImageView[][] cards = {
+                {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
+                {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
+                {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
+                {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
+        };
+        for(int i = 0; i < cards.length; i++){
+            for(int j = 0; j < cards[i].length; j++){
+                cards[i][j].setEffect(null);
+            }
+        }
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        for(ImageView iv : imageViews){
+            iv.setImage(null);
+        }
+        cancelButton.setVisible(false);
+    }
+
+    public void useHelicopterLift(int[] pos) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        if(useHelicopter){
+            GameState.allPlayers.get(useCardPlayer).setPosition(pos);
+            removePawns();
+            if(GameState.currentPlayer.equals(GameState.allPlayers.get(useCardPlayer))) GameState.currentPlayer.setActivePawn("active");
+            GameState.allPlayers.get(useCardPlayer).setActivePawn("pawn");
+            drawPawns();
+            ImageView pawn = GameState.allPlayers.get(useCardPlayer).getCurrentPawn();
+            GameState.allPlayers.get(useCardPlayer).getCurrentTile().getChildren().remove(pawn);
+            GameState.allPlayers.get(useCardPlayer).setCurrentTile(gridMap.get(Arrays.toString(pos)));
+            GameState.allPlayers.get(useCardPlayer).getCurrentTile().add(pawn,GameState.allPlayers.get(useCardPlayer).getIndex(),0,1,1);
+
+            for (ImageView im : imageViews)
+                im.setImage(null);
+            useButton.setSelected(false);
+            cancelButton.setVisible(false);
+
+            System.out.println(GameState.allPlayers.get(useCardPlayer).getDeck());
+            GameState.allPlayers.get(useCardPlayer).getDeck().remove("HelicopterLift");
+            updateCards();
+
+            ImageView[][] cards = {
+                    {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
+                    {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
+                    {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
+                    {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
+            };
+            for(int i = 0; i < cards.length; i++){
+                for(int j = 0; j < cards[i].length; j++){
+                    cards[i][j].setEffect(null);
+                }
+            }
+            useHelicopter = false;
+            useCardPlayer = -1;
+        }
+    }
+
+    public void useSandbag(int pos[]) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        if(useSandbag){
+            GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
+            updateTiles();
+
+            for (ImageView im : imageViews)
+                im.setImage(null);
+            useButton.setSelected(false);
+            cancelButton.setVisible(false);
+
+
+
+            ImageView[][] cards = {
+                    {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
+                    {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
+                    {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
+                    {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
+            };
+            for(int i = 0; i < cards.length; i++){
+                for(int j = 0; j < cards[i].length; j++){
+                    cards[i][j].setEffect(null);
+                }
+            }
+            GameState.allPlayers.get(useCardPlayer).getDeck().remove("Sandbag");
+            updateCards();
+            useSandbag = false;
+            useCardPlayer = -1;
         }
     }
 
@@ -765,76 +951,115 @@ public class GameBoardController {
 
     public void player1card1Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 1 Clicked");
-        System.out.println(GameState.allPlayers.get(0).getDeck().get(0));
-
+        try{ cardClicked(1,1);
+        }catch (FileNotFoundException ignored){}
     }
     public void player1card2Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 2 Clicked");
+        try{ cardClicked(1,2);
+        }catch (FileNotFoundException ignored){}
     }
     public void player1card3Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 3 Clicked");
+        try{ cardClicked(1,3);
+        }catch (FileNotFoundException ignored){}
     }
     public void player1card4Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 4 Clicked");
+        try{ cardClicked(1,4);
+        }catch (FileNotFoundException ignored){}
     }
     public void player1card5Clicked(MouseEvent mouseEvent){
         System.out.println("Player 1 Card 5 Clicked");
+        try{ cardClicked(1,5);
+        }catch (FileNotFoundException ignored){}
     }
 
     public void player2card1Clicked(MouseEvent mouseEvent){
         System.out.println("Player 2 Card 1 Clicked");
+        try{ cardClicked(2,1);
+        }catch (FileNotFoundException ignored){}
     }
     public void player2card2Clicked(MouseEvent mouseEvent){
         System.out.println("Player 2 Card 2 Clicked");
+        try{ cardClicked(2,2);
+        }catch (FileNotFoundException ignored){}
     }
     public void player2card3Clicked(MouseEvent mouseEvent){
         System.out.println("Player 2 Card 3 Clicked");
+        try{ cardClicked(2,3);
+        }catch (FileNotFoundException ignored){}
     }
     public void player2card4Clicked(MouseEvent mouseEvent){
         System.out.println("Player 2 Card 4 Clicked");
+        try{ cardClicked(2,4);
+        }catch (FileNotFoundException ignored){}
     }
     public void player2card5Clicked(MouseEvent mouseEvent){
         System.out.println("Player 2 Card 5 Clicked");
+        try{ cardClicked(2,5);
+        }catch (FileNotFoundException ignored){}
     }
 
     public void player3card1Clicked(MouseEvent mouseEvent){
         System.out.println("Player 3 Card 1 Clicked");
+        try{ cardClicked(3,1);
+        }catch (FileNotFoundException ignored){}
     }
     public void player3card2Clicked(MouseEvent mouseEvent){
         System.out.println("Player 3 Card 2 Clicked");
+        try{ cardClicked(3,2);
+        }catch (FileNotFoundException ignored){}
     }
     public void player3card3Clicked(MouseEvent mouseEvent){
         System.out.println("Player 3 Card 3 Clicked");
+        try{ cardClicked(3,3);
+        }catch (FileNotFoundException ignored){}
     }
     public void player3card4Clicked(MouseEvent mouseEvent){
         System.out.println("Player 3 Card 4 Clicked");
+        try{ cardClicked(3,4);
+        }catch (FileNotFoundException ignored){}
     }
     public void player3card5Clicked(MouseEvent mouseEvent){
         System.out.println("Player 3 Card 5 Clicked");
+        try{ cardClicked(3,5);
+        }catch (FileNotFoundException ignored){}
     }
 
     public void player4card1Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 1 Clicked");
+        try{ cardClicked(4,1);
+        }catch (FileNotFoundException ignored){}
     }
     public void player4card2Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 2 Clicked");
+        try{ cardClicked(4,2);
+        }catch (FileNotFoundException ignored){}
     }
     public void player4card3Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 3 Clicked");
+        try{ cardClicked(4,3);
+        }catch (FileNotFoundException ignored){}
     }
     public void player4card4Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 4 Clicked");
+        try{ cardClicked(4,4);
+        }catch (FileNotFoundException ignored){}
     }
     public void player4card5Clicked(MouseEvent mouseEvent){
         System.out.println("Player 4 Card 5 Clicked");
+        try{ cardClicked(4,5);
+        }catch (FileNotFoundException ignored){}
     }
 
     public void movePawn(int[] pos, MouseEvent mouseEvent) throws FileNotFoundException {
-        if(moveButton.isSelected()){
+        if(useSandbag) useSandbag(pos);
+        else if(useHelicopter) useHelicopterLift(pos);
+        else if(moveButton.isSelected()){
             boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
             System.out.println(move[pos[0]][pos[1]]);
             if(GameState.currentPlayer.movePawn(pos)){
-                System.out.println("alsdkjal");
                 ImageView pawn = GameState.currentPlayer.getCurrentPawn();
                 GameState.currentPlayer.setPosition(pos);
 
