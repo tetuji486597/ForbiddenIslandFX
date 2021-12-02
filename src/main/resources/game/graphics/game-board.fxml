@@ -1157,6 +1157,7 @@
                   <ToggleButton fx:id="shoreButton" layoutX="66.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Shore Up" />
                   <ToggleButton fx:id="useButton" layoutX="215.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Use Item" />
                   <Button fx:id="cancelButton" layoutX="225.0" layoutY="142.0" mnemonicParsing="false" onAction="#cancelUseCard" prefHeight="34.0" prefWidth="59.0" text="Cancel" visible="false" />
+                  <Button fx:id="abilityButton" layoutX="415.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelUseCard" prefHeight="34.0" prefWidth="59.0" text="Ability" visible="false" />
                </children></Pane>
             </children>
             <padding>
