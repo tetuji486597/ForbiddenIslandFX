@@ -188,9 +188,9 @@ public class GameState {
         return true;
     }
 
-    public boolean checkLosing() {
-        return true;
-    }
+//    public boolean checkLosing() {
+//        return gameFinished;
+//    }
 
     public static char[][] getCurrentState(){
         char[][] board = new char[6][6];
