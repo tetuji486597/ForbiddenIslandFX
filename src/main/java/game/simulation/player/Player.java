@@ -331,8 +331,8 @@ public class Player
         position = pos;
     }
 
-
-
-
+    public void addCards(ArrayList<String> cards){
+        playerDeck.addAll(cards);
+        }
 
 }
