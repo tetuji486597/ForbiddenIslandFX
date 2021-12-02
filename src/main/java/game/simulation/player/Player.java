@@ -328,7 +328,7 @@ public class Player
     }
 
 
-
-
-
+    public void addCards(ArrayList<String> cardsToAdd) {
+        for(String card: cardsToAdd) playerDeck.add(card);
+    }
 }
