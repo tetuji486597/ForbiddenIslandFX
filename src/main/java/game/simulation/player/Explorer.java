@@ -15,6 +15,8 @@ public class Explorer extends Player
     public Explorer(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         super(role,startingDeck);
         moveableTiles = new boolean[6][6];
+        shoreableTiles = new boolean[6][6];
+
     }
 
     @Override
@@ -140,6 +142,10 @@ public class Explorer extends Player
 
         try {
             checkShoreableSurroundings(r + 1, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {
+        }
+        try {
+            checkShoreableSurroundings(r, c);
         } catch (ArrayIndexOutOfBoundsException ignored) {
         }
 

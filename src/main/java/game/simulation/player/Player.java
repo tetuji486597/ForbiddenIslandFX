@@ -2,7 +2,7 @@ package game.simulation.player;
 //import game.simulation.brains.GameState;
 import game.simulation.board.*;
 import game.simulation.brains.GameState;
-import game.simulation.card.Card;
+import game.simulation.card.TreasureCard;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +32,6 @@ public class Player
     private Image               movePawn;
     private GridPane            currentTile;
     private boolean[][]         shoreableTiles;
-
 
     public Player(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         playerDeck = startingDeck;
@@ -105,12 +104,18 @@ public class Player
         shoreableTiles = new boolean[6][6];
         int[] pos = gameTile.getPosition();
         int r = pos[0], c = pos[1];
-        checkShoreableSurroundings(r-1,c);
-        checkShoreableSurroundings(r+1,c);
-        checkShoreableSurroundings(r,c-1);
-        checkShoreableSurroundings(r,c+1);
+        try {checkShoreableSurroundings(r - 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r + 1, c);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r, c - 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        try {checkShoreableSurroundings(r, c + 1);
+        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        checkShoreableSurroundings(r, c);
         return shoreableTiles;
     }
+
 
     public void checkShoreableSurroundings(int r, int c){
         char[][] board = GameState.getCurrentState();
@@ -140,6 +145,10 @@ public class Player
     }
 
     public boolean[][] getMoveableTiles(GameTile tile) {
+        return new boolean[6][6];
+    }
+
+    public boolean[][] getMoveableTiles(int[] tile) {
         return new boolean[6][6];
     }
 
@@ -191,6 +200,13 @@ public class Player
     }
 
 
+    public ArrayList<Player> tradeablePlayers (Player sender){
+        ArrayList<Player> tradePlayer = new ArrayList<>();
+        if(sender.getRole().equals("Messenger")){
+        }
+        return tradePlayer;
+    }
+
     public void giveTreasure(String treasure, Player send, Player receive)
     {
         ArrayList<String> rec = receive.getDeck();
@@ -206,6 +222,23 @@ public class Player
             }
         }
     }
+
+    public boolean getRetrievable(Player retriever, String treasure){
+        ArrayList<String> deck = retriever.getDeck();
+        int i = 0;
+        for(String card: deck){
+            if(card.equals(treasure)){
+                i++;
+            }
+        }
+        if(i == 4){
+            return true;
+        }
+        return false;
+
+    }
+
+
 
     public int[] getPosition() {
         return position;
@@ -248,8 +281,7 @@ public class Player
     {
         boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
 
-        if(move[position[0]][position[1]] == true){
-            position = pos;
+        if(move[pos[0]][pos[1]]){
              return true;
         }
         else
@@ -278,10 +310,8 @@ public class Player
         position = pos;
     }
 
-    public void addCards(ArrayList<String> cards) {
-        for(String card : cards) {
-            playerDeck.add(c.getType());
-        }
-    }
+
+
+
 
 }

@@ -285,7 +285,7 @@
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
                                  </image></ImageView>
-                              <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 4" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
+                              <Label fx:id="player4Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 4" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" fx:id="x123" />
                                  </font>
@@ -982,7 +982,7 @@
                               </ImageView>
                            </children>
                         </GridPane>
-                              <Button fx:id="startButton" layoutX="268.0" layoutY="340.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="150.0" text="Start Game">
+                              <Button fx:id="startButton" layoutX="268.0" layoutY="320.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="150.0" text="Start Game">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1141,7 +1141,6 @@
                      </children>
                   </Pane>
                   <Button fx:id="tradeButton" layoutX="150.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="59.0" text="Trade" />
-                  <Button fx:id="useButton" layoutX="215.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="78.0" text="Use Item" />
                   <Button fx:id="retrieveButton" layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
                   <Label alignment="CENTER" layoutX="529.0" layoutY="62.0" style="&#10;" text="Actions Used:" textAlignment="CENTER" wrapText="false">
                      <font>
@@ -1156,6 +1155,8 @@
                   <Circle fx:id="action3" fill="#a3be8c" layoutX="620.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <ToggleButton fx:id="moveButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#moveClicked" prefHeight="34.0" prefWidth="46.0" text="Move" />
                   <ToggleButton fx:id="shoreButton" layoutX="66.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Shore Up" />
+                  <ToggleButton fx:id="useButton" layoutX="215.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Use Item" />
+                  <Button fx:id="cancelButton" layoutX="225.0" layoutY="142.0" mnemonicParsing="false" onAction="#cancelUseCard" prefHeight="34.0" prefWidth="59.0" text="Cancel" visible="false" />
                </children></Pane>
             </children>
             <padding>

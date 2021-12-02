@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox>
+         <children>
+            <AnchorPane>
+               <children>
+                  <ImageView fitHeight="459.0" fitWidth="799.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/splashscreen.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutY="181.0" prefHeight="88.0" prefWidth="799.0" text="VICTORY!" textFill="#ff3737" underline="true">
+                     <font>
+                        <Font name="Times New Roman Bold" size="71.0" />
+                     </font>
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting bumpInput="$null">
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="260.0" prefHeight="58.0" prefWidth="799.0" text="Try Again" textFill="#ff3434" underline="true" visible="false">
+                     <font>
+                        <Font name="Times New Roman Bold" size="28.0" />
+                     </font>
+                     <effect>
+                        <DropShadow>
+                           <input>
+                              <Lighting bumpInput="$null">
+                                 <light>
+                                    <Light.Distant />
+                                 </light>
+                              </Lighting>
+                           </input>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="289.0" layoutY="405.0" prefHeight="45.0" prefWidth="221.0" text="--Press anywhere to exit--" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</VBox>
