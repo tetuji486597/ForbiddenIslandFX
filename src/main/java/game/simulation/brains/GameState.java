@@ -18,7 +18,7 @@ import java.util.List;
 public class GameState {
     public static int                       waterLevel;
     private TreasurePiece[]                 treasuresCollected;
-    private static int                      numPlayers;
+    public static int                      numPlayers;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
     public static HashMap<String,GameTile>  posMap;
@@ -128,24 +128,29 @@ public class GameState {
     public void simulate() {
         while(!gameFinished) {
             currentPlayer = nextTurn();
-            while(currentPlayer.hasActionsRemaining()) {
+            //while(currentPlayer.hasActionsRemaining()) {
                 //complete actions
                 ArrayList<String> cardsToAdd = new ArrayList<>();
                 if(cardDeck.isEmpty()) {
                     while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
                 }
-                for(int i = 0; i < waterLevelMeter.getNumCards()) {
-                    cardsToAdd.add(discardPile.push(cardDeck.pop()));
-                }
+                cardsToAdd.add(discardPile.push(cardDeck.pop()));
+                cardsToAdd.add(discardPile.push(cardDeck.pop()));
                 currentPlayer.addCards(cardsToAdd);
-
-            }
+                if(floodDeck.isEmpty()) {
+                    while(!floodDiscard.isEmpty()) floodDeck.push(floodDeck.pop());
+                }
+                for(int i = 0; i < waterLevelMeter.getNumCards(); i++) {
+                    tilesMap.get(floodDeck.peek()).setFlooded(true);
+                    floodDiscard.push(floodDeck.pop());
+                }
+            //}
         }
         //if(currentPlayer.movePawn() || )
         //check winning after helicopter item is used
         int count = 0;
         for(Player p : allPlayers)
-            if(posMap.get(Arrays.toString(p.getPos()).equals("FoolsLanding")) count++;
+            if(posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
         if(count == numPlayers)  {
             //show winning panel
             gameFinished = true;
