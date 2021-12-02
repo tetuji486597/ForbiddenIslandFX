@@ -415,6 +415,9 @@ public class GameBoardController {
     private Button tradeButton;
 
     @FXML
+    private Button abilityButton;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
@@ -603,6 +606,10 @@ public class GameBoardController {
         ParentPanel.helpPanel.show();
     }
 
+    public void nextTurn(){
+
+    }
+
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
         for (ImageView im : imageViews)
@@ -634,7 +641,6 @@ public class GameBoardController {
             }
         }
     }
-
 
     public void shoreClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
