@@ -527,7 +527,7 @@ public class GameBoardController {
         dropShadow.setColor(Color.GREEN);
         dropShadow.setHeight(21);
         Player1Inv.setEffect(dropShadow);
-
+        resetActionCounter();
 
     }
 
@@ -607,7 +607,7 @@ public class GameBoardController {
     }
 
     public void nextTurn(){
-
+        resetActionCounter();
     }
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
@@ -800,6 +800,22 @@ public class GameBoardController {
 
             useHelicopter = false;
             useCardPlayer = -1;
+            GameState.actionsRemaining++;
+            updateActionCounter();
+        }
+    }
+
+    void updateActionCounter(){
+        Circle[] circles = {action1,action2,action3};
+        for(int i = 0; i < GameState.actionsRemaining; i++){
+            circles[i].setFill(Color.rgb(142,208,85));
+        }
+    }
+
+    void resetActionCounter(){
+        Circle[] circles = {action1,action2,action3};
+        for(int i = 0; i < 3; i++){
+            circles[i].setFill(Color.rgb(221,84,84));
         }
     }
 
@@ -831,6 +847,8 @@ public class GameBoardController {
             updateCards();
             useSandbag = false;
             useCardPlayer = -1;
+            GameState.actionsRemaining++;
+            updateActionCounter();
         }
     }
 
@@ -1076,6 +1094,8 @@ public class GameBoardController {
 
                 moveButton.setSelected(false);
                 moveClicked(mouseEvent);
+                GameState.actionsRemaining++;
+                updateActionCounter();
             }
         }
         else if(shoreButton.isSelected()){
@@ -1086,6 +1106,8 @@ public class GameBoardController {
                 updateTiles();
                 shoreButton.setSelected(false);
                 shoreClicked(mouseEvent);
+                GameState.actionsRemaining++;
+                updateActionCounter();
             }
         }
     }

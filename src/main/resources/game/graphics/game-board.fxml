@@ -1150,8 +1150,8 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x811" />
                      </textFill>
                   </Label>
-                  <Circle fx:id="action1" fill="#a3be8c" layoutX="542.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="action2" fill="#a3be8c" layoutX="581.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action1" fill="#dd5454" layoutX="542.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action2" fill="#8ed055" layoutX="581.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fx:id="action3" fill="#a3be8c" layoutX="620.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <ToggleButton fx:id="moveButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#moveClicked" prefHeight="34.0" prefWidth="46.0" text="Move" />
                   <ToggleButton fx:id="shoreButton" layoutX="66.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Shore Up" />
