@@ -6,9 +6,9 @@ public class WinCondition
     private boolean win;
     public WinCondition(GameState g)
     {
-        if(g.checkWinning())
-            win= true;
-        else if(g.checkLosing())
+        if(g.checkWinning() == true)
+            win = true;
+        else if(g.checkWinning() == false)
             win = false;
     }
 
