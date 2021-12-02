@@ -1,30 +1,33 @@
-//package game.simulation.brains;
-//
-//import game.panel.DefeatPanel;
-//import game.panel.MenuPanel;
-//import game.panel.VictoryPanel;
-//import game.simulation.player.Player;
-//
-//public class WinCondition
-//{
-//    public boolean checkWinCondition()
-//    {
-//        return true;
-//    }
-//
-//    public void displayVictory()
-//    {
-//        if(checkWinCondition() == true)
-//        {
-//            VictoryPanel p = new VictoryPanel("Congratulations :)");
-//        }
-//    }
-//
-//    public void displayLose()
-//    {
-//        if(checkWinCondition() == false)
-//        {
-//            DefeatPanel d = new DefeatPanel("That's disappointing :(");
-//        }
-//    }
-//}
+package game.simulation.brains;
+import game.simulation.player.Player;
+
+public class WinCondition
+{
+    private boolean win;
+    public WinCondition(GameState g)
+    {
+        if(g.checkWinning())
+            win= true;
+        else if(g.checkLosing())
+            win = false;
+    }
+
+    public void displayWinOrLose()
+    {
+        if(win)
+        {
+            System.out.println("WINNER");
+        }
+
+        else if(!win)
+        {
+            System.out.println("LOSER");
+        }
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+}
+
+
