@@ -18,7 +18,8 @@ import java.util.List;
 public class GameState {
     public static int                       waterLevel;
     private TreasurePiece[]                 treasuresCollected;
-    public static int                      numPlayers;
+    public static int                       numPlayers;
+    public static int                       actionsRemaining;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
     public static HashMap<String,GameTile>  posMap;
@@ -128,7 +129,8 @@ public class GameState {
     public void simulate() {
         while(!gameFinished) {
             currentPlayer = nextTurn();
-            //while(currentPlayer.hasActionsRemaining()) {
+            while(currentPlayer.hasActionsRemaining()) {
+
                 //complete actions
                 ArrayList<String> cardsToAdd = new ArrayList<>();
                 if(cardDeck.isEmpty()) {
@@ -144,7 +146,7 @@ public class GameState {
                     tilesMap.get(floodDeck.peek()).setFlooded(true);
                     floodDiscard.push(floodDeck.pop());
                 }
-            //}
+            }
         }
         //if(currentPlayer.movePawn() || )
         //check winning after helicopter item is used
