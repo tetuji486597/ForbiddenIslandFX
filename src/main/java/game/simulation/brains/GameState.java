@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -23,7 +24,7 @@ public class GameState {
     public static int                       actionsRemaining;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
-    public static HashMap<String,GameTile>  posMap;
+    public static HashMap<String,GameTile> posMap;
     public static WaterLevelMeter           waterLevelMeter;
     public String[]                         allRoles;
     public static ArrayList<Player>         allPlayers;
@@ -33,16 +34,15 @@ public class GameState {
     private ArrayList<Card>                 currentDeck;
     public static Stack<String>             cardDeck;
     public static Stack<String>             discardPile;
-    public static Stack<String>             floodDiscard;
+    public static Stack<String> floodDiscard;
     public static Stack<String>             floodDeck;
     private ArrayList<GameTile>             moveableSpaces;
     public static String[]                  allTiles;
     public static int[][]                   pos;
-    Iterator<Player>                        playerIterator;
+    Iterator<Player> playerIterator;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
-
         //Tile Shuffle
         allTiles = new String[]{"MistyMarsh", "Observatory", "IronGate", "TidalPalace", "CrimsonForest",
                 "BreakersBridge", "CaveOfEmbers", "TwilightHollow", "DunesOfDeception",

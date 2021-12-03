@@ -16,7 +16,10 @@ import javafx.scene.shape.Circle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameBoardController {
 
@@ -853,8 +856,6 @@ public class GameBoardController {
 
             useHelicopter = false;
             useCardPlayer = -1;
-            GameState.actionsRemaining++;
-            updateActionCounter();
         }
     }
 
@@ -992,8 +993,6 @@ public class GameBoardController {
             updateCards();
             useSandbag = false;
             useCardPlayer = -1;
-            GameState.actionsRemaining++;
-            updateActionCounter();
         }
     }
 
