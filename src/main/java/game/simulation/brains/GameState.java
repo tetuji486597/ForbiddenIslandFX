@@ -24,7 +24,7 @@ public class GameState {
     public static int                       actionsRemaining;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
-    public static HashMap<String,GameTile> posMap;
+    public static HashMap<String,GameTile>  posMap;
     public static WaterLevelMeter           waterLevelMeter;
     public String[]                         allRoles;
     public static ArrayList<Player>         allPlayers;
@@ -34,7 +34,7 @@ public class GameState {
     private ArrayList<Card>                 currentDeck;
     public static Stack<String>             cardDeck;
     public static Stack<String>             discardPile;
-    public static Stack<String> floodDiscard;
+    public static Stack<String>             floodDiscard;
     public static Stack<String>             floodDeck;
     private ArrayList<GameTile>             moveableSpaces;
     public static String[]                  allTiles;
