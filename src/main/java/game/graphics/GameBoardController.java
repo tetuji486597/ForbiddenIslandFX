@@ -412,10 +412,10 @@ public class GameBoardController {
     private ToggleButton shoreButton;
 
     @FXML
-    private Button tradeButton;
+    private ToggleButton tradeButton;
 
     @FXML
-    private Button abilityButton;
+    private ToggleButton abilityButton;
 
     @FXML
     private Button cancelButton;
@@ -428,6 +428,21 @@ public class GameBoardController {
 
     @FXML
     private ImageView treasureDiscardImage;
+
+    @FXML
+    private Label choosePlayerText;
+
+    @FXML
+    private Label actionUsedText;
+
+    @FXML
+    private ImageView nextPlayer;
+
+    @FXML
+    private ImageView nextPlayer2;
+
+    @FXML
+    private ImageView nextPlayer3;
 
     @FXML
     public void initialize() throws FileNotFoundException {
@@ -471,6 +486,16 @@ public class GameBoardController {
         ToggleGroup toggleGroup = new ToggleGroup();
         moveButton.setToggleGroup(toggleGroup);
         shoreButton.setToggleGroup(toggleGroup);
+
+        actionUsedText.setTranslateY(42);
+        action1.setTranslateY(42);
+        action2.setTranslateY(42);
+        action3.setTranslateY(42);
+
+        choosePlayerText.setVisible(false);
+        nextPlayer.setVisible(false);
+        nextPlayer2.setVisible(false);
+        nextPlayer3.setVisible(false);
     }
 
     @FXML
@@ -510,6 +535,7 @@ public class GameBoardController {
             updateDiscard();
         }
 
+        checkNavigator();
 //        System.out.println(GameState.allPlayers.get(0).getStartingPos());
 //        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
 //        for(Player p: GameState.allPlayers){
@@ -529,6 +555,12 @@ public class GameBoardController {
         Player1Inv.setEffect(dropShadow);
         resetActionCounter();
 
+    }
+
+    void checkNavigator(){
+        if(GameState.currentPlayer.getRole().equals("Navigator")){
+            abilityButton.setVisible(true);
+        }
     }
 
     public void updateDiscard(){
@@ -624,7 +656,8 @@ public class GameBoardController {
         removePawns();
         GameState.currentPlayer.setActivePawn("move");
         drawPawns();
-        boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.currentPlayer.getPos());
+        boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+        System.out.println(Arrays.deepToString(moveableTiles));
         int i = 0;
         Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(int r = 0; r < moveableTiles.length; r++){
@@ -739,29 +772,49 @@ public class GameBoardController {
 
     @FXML
     void cancelUseCard(ActionEvent event){
-        removePawns();
-        if(GameState.currentPlayer.equals(GameState.allPlayers.get(useCardPlayer))) GameState.currentPlayer.setActivePawn("active");
-        GameState.allPlayers.get(useCardPlayer).setActivePawn("pawn");
-        drawPawns();
-        useCardPlayer = -1;
-        useHelicopter = false;
-        useSandbag = false;
-        ImageView[][] cards = {
-                {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
-                {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
-                {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
-                {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
-        };
-        for(int i = 0; i < cards.length; i++){
-            for(int j = 0; j < cards[i].length; j++){
-                cards[i][j].setEffect(null);
+        if(useButton.isSelected()) {
+            removePawns();
+            if (GameState.currentPlayer.equals(GameState.allPlayers.get(useCardPlayer)))
+                GameState.currentPlayer.setActivePawn("active");
+            GameState.allPlayers.get(useCardPlayer).setActivePawn("pawn");
+            drawPawns();
+            useCardPlayer = -1;
+            useHelicopter = false;
+            useSandbag = false;
+            ImageView[][] cards = {
+                    {Player1Card1, Player1Card2, Player1Card3, Player1Card4, Player1Card5},
+                    {Player2Card1, Player2Card2, Player2Card3, Player2Card4, Player2Card5},
+                    {Player3Card1, Player3Card2, Player3Card3, Player3Card4, Player3Card5},
+                    {Player4Card1, Player4Card2, Player4Card3, Player4Card4, Player4Card5}
+            };
+            for (int i = 0; i < cards.length; i++) {
+                for (int j = 0; j < cards[i].length; j++) {
+                    cards[i][j].setEffect(null);
+                }
             }
+            ImageView[] imageViews = new ImageView[]{r0c21, r0c31, r1c11, r1c21, r1c31, r1c41, r2c01, r2c11, r2c21, r2c31, r2c41, r2c51, r3c01, r3c11, r3c21, r3c31, r3c41, r3c51, r4c11, r4c21, r4c31, r4c41, r5c21, r5c31};
+            for (ImageView iv : imageViews) {
+                iv.setImage(null);
+            }
+            cancelButton.setVisible(false);
         }
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
-        for(ImageView iv : imageViews){
-            iv.setImage(null);
+        else if(abilityButton.isSelected()){
+            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            navigatorPawnChoosen = false;
+
+            for(ImageView im : imageViews){
+                im.setImage(null);
+            }
+            for(ImageView p: playerPawns){
+                p.setEffect(null);
+            }
+            removePawns();
+            navigatorChoosenPlayer.setActivePawn("pawn");
+            drawPawns();
+            navigatorChoosenPlayer = null;
+            cancelButton.setVisible(false);
         }
-        cancelButton.setVisible(false);
     }
 
     public void useHelicopterLift(int[] pos) throws FileNotFoundException {
@@ -816,6 +869,98 @@ public class GameBoardController {
         Circle[] circles = {action1,action2,action3};
         for(int i = 0; i < 3; i++){
             circles[i].setFill(Color.rgb(221,84,84));
+        }
+    }
+
+    public void abilityButtonClicked(MouseEvent mouseEvent) {
+        if(abilityButton.isSelected()){
+            actionUsedText.setTranslateY(-21);
+            action1.setTranslateY(-21);
+            action2.setTranslateY(-21);
+            action3.setTranslateY(-21);
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            choosePlayerText.setVisible(true);
+
+            Player players[] = new Player[GameState.numPlayers -1];
+            int index = 0;
+            for(int i = 0; i < GameState.numPlayers; i++){
+                if(GameState.allPlayers.get(i).equals(GameState.currentPlayer)) System.out.println(i);
+                else {
+                    System.out.println(i);
+                    players[index] = GameState.allPlayers.get(i);
+                    index++;
+                }
+            }
+
+            for(int i = 0; i < players.length; i++){
+                playerPawns[i].setVisible(true);
+                playerPawns[i].setImage(players[i].getPawn());
+            }
+
+        }else{
+            actionUsedText.setTranslateY(42);
+            action1.setTranslateY(42);
+            action2.setTranslateY(42);
+            action3.setTranslateY(42);
+            cancelButton.setVisible(false);
+
+            choosePlayerText.setVisible(false);
+            nextPlayer.setVisible(false);
+            nextPlayer2.setVisible(false);
+            nextPlayer3.setVisible(false);
+
+            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            for(ImageView im: imageViews){
+                im.setImage(null);
+            }
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            for(ImageView p: playerPawns){
+                p.setEffect(null);
+            }
+
+        }
+    }
+
+    private boolean navigatorPawnChoosen;
+    private Player navigatorChoosenPlayer;
+    void navigatorPawnChosen(int x) throws FileNotFoundException {
+        if(abilityButton.isSelected() && !navigatorPawnChoosen){
+            navigatorPawnChoosen = true;
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            DropShadow highlight = new DropShadow();
+            highlight.setColor(Color.YELLOW);
+            playerPawns[x].setEffect(highlight);
+            Player players[] = new Player[GameState.numPlayers -1];
+            int index = 0;
+            for(int i = 0; i < GameState.numPlayers; i++){
+                if(GameState.allPlayers.get(i).equals(GameState.currentPlayer)) continue;
+                else {
+                    players[index] = GameState.allPlayers.get(i);
+                    index++;
+                }
+            }
+            navigatorChoosenPlayer = players[x];
+            removePawns();
+            navigatorChoosenPlayer.setActivePawn("move");
+            drawPawns();
+
+            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            boolean navigableTiles[][] = players[x].getNavigableTile();
+            int iu = 0;
+            Image imagee = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+            for(int r = 0; r < 6; r++){
+                for(int c = 0; c < 6; c++){
+                    if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                    else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                    else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                    else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                    else if(navigableTiles[r][c] == true){
+                        imageViews[iu].setImage(imagee);
+                        iu++;
+                    }else iu++;
+                }
+            }
+            cancelButton.setVisible(true);
         }
     }
 
@@ -1078,6 +1223,21 @@ public class GameBoardController {
         }catch (FileNotFoundException ignored){}
     }
 
+
+
+    public void nextPlayerClicked(MouseEvent mouseEvent) throws FileNotFoundException {
+        System.out.println("Player 1 Clicked");
+        navigatorPawnChosen(0);
+    }
+    public void nextPlayer2Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
+        System.out.println("Player 2 Clicked");
+        navigatorPawnChosen(1);
+    }
+    public void nextPlayer3Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
+        System.out.println("Player 3 Clicked");
+        navigatorPawnChosen(2);
+    }
+
     public void movePawn(int[] pos, MouseEvent mouseEvent) throws FileNotFoundException {
         if(useSandbag) useSandbag(pos);
         else if(useHelicopter) useHelicopterLift(pos);
@@ -1106,6 +1266,27 @@ public class GameBoardController {
                 updateTiles();
                 shoreButton.setSelected(false);
                 shoreClicked(mouseEvent);
+                GameState.actionsRemaining++;
+                updateActionCounter();
+            }
+        }
+        else if(abilityButton.isSelected()){
+            if(navigatorPawnChoosen){
+
+                ImageView pawn = navigatorChoosenPlayer.getCurrentPawn();
+                navigatorChoosenPlayer.setPosition(pos);
+
+                navigatorChoosenPlayer.getCurrentTile().getChildren().remove(pawn);
+                navigatorChoosenPlayer.setCurrentTile(gridMap.get(Arrays.toString(pos)));
+                navigatorChoosenPlayer.getCurrentTile().add(pawn,GameState.currentPlayer.getIndex(),0,1,1);
+
+                removePawns();
+                navigatorChoosenPlayer.setActivePawn("pawn");
+                drawPawns();
+
+                navigatorPawnChoosen = false;
+                abilityButton.setSelected(false);
+                abilityButtonClicked(mouseEvent);
                 GameState.actionsRemaining++;
                 updateActionCounter();
             }

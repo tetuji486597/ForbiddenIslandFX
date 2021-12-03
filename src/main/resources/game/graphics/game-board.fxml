@@ -32,15 +32,32 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
+<VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -146,7 +163,7 @@
                                  </image></ImageView>
                               <Label fx:id="player1Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 1" textAlignment="CENTER" textFill="#8f8f8f" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="18.0" fx:id="x12" />
+                                    <Font size="17.0" fx:id="x12" />
                                  </font>
                               </Label>
                            </children>
@@ -191,7 +208,7 @@
                                  </image></ImageView>
                               <Label fx:id="player2Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 2" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="18.0" fx:id="x121" />
+                                    <Font size="17.0" fx:id="x121" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x221" />
@@ -239,7 +256,7 @@
                                  </image></ImageView>
                               <Label fx:id="player3Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 3" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="18.0" fx:id="x122" />
+                                    <Font size="17.0" fx:id="x122" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x222" />
@@ -287,7 +304,7 @@
                                  </image></ImageView>
                               <Label fx:id="player4Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 4" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="18.0" fx:id="x123" />
+                                    <Font size="17.0" fx:id="x123" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x223" />
@@ -1103,7 +1120,7 @@
         </HBox>
         <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="165.0" prefWidth="1350.0" spacing="5.0" VBox.vgrow="NEVER">
             <children>
-                <Pane prefHeight="191.0" prefWidth="1369.0" HBox.hgrow="ALWAYS">
+                <Pane prefHeight="280.0" prefWidth="1369.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Actions" textAlignment="CENTER" wrapText="false">
                      <font>
@@ -1140,9 +1157,7 @@
                         <Button fx:id="settingsButton" layoutX="305.0" layoutY="104.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" />
                      </children>
                   </Pane>
-                  <Button fx:id="tradeButton" layoutX="150.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="59.0" text="Trade" />
-                  <Button fx:id="retrieveButton" layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
-                  <Label alignment="CENTER" layoutX="529.0" layoutY="62.0" style="&#10;" text="Actions Used:" textAlignment="CENTER" wrapText="false">
+                  <Label fx:id="actionUsedText" layoutX="529.0" layoutY="32.0" prefHeight="19.0" prefWidth="80.0" style="&#10;" text="Actions Used:" textAlignment="CENTER" wrapText="false">
                      <font>
                         <Font size="13.0" fx:id="x711" />
                      </font>
@@ -1150,14 +1165,39 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x811" />
                      </textFill>
                   </Label>
-                  <Circle fx:id="action1" fill="#dd5454" layoutX="542.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="action2" fill="#8ed055" layoutX="581.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="action3" fill="#a3be8c" layoutX="620.0" layoutY="104.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Button fx:id="retrieveButton" layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
+                  <Circle fx:id="action1" fill="#dd5454" layoutX="542.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action2" fill="#dd5454" layoutX="581.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="action3" fill="#dd5454" layoutX="620.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <ToggleButton fx:id="moveButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#moveClicked" prefHeight="34.0" prefWidth="46.0" text="Move" />
                   <ToggleButton fx:id="shoreButton" layoutX="66.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Shore Up" />
                   <ToggleButton fx:id="useButton" layoutX="215.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="78.0" text="Use Item" />
                   <Button fx:id="cancelButton" layoutX="225.0" layoutY="142.0" mnemonicParsing="false" onAction="#cancelUseCard" prefHeight="34.0" prefWidth="59.0" text="Cancel" visible="false" />
-                  <Button fx:id="abilityButton" layoutX="415.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelUseCard" prefHeight="34.0" prefWidth="59.0" text="Ability" visible="false" />
+                  <Label fx:id="choosePlayerText" layoutX="529.0" layoutY="100.0" prefHeight="19.0" prefWidth="130.0" style="&#10;" text="Choose a Player:" textAlignment="CENTER" wrapText="false">
+                     <font>
+                        <Font size="13.0" fx:id="x7111" />
+                     </font>
+                     <textFill>
+                        <Color red="0.624" green="0.624" blue="0.624" fx:id="x8111" />
+                     </textFill>
+                  </Label>
+                  <ImageView fx:id="nextPlayer" fitHeight="94.0" fitWidth="46.0" layoutX="529.0" layoutY="120.0" onMouseClicked="#nextPlayerClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/Pawns/Diver_Adventurer_Icon@2x.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="nextPlayer2" fitHeight="94.0" fitWidth="46.0" layoutX="575.0" layoutY="120.0" onMouseClicked="#nextPlayer2Clicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/Pawns/Diver_Adventurer_Icon@2x.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="nextPlayer3" fitHeight="94.0" fitWidth="46.0" layoutX="621.0" layoutY="120.0" onMouseClicked="#nextPlayer3Clicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/Pawns/Diver_Adventurer_Icon@2x.png" />
+                     </image>
+                  </ImageView>
+                  <ToggleButton fx:id="abilityButton" layoutX="415.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#abilityButtonClicked" prefHeight="34.0" prefWidth="59.0" text="Ability" />
+                  <ToggleButton fx:id="tradeButton" layoutX="150.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="59.0" text="Trade" />
                </children></Pane>
             </children>
             <padding>

@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 //
 public class GameState {
@@ -74,10 +75,10 @@ public class GameState {
         waterLevelMeter = new WaterLevelMeter(difficulty);
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-//        allRoles = new String[]{"Explorer", "Navigator", "Messenger", "Engineer"};
-        List<String> roleShuffle = Arrays.asList(allRoles);
-        Collections.shuffle(roleShuffle);
-        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+        allRoles = new String[]{"Navigator", "Explorer", "Messenger", "Engineer"};
+//        List<String> roleShuffle = Arrays.asList(allRoles);
+//        Collections.shuffle(roleShuffle);
+//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -124,11 +125,14 @@ public class GameState {
         currentPlayer = allPlayers.get(0);
         currentPlayer.setActivePawn("active");
 
+
+
     }
 
     public void simulate() {
         while(!gameFinished) {
             currentPlayer = nextTurn();
+            currentPlayer.setActivePawn("active");
             while(currentPlayer.hasActionsRemaining()) {
 
                 //complete actions

@@ -32,6 +32,7 @@ public class Player
     private Image               movePawn;
     private GridPane            currentTile;
     private boolean[][]         shoreableTiles;
+    private boolean[][]         navigableTiles;
 
     public Player(String role, ArrayList<String> startingDeck) throws FileNotFoundException {
         playerDeck = startingDeck;
@@ -244,6 +245,44 @@ public class Player
         }
     }
 
+    public boolean[][] getNavigableTile(){
+        navigableTiles = new boolean[6][6];
+        int[] pos = getPos();
+        int r = pos[0], c = pos[1];
+        try{ checkNavigableSurroundings(r-1,c);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try{ checkNavigableSurroundings(r+1,c);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try{ checkNavigableSurroundings(r,c-1);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try{ checkNavigableSurroundings(r,c+1);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try{ checkNavigableSurroundings(r,c);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        return navigableTiles;
+    }
+
+    public void checkNavigableSurroundings(int r, int c){
+        try {checkNaviagableTile(r-1,c);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try {checkNaviagableTile(r+1,c);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try {checkNaviagableTile(r,c-1);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+        try {checkNaviagableTile(r,c+1);
+        }catch (ArrayIndexOutOfBoundsException ignored){}
+    }
+
+    public void checkNaviagableTile(int r, int c) {
+        char[][] board = GameState.getCurrentState();
+        if (board[r][c] == 'O')
+            navigableTiles[r][c] = true;
+        else if (board[r][c] == 'F')
+            navigableTiles[r][c] = true;
+        else if (board[r][c] == 'S')
+            navigableTiles[r][c] = false;
+    }
+
     public boolean getRetrievable(Player retriever, String treasure){
         ArrayList<String> deck = retriever.getDeck();
         int i = 0;
@@ -296,7 +335,7 @@ public class Player
     public boolean shoreUp(int[] pos)
     {
         boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPosition())));
-        if(shore[pos[0]][pos[1]] == true)
+        if(shore[pos[0]][pos[1]] && GameState.posMap.get(Arrays.toString(pos)).getFloodState())
             return true;
         else
             return false;
@@ -337,8 +376,10 @@ public class Player
     }
 
     public boolean hasActionsRemaining(){
-        if(GameState.actionsRemaining != 0){
+        if(GameState.actionsRemaining == 3){
+            GameState.actionsRemaining = 0;
             return true;
+
         }
         else return false;
     }
