@@ -888,7 +888,7 @@ public class GameBoardController {
 
     void updateActionCounter(){
         Circle[] circles = {action1,action2,action3};
-        for(int i = 0; i < GameState.actionsRemaining; i++){
+        for(int i = 0; i < GameState.currentPlayer.getMoveNumber(); i++){
             circles[i].setFill(Color.rgb(142,208,85));
         }
     }
@@ -1287,7 +1287,7 @@ public class GameBoardController {
 
                 moveButton.setSelected(false);
                 moveClicked(mouseEvent);
-                GameState.actionsRemaining++;
+                //GameState.actionsRemaining++;
                 updateActionCounter();
             }
         }
@@ -1299,7 +1299,7 @@ public class GameBoardController {
                 updateTiles();
                 shoreButton.setSelected(false);
                 shoreClicked(mouseEvent);
-                GameState.actionsRemaining++;
+                //GameState.actionsRemaining++;
                 updateActionCounter();
             }
         }
@@ -1322,7 +1322,7 @@ public class GameBoardController {
                 navigatorPawnChoosen = false;
                 abilityButton.setSelected(false);
                 abilityButtonClicked(mouseEvent);
-                GameState.actionsRemaining++;
+                //GameState.actionsRemaining++;
                 updateActionCounter();
             }
         }
