@@ -21,7 +21,7 @@ public class GameState {
     public static int                       waterLevel;
     private TreasurePiece[]                 treasuresCollected;
     public static int                       numPlayers;
-    public static int                       actionsRemaining;
+    public static int                       actionsUsed;
     public static GameTile[]                tiles;
     public static HashMap<String,GameTile>  tilesMap;
     public static HashMap<String,GameTile>  posMap;
@@ -130,36 +130,39 @@ public class GameState {
     }
 
     public void simulate() {
-        while(!gameFinished) {
-            currentPlayer = nextTurn();
-            currentPlayer.setActivePawn("active");
-            while(currentPlayer.hasActionsRemaining()) {
 
-                //complete actions
-                ArrayList<String> cardsToAdd = new ArrayList<>();
-                if(cardDeck.isEmpty()) {
-                    while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
-                }
-                cardsToAdd.add(discardPile.push(cardDeck.pop()));
-                cardsToAdd.add(discardPile.push(cardDeck.pop()));
-                currentPlayer.addCards(cardsToAdd);
-                if(floodDeck.isEmpty()) {
-                    while(!floodDiscard.isEmpty()) floodDeck.push(floodDeck.pop());
-                }
-                for(int i = 0; i < waterLevelMeter.getNumCards(); i++) {
-                    tilesMap.get(floodDeck.peek()).setFlooded(true);
-                    floodDiscard.push(floodDeck.pop());
-                }
-            }
-        }
-        //if(currentPlayer.movePawn() || )
-        //check winning after helicopter item is used
         int count = 0;
         for(Player p : allPlayers)
             if(posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
         if(count == numPlayers)  {
             //show winning panel
             gameFinished = true;
+        }
+    }
+
+    public void addCards() {
+        ArrayList<String> cardsToAdd = new ArrayList<>();
+        if(cardDeck.isEmpty()) {
+            Collections.shuffle(discardPile);
+            while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
+        }
+        cardsToAdd.add(discardPile.push(cardDeck.pop()));
+        cardsToAdd.add(discardPile.push(cardDeck.pop()));
+        currentPlayer.addCards(cardsToAdd);
+        if(currentPlayer.getMoveNumber() == 3) {
+            currentPlayer = nextTurn();
+            currentPlayer.setMoveNumber(0);
+        }
+    }
+
+    public void floodTiles() {
+        if(floodDeck.isEmpty()) {
+            Collections.shuffle(floodDiscard);
+            while(!floodDiscard.isEmpty()) floodDeck.push(floodDeck.pop());
+        }
+        for(int i = 0; i < waterLevelMeter.getNumCards(); i++) {
+            tilesMap.get(floodDeck.peek()).setFlooded(true);
+            floodDiscard.push(floodDeck.pop());
         }
     }
 

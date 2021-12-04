@@ -78,6 +78,7 @@ public class Navigator extends Player{
         if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
+            setMoveNumber(moveNumber+1);
         }
     }
 

@@ -21,7 +21,7 @@ public class Player
     private ArrayList<String>   playerDeck;
     private boolean             deckFilled, hasSunk;
     private String              role;
-    private int                 moveNumber;
+    public int                 moveNumber;
     private int[]               position;
     private int[]               startingPos;
     private int                 index;
@@ -240,6 +240,7 @@ public class Player
             {
                 sen.remove(card);
                 rec.add(card);
+                setMoveNumber(moveNumber+1);
                 break;
             }
         }
@@ -335,9 +336,10 @@ public class Player
     public boolean shoreUp(int[] pos)
     {
         boolean[][] shore = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPosition())));
-        if(shore[pos[0]][pos[1]] && GameState.posMap.get(Arrays.toString(pos)).getFloodState())
+        if(shore[pos[0]][pos[1]] && GameState.posMap.get(Arrays.toString(pos)).getFloodState()) {
+            setMoveNumber(moveNumber+1);
             return true;
-        else
+        } else
             return false;
     }
 
@@ -346,6 +348,7 @@ public class Player
         boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPosition())));
 
         if(move[pos[0]][pos[1]]){
+            setMoveNumber(moveNumber+1);
              return true;
         }
         else
@@ -375,12 +378,4 @@ public class Player
         for(String card: cardsToAdd) playerDeck.add(card);
     }
 
-    public boolean hasActionsRemaining(){
-        if(GameState.actionsRemaining == 3){
-            GameState.actionsRemaining = 0;
-            return true;
-
-        }
-        else return false;
-    }
 }

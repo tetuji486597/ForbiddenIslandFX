@@ -76,6 +76,7 @@ public class Pilot extends Player{
         moveTo = coords;
         if(moveableTiles[moveTo[0]][moveTo[1]] )
         {
+            setMoveNumber(moveNumber+1);
             p.updatePosition(moveTo);
         }
     }
@@ -85,6 +86,7 @@ public class Pilot extends Player{
         int[] tilePos = tile.getPosition();
         if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
+            setMoveNumber(moveNumber+1);
             tile.setFlooded(false);
         }
     }

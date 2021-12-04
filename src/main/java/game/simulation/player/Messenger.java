@@ -69,6 +69,7 @@ public class Messenger extends Player{
         if((p.getPosition() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
+            setMoveNumber(moveNumber+1);
         }
     }
 

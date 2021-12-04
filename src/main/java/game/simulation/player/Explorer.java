@@ -86,6 +86,7 @@ public class Explorer extends Player
         if(moveableTiles[moveTo[0]][moveTo[1]] && tile.isGone() == false)
         {
             p.updatePosition(moveTo);
+            setMoveNumber(moveNumber+1);
         }
     }
 
@@ -95,6 +96,7 @@ public class Explorer extends Player
         if((p.getPos() == tilePos || moveableTiles[tilePos[0]][tilePos[1]]) && tile.getFloodState() == true)
         {
             tile.setFlooded(false);
+            setMoveNumber(moveNumber+1);
         }
     }
 
