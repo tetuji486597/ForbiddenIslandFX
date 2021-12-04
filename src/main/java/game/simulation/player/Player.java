@@ -43,45 +43,45 @@ public class Player
         position = new int[2];
         switch (role){
             case "Diver":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Diver_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("IronGate").getPosition();
                 break;
             case "Engineer":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Engineer_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_active@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("BronzeGate").getPosition();
                 break;
             case "Explorer":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Explorer_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("CopperGate").getPosition();
                 break;
             case "Messenger":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Messenger_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("SilverGate").getPosition();
                 break;
             case "Navigator":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Navigator_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("GoldGate").getPosition();
                 break;
             case "Pilot":
-                pawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("src/main/resources/Images/Pawns/Pilot_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon@2x.png"));
+                activePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("FoolsLanding").getPosition();
                 break;
         }

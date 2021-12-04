@@ -450,10 +450,7 @@ public class GameBoardController {
     @FXML
     public void initialize() throws FileNotFoundException {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
-        for(ImageView im : imageViews) {
-            im.setImage(null);
-        }
+        waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         playerCards = Map.ofEntries(
                 Map.entry(1,new ImageView[]{Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5}),
@@ -580,6 +577,8 @@ public class GameBoardController {
         for(Player p: GameState.allPlayers){
             try {
                 ImageView pawn = p.getCurrentPawn();
+                pawn.setFitWidth(34);
+                pawn.setFitHeight(50);
                 p.getCurrentTile().getChildren().remove(pawn);
                 p.getCurrentTile().getChildren().removeAll();
             }catch (NullPointerException ex){
@@ -588,6 +587,8 @@ public class GameBoardController {
         }
         for(Player p: GameState.allPlayers){
             ImageView pawn = p.getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
             p.setCurrentTile(gridMap.get(Arrays.toString(p.getStartingPos())));
             p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
@@ -605,6 +606,8 @@ public class GameBoardController {
         for(Player p: GameState.allPlayers){
             try {
                 ImageView pawn = p.getCurrentPawn();
+                pawn.setFitWidth(34);
+                pawn.setFitHeight(50);
                 p.getCurrentTile().getChildren().remove(pawn);
             }catch (NullPointerException ex){
                 System.out.println("null");
@@ -615,6 +618,8 @@ public class GameBoardController {
     void drawPawns(){
         for(Player p: GameState.allPlayers){
             ImageView pawn = p.getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
             p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
         }
     }
@@ -623,7 +628,7 @@ public class GameBoardController {
         for(int i = 0; i < GameState.numPlayers; i++){
             ImageView[] imageviewdeck = playerCards.get(i+1);
             for(int j = 0; j < 5; j++){
-                imageviewdeck[j].setImage(new Image(new FileInputStream("src/main/resources/Images/TreasureCards/Pressed.png")));
+                imageviewdeck[j].setImage(new Image(new FileInputStream("/Images/TreasureCards/Pressed.png")));
             }
         }
         for(int i = 0; i < GameState.numPlayers; i++){
@@ -646,9 +651,9 @@ public class GameBoardController {
     }
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         for (ImageView im : imageViews)
-            im.setImage(null);
+            im.setEffect(null);
         if(!moveButton.isSelected()) {
             removePawns();
             GameState.currentPlayer.setActivePawn("active");
@@ -662,7 +667,12 @@ public class GameBoardController {
         boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
         System.out.println(Arrays.deepToString(moveableTiles));
         int i = 0;
-        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setHeight(5.0);
+        dropShadow.setColor(Color.GREENYELLOW);
+        dropShadow.setWidth(5.0);
+        dropShadow.setSpread(1.0);
+        Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(int r = 0; r < moveableTiles.length; r++){
             for(int c = 0; c < moveableTiles[r].length; c++){
                 if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -670,7 +680,7 @@ public class GameBoardController {
                 else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                 else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                 else if(moveableTiles[r][c]) {
-                    imageViews[i].setImage(image);
+                    imageViews[i].setEffect(dropShadow);
                     i++;
                 }
                 else i++;
@@ -679,15 +689,20 @@ public class GameBoardController {
     }
 
     public void shoreClicked(MouseEvent mouseEvent) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         for (ImageView im : imageViews)
-            im.setImage(null);
+            im.setEffect(null);
         if(!shoreButton.isSelected()) {
             return;
         }
-        Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+        Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
         boolean[][] shoreableTiles = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
         int i = 0;
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setHeight(5.0);
+        dropShadow.setColor(Color.YELLOW);
+        dropShadow.setWidth(5.0);
+        dropShadow.setSpread(1.0);
         for(int r = 0; r < shoreableTiles.length; r++){
             for(int c = 0; c < shoreableTiles[r].length; c++){
                 if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -695,7 +710,7 @@ public class GameBoardController {
                 else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                 else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                 else if(shoreableTiles[r][c]) {
-                    imageViews[i].setImage(image);
+                    imageViews[i].setEffect(dropShadow);
                     i++;
                 }
                 else i++;
@@ -707,7 +722,7 @@ public class GameBoardController {
     private int useCardPlayer;
 
     public void cardClicked(int player, int card) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         String[] tiles = new String[]{"[0, 2]","[0, 3]","[1, 1]","[1, 2]","[1, 3]","[1, 4]","[2, 0]","[2, 1]","[2, 2]","[2, 3]","[2, 4]","[2, 5]","[3, 0]","[3, 1]","[3, 2]","[3, 3]","[3, 4]","[3, 5]","[4, 1]","[4, 2]","[4, 3]","[4, 4]","[5, 2]","[5, 3]"};
         ImageView[][] cards = {
                 {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
@@ -721,10 +736,15 @@ public class GameBoardController {
         else{
             switch (GameState.allPlayers.get(player-1).getDeck().get(card-1)){
                 case "Sandbag":
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setHeight(5.0);
+                    dropShadow.setColor(Color.YELLOW);
+                    dropShadow.setWidth(5.0);
+                    dropShadow.setSpread(1.0);
                     cancelButton.setVisible(true);
                     useSandbag = true;
                     cards[player-1][card-1].setEffect(highlight);
-                    Image image = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+                    Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
                     char[][] shoreableTiles = GameState.getCurrentState();
                     int i = 0;
                     for(int r = 0; r < shoreableTiles.length; r++){
@@ -734,7 +754,7 @@ public class GameBoardController {
                             else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                             else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                             else if(shoreableTiles[r][c] == 'F') {
-                                imageViews[i].setImage(image);
+                                imageViews[i].setEffect(dropShadow);
                             }
                             i++;
                         }
@@ -742,6 +762,11 @@ public class GameBoardController {
                     useCardPlayer = player-1;
                     break;
                 case "HelicopterLift":
+                    DropShadow dropShadow1 = new DropShadow();
+                    dropShadow1.setHeight(5.0);
+                    dropShadow1.setColor(Color.GREEN);
+                    dropShadow1.setWidth(5.0);
+                    dropShadow1.setSpread(1.0);
                     cancelButton.setVisible(true);
                     useHelicopter = true;
                     cards[player-1][card-1].setEffect(highlight);
@@ -751,7 +776,7 @@ public class GameBoardController {
                     removePawns();
                     GameState.allPlayers.get(player-1).setActivePawn("move");
                     drawPawns();
-                    Image imagee = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+                    Image imagee = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
                     for(int r = 0; r < 6; r++){
                         for(int c = 0; c < 6; c++){
                             if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -760,7 +785,7 @@ public class GameBoardController {
                             else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                             else if(tiles[iu].equals(Arrays.toString(pos))) iu++;
                             else {
-                                imageViews[iu].setImage(imagee);
+                                imageViews[iu].setEffect(dropShadow1);
                                 iu++;
                             }
                         }
@@ -795,19 +820,19 @@ public class GameBoardController {
                     cards[i][j].setEffect(null);
                 }
             }
-            ImageView[] imageViews = new ImageView[]{r0c21, r0c31, r1c11, r1c21, r1c31, r1c41, r2c01, r2c11, r2c21, r2c31, r2c41, r2c51, r3c01, r3c11, r3c21, r3c31, r3c41, r3c51, r4c11, r4c21, r4c31, r4c41, r5c21, r5c31};
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
             for (ImageView iv : imageViews) {
-                iv.setImage(null);
+                iv.setEffect(null);
             }
             cancelButton.setVisible(false);
         }
         else if(abilityButton.isSelected()){
-            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
             ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
             navigatorPawnChoosen = false;
 
             for(ImageView im : imageViews){
-                im.setImage(null);
+                im.setEffect(null);
             }
             for(ImageView p: playerPawns){
                 p.setEffect(null);
@@ -821,7 +846,7 @@ public class GameBoardController {
     }
 
     public void useHelicopterLift(int[] pos) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         if(useHelicopter){
             GameState.allPlayers.get(useCardPlayer).setPosition(pos);
             removePawns();
@@ -829,12 +854,14 @@ public class GameBoardController {
             GameState.allPlayers.get(useCardPlayer).setActivePawn("pawn");
             drawPawns();
             ImageView pawn = GameState.allPlayers.get(useCardPlayer).getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
             GameState.allPlayers.get(useCardPlayer).getCurrentTile().getChildren().remove(pawn);
             GameState.allPlayers.get(useCardPlayer).setCurrentTile(gridMap.get(Arrays.toString(pos)));
             GameState.allPlayers.get(useCardPlayer).getCurrentTile().add(pawn,GameState.allPlayers.get(useCardPlayer).getIndex(),0,1,1);
 
             for (ImageView im : imageViews)
-                im.setImage(null);
+                im.setEffect(null);
             useButton.setSelected(false);
             cancelButton.setVisible(false);
 
@@ -910,9 +937,9 @@ public class GameBoardController {
             nextPlayer2.setVisible(false);
             nextPlayer3.setVisible(false);
 
-            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
             for(ImageView im: imageViews){
-                im.setImage(null);
+                im.setEffect(null);
             }
             ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
             for(ImageView p: playerPawns){
@@ -945,10 +972,15 @@ public class GameBoardController {
             navigatorChoosenPlayer.setActivePawn("move");
             drawPawns();
 
-            ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setHeight(5.0);
+            dropShadow.setColor(Color.GREEN);
+            dropShadow.setWidth(5.0);
+            dropShadow.setSpread(1.0);
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
             boolean navigableTiles[][] = players[x].getNavigableTile();
             int iu = 0;
-            Image imagee = new Image(new FileInputStream("src/main/resources/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+            Image imagee = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
             for(int r = 0; r < 6; r++){
                 for(int c = 0; c < 6; c++){
                     if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -956,7 +988,7 @@ public class GameBoardController {
                     else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
                     else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
                     else if(navigableTiles[r][c] == true){
-                        imageViews[iu].setImage(imagee);
+                        imageViews[iu].setEffect(dropShadow);
                         iu++;
                     }else iu++;
                 }
@@ -966,13 +998,13 @@ public class GameBoardController {
     }
 
     public void useSandbag(int pos[]) throws FileNotFoundException {
-        ImageView[] imageViews = new ImageView[]{r0c21,r0c31,r1c11,r1c21,r1c31,r1c41,r2c01,r2c11,r2c21,r2c31,r2c41,r2c51,r3c01,r3c11,r3c21,r3c31,r3c41,r3c51,r4c11,r4c21,r4c31,r4c41,r5c21,r5c31};
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         if(useSandbag){
             GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
             updateTiles();
 
             for (ImageView im : imageViews)
-                im.setImage(null);
+                im.setEffect(null);
             useButton.setSelected(false);
             cancelButton.setVisible(false);
 
@@ -1245,6 +1277,8 @@ public class GameBoardController {
             System.out.println(move[pos[0]][pos[1]]);
             if(GameState.currentPlayer.movePawn(pos)){
                 ImageView pawn = GameState.currentPlayer.getCurrentPawn();
+                pawn.setFitWidth(34);
+                pawn.setFitHeight(50);
                 GameState.currentPlayer.setPosition(pos);
 
                 GameState.currentPlayer.getCurrentTile().getChildren().remove(pawn);
@@ -1273,6 +1307,8 @@ public class GameBoardController {
             if(navigatorPawnChoosen){
 
                 ImageView pawn = navigatorChoosenPlayer.getCurrentPawn();
+                pawn.setFitWidth(34);
+                pawn.setFitHeight(50);
                 navigatorChoosenPlayer.setPosition(pos);
 
                 navigatorChoosenPlayer.getCurrentTile().getChildren().remove(pawn);
