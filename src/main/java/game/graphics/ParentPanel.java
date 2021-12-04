@@ -6,6 +6,7 @@ public class ParentPanel {
     static Stage menuPanel;
     static Stage helpPanel;
     static Stage gamePanel;
+    static Stage victoryPanel;
 
     public static void setMenuPanel(Stage s){
         menuPanel = s;
@@ -17,5 +18,8 @@ public class ParentPanel {
 
     public static void setHelpPanel(Stage s){
         helpPanel = s;
+    }
+    public static void setVictoryPanel(Stage s) {
+        victoryPanel = s;
     }
 }

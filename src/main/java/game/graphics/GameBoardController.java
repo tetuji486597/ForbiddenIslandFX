@@ -4,6 +4,8 @@ import game.simulation.brains.*;
 import game.simulation.player.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -13,9 +15,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -847,6 +851,24 @@ public class GameBoardController {
 
     public void useHelicopterLift(int[] pos) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        int count = 0;
+        for(Player p : GameState.allPlayers)
+            if(GameState.posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
+        if(count == GameState.numPlayers)  {
+            Stage win = new Stage();
+            FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("victcory.fxml"));
+            win.setTitle("Congratulations");
+            Scene winScene = null;
+            try {
+                winScene = new Scene(menuLoader.load(), 600, 800);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            win.setScene(winScene);
+            win.setResizable(false);
+            winScene.getStylesheets().add("moderna-darl.css");
+            ParentPanel.setVictoryPanel(win);
+        }
         if(useHelicopter){
             GameState.allPlayers.get(useCardPlayer).setPosition(pos);
             removePawns();
