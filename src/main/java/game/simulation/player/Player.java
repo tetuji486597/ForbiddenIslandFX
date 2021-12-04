@@ -284,21 +284,38 @@ public class Player
             navigableTiles[r][c] = false;
     }
 
-    public boolean getRetrievable(Player retriever, String treasure){
-        ArrayList<String> deck = retriever.getDeck();
-        int i = 0;
+    public String getRetrievable(){
+        int CrystalOfFire = 0;
+        int StatueOfWind = 0;
+        int OceansChalice = 0;
+        int EarthStone = 0;
+        ArrayList<String> deck = getDeck();
         for(String card: deck){
-            if(card.equals(treasure)){
-                i++;
+            switch (card) {
+                case "CrystalOfFire" -> CrystalOfFire++;
+                case "StatueOfWind" -> StatueOfWind++;
+                case "OceansChalice" -> OceansChalice++;
+                case "EarthStone" -> EarthStone++;
             }
         }
-        if(i == 4){
-            return true;
-        }
-        return false;
-
+        if(CrystalOfFire == 4) return "CrystalOfFire";
+        if(StatueOfWind == 4) return "StatueOfWind";
+        if(OceansChalice == 4) return "OceansChalice";
+        if(EarthStone == 4) return "EarthStone";
+        return null;
     }
 
+//    public boolean canRetrieve(){
+//        int pos1[], pos2[];
+//        switch (getRetrievable()){
+//            case "CrystalOfFire":
+//                pos1 = GameState.tilesMap.get()
+//                break;
+//            case "StatueOfWind" -> StatueOfWind++;
+//            case "OceansChalice" -> OceansChalice++;
+//            case "EarthStone" -> EarthStone++;
+//        }
+//    }
 
 
     public int[] getPosition() {
