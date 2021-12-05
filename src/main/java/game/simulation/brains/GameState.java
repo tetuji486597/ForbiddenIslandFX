@@ -131,17 +131,6 @@ public class GameState {
 
     }
 
-    public void simulate() {
-
-        int count = 0;
-        for(Player p : allPlayers)
-            if(posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
-        if(count == numPlayers)  {
-            //show winning panel
-            gameFinished = true;
-        }
-    }
-
     public static void addCards() {
         ArrayList<String> cardsToAdd = new ArrayList<>();
         if(cardDeck.isEmpty()) {
@@ -152,6 +141,11 @@ public class GameState {
 //        cardsToAdd.add("WatersRise");
         cardsToAdd.add(cardDeck.pop());
         currentPlayer.addCards(cardsToAdd);
+        if(currentPlayer.getMoveNumber() == 3) {
+            currentPlayer.setMoveNumber(0);
+            currentPlayer = nextTurn();
+            currentPlayer.setMoveNumber(0);
+        }
     }
 
     public static void floodTiles() {
