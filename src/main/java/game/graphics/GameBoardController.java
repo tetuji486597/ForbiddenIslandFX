@@ -1081,7 +1081,9 @@ public class GameBoardController {
         abilityButton.setVisible(false);
         removePawns();
         GameState.currentPlayer.setActivePawn("pawn");
+        GameState.currentPlayer.setMoveNumber(0);
         System.out.println(GameState.nextTurn());
+        GameState.currentPlayer.setMoveNumber(0);
         GameState.currentPlayer.setActivePawn("active");
         drawPawns();
         GameState.floodTiles();

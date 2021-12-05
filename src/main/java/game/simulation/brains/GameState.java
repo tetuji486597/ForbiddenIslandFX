@@ -141,11 +141,6 @@ public class GameState {
 //        cardsToAdd.add("WatersRise");
         cardsToAdd.add(cardDeck.pop());
         currentPlayer.addCards(cardsToAdd);
-        if(currentPlayer.getMoveNumber() == 3) {
-            currentPlayer.setMoveNumber(0);
-            currentPlayer = nextTurn();
-            currentPlayer.setMoveNumber(0);
-        }
     }
 
     public static void floodTiles() {
