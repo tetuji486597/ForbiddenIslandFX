@@ -204,24 +204,24 @@ public class Player
 
     public ArrayList<Player> tradeablePlayers (){
         ArrayList<Player> tradeablePlayers = (ArrayList<Player>) GameState.allPlayers.clone();
+        tradeablePlayers.remove(GameState.currentPlayer);
+        String playerPos = Arrays.toString(getPos());
         if(getRole().equals("Messenger")){
-            tradeablePlayers.remove(GameState.currentPlayer);
             System.out.println(tradeablePlayers);
             return tradeablePlayers;
         }
 
-//        else{
-//            t
-//            for(int i = 0; i<GameState.allPlayers.size(); i++){
-//                if(GameState.allPlayers.get(i).equals(sender.getRole())){
-//                    continue;
-//                }
-//                else if(GameState.allPlayers.get(i).getPosition().equals(sender.getPosition())){
-//                    tradePlayer.add(GameState.allPlayers.get(i));
-//                }
-//
-//            }
-//        }
+        else{
+            for(int i = tradeablePlayers.size()-1; i>=0 ; i--){
+                if(Arrays.toString(tradeablePlayers.get(i).getPos()).equals(playerPos)){
+                    continue;
+                }
+                else if(!Arrays.toString(tradeablePlayers.get(i).getPos()).equals(playerPos)){
+                    tradeablePlayers.remove(i);
+                }
+
+            }
+        }
         return tradeablePlayers;
     }
 

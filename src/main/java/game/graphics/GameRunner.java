@@ -26,7 +26,7 @@ public class GameRunner extends Application {
         Stage help = new Stage();
         FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("help-menu.fxml"));
         help.setTitle("How To Play");
-        Scene helpScene = new Scene(menuLoader.load(), 600, 800);
+        Scene helpScene = new Scene(menuLoader.load(), 600, 830);
 //        JMetro helpMetro = new JMetro(Style.DARK);
 //        helpMetro.setScene(helpScene);
         help.setScene(helpScene);

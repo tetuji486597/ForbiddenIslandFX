@@ -3,6 +3,7 @@ package game.graphics;
 import game.simulation.board.WaterLevelMeter;
 import game.simulation.brains.*;
 import game.simulation.player.Player;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ public class GameBoardController {
     public static HashMap<String, GridPane>     gridMap;
     public static HashMap<int[], ImageView>     tilesMap;
     public static Map<Integer,ImageView[]>      playerCards;
+    public static ImageView[][] cards;
 
     @FXML
     private ImageView Player1Card1;
@@ -458,6 +460,9 @@ public class GameBoardController {
     private Button drawCardsButton;
 
     @FXML
+    private Button confirmButton;
+
+    @FXML
     public void initialize() throws FileNotFoundException {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -495,6 +500,16 @@ public class GameBoardController {
         ToggleGroup toggleGroup = new ToggleGroup();
         moveButton.setToggleGroup(toggleGroup);
         shoreButton.setToggleGroup(toggleGroup);
+        tradeButton.setToggleGroup(toggleGroup);
+        useButton.setToggleGroup(toggleGroup);
+        abilityButton.setToggleGroup(toggleGroup);
+
+        cards = new ImageView[][]{
+                {Player1Card1, Player1Card2, Player1Card3, Player1Card4, Player1Card5},
+                {Player2Card1, Player2Card2, Player2Card3, Player2Card4, Player2Card5},
+                {Player3Card1, Player3Card2, Player3Card3, Player3Card4, Player3Card5},
+                {Player4Card1, Player4Card2, Player4Card3, Player4Card4, Player4Card5}
+        };
 
         actionUsedText.setTranslateY(42);
         action1.setTranslateY(42);
@@ -506,10 +521,25 @@ public class GameBoardController {
         nextPlayer2.setVisible(false);
         nextPlayer3.setVisible(false);
 
+        cancelButton.setVisible(false);
+        drawCardsButton.setVisible(false);
+        confirmButton.setVisible(false);
+
     }
 
     public void playWaterRiseAnimation(){
         waterRisePane.setVisible(true);
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(3500);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        new Thread(sleeper).start();
         FadeTransition.applyFadeTransition2(waterRisePane, Duration.seconds(3), (e) ->{
             waterRisePane.setVisible(false);
             try {
@@ -581,6 +611,7 @@ public class GameBoardController {
         for(Player p: GameState.allPlayers){
             System.out.println(p.getIndex());
         }
+
 
     }
 
@@ -683,7 +714,28 @@ public class GameBoardController {
         ParentPanel.helpPanel.show();
     }
 
-
+    @FXML
+    void confirmClicked(ActionEvent event) throws FileNotFoundException {
+        if(tradeButton.isSelected()){
+            tradeChoosenPlayer.getDeck().add(GameState.currentPlayer.getDeck().get(cardSelected[1]));
+            GameState.currentPlayer.getDeck().remove(cardSelected[1]);
+            updateCards();
+            GameState.currentPlayer.setMoveNumber(GameState.currentPlayer.getMoveNumber()+1);
+            updateActionCounter();
+            for(ImageView[] row : cards){
+                for(ImageView im : cards[GameState.currentPlayer.getIndex()]){
+                    im.setEffect(null);
+                }
+            }
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            for(ImageView im : playerPawns){
+                im.setEffect(null);
+            }
+            tradeButton.setSelected(false);
+            tradeButtonClicked(event);
+            confirmButton.setVisible(false);
+        }
+    }
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
@@ -755,19 +807,14 @@ public class GameBoardController {
     private boolean useSandbag;
     private int useCardPlayer;
 
+    private int[] cardSelected;
     public void cardClicked(int player, int card) throws FileNotFoundException {
+        System.out.println("check 1" + tradeButton.isSelected() + tradePawnChoosen);
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         String[] tiles = new String[]{"[0, 2]","[0, 3]","[1, 1]","[1, 2]","[1, 3]","[1, 4]","[2, 0]","[2, 1]","[2, 2]","[2, 3]","[2, 4]","[2, 5]","[3, 0]","[3, 1]","[3, 2]","[3, 3]","[3, 4]","[3, 5]","[4, 1]","[4, 2]","[4, 3]","[4, 4]","[5, 2]","[5, 3]"};
-        ImageView[][] cards = {
-                {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
-                {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
-                {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
-                {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
-        };
         DropShadow highlight = new DropShadow();
         highlight.setColor(Color.YELLOW);
-        if(!useButton.isSelected()) return;
-        else{
+        if(useButton.isSelected()){
             switch (GameState.allPlayers.get(player-1).getDeck().get(card-1)){
                 case "Sandbag":
                     DropShadow dropShadow = new DropShadow();
@@ -828,6 +875,13 @@ public class GameBoardController {
                 default:
                     return;
             }
+        }
+        else if(tradeButton.isSelected() && tradePawnChoosen){
+            System.out.println("check 3");
+            if(player-1 != GameState.currentPlayer.getIndex()) return;
+            cards[player-1][card-1].setEffect(highlight);
+            cardSelected = new int[]{player-1,card-1};
+            confirmButton.setVisible(true);
         }
     }
 
@@ -1071,14 +1125,30 @@ public class GameBoardController {
                 updateDiscard();
             }
         }
-        nextTurn();
+        floodTiles();
         drawCardsButton.setVisible(false);
 
     }
 
-    public void nextTurn() throws FileNotFoundException {
+    private boolean playerDrowning;
+    public void floodTiles() throws FileNotFoundException {
         resetActionCounter();
         abilityButton.setVisible(false);
+        GameState.floodTiles();
+        ArrayList<Player> drowning = new ArrayList<>();
+        for(int i = 0; i < GameState.numPlayers; i++){
+            if(GameState.tilesMap.get(Arrays.toString(GameState.allPlayers.get(i).getPos())).isGone()){
+                drowning.add(GameState.allPlayers.get(i));
+                playerDrowning = true;
+            }
+        }
+        if(!drowning.isEmpty()) swim(drowning);
+        else nextTurn();
+        updateDiscard();
+        updateTiles();
+    }
+
+    public void nextTurn(){
         removePawns();
         GameState.currentPlayer.setActivePawn("pawn");
         GameState.currentPlayer.setMoveNumber(0);
@@ -1086,9 +1156,6 @@ public class GameBoardController {
         GameState.currentPlayer.setMoveNumber(0);
         GameState.currentPlayer.setActivePawn("active");
         drawPawns();
-        GameState.floodTiles();
-        updateDiscard();
-        updateTiles();
 
         GridPane[] invs = {Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         for(GridPane gp : invs) gp.setEffect(null);
@@ -1096,6 +1163,23 @@ public class GameBoardController {
         dropShadow.setColor(Color.GREEN);
         dropShadow.setHeight(21);
         invs[GameState.currentPlayer.getIndex()].setEffect(dropShadow);
+    }
+
+    @FXML
+    void retrieveClicked(ActionEvent event){
+
+    }
+
+    private Thread mutex;
+    void swim(ArrayList<Player> players){
+
+        for (int i = 0; i < players.size(); i++) {
+
+        }
+    }
+
+    void moveDrowning(){
+
     }
 
     void waterRise(){
@@ -1141,12 +1225,77 @@ public class GameBoardController {
         }
     }
 
+    @FXML
+    void tradeButtonClicked(ActionEvent event){
+        System.out.println("ASD");
+        if(tradeButton.isSelected()){
+            actionUsedText.setTranslateY(-21);
+            action1.setTranslateY(-21);
+            action2.setTranslateY(-21);
+            action3.setTranslateY(-21);
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            choosePlayerText.setVisible(true);
+
+            removePawns();
+            GameState.currentPlayer.setActivePawn("give");
+            drawPawns();
+
+            Player players[] = GameState.currentPlayer.tradeablePlayers().toArray(new Player[0]);
+            System.out.println(players);
+
+            for(int i = 0; i < players.length; i++){
+                playerPawns[i].setVisible(true);
+                playerPawns[i].setImage(players[i].getPawn());
+            }
+
+        }else{
+            actionUsedText.setTranslateY(42);
+            action1.setTranslateY(42);
+            action2.setTranslateY(42);
+            action3.setTranslateY(42);
+            cancelButton.setVisible(false);
+
+            removePawns();
+            GameState.currentPlayer.setActivePawn("active");
+            drawPawns();
+
+            choosePlayerText.setVisible(false);
+            nextPlayer.setVisible(false);
+            nextPlayer2.setVisible(false);
+            nextPlayer3.setVisible(false);
+
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+            for(ImageView im: imageViews){
+                im.setEffect(null);
+            }
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            for(ImageView p: playerPawns){
+                p.setEffect(null);
+            }
+
+        }
+    }
+
+    private boolean tradePawnChoosen;
+    private Player tradeChoosenPlayer;
+    void tradePawnChosen(int x) throws FileNotFoundException {
+        if(!tradeButton.isSelected()) return;
+        else if(!tradePawnChoosen){
+            tradePawnChoosen = true;
+            ImageView[] imageViews = {nextPlayer,nextPlayer2,nextPlayer3};
+            Player[] players = GameState.currentPlayer.tradeablePlayers().toArray(new Player[0]);
+            tradeChoosenPlayer = players[x];
+            DropShadow highlight = new DropShadow();
+            highlight.setColor(Color.YELLOW);
+            imageViews[x].setEffect(highlight);
+        }
+    }
+
     public void r0c2Clicked(MouseEvent mouseEvent){
         System.out.println("Row 0 Column 2 Clicked");
         try { movePawn(new int[]{0, 2}, mouseEvent);
         }catch (FileNotFoundException ignored){}
     }
-
     public void r0c3Clicked(MouseEvent mouseEvent) {
         System.out.println("Row 0 Column 3 Clicked");
         try { movePawn(new int[]{0, 3}, mouseEvent);
@@ -1372,14 +1521,17 @@ public class GameBoardController {
     public void nextPlayerClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 1 Clicked");
         navigatorPawnChosen(0);
+        tradePawnChosen(0);
     }
     public void nextPlayer2Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 2 Clicked");
         navigatorPawnChosen(1);
+        tradePawnChosen(1);
     }
     public void nextPlayer3Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 3 Clicked");
         navigatorPawnChosen(2);
+        tradePawnChosen(2);
     }
 
     public void movePawn(int[] pos, MouseEvent mouseEvent) throws FileNotFoundException {
