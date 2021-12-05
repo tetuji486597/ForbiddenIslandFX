@@ -1440,6 +1440,4 @@ public class GameBoardController {
             }
         }
     }
-
 }
-
