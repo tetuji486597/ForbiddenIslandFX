@@ -43,6 +43,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -102,7 +103,7 @@
             <children>
             <HBox prefHeight="100.0" prefWidth="386.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <VBox prefHeight="709.0" prefWidth="328.0" HBox.hgrow="SOMETIMES">
+                  <VBox prefHeight="709.0" prefWidth="384.0" HBox.hgrow="SOMETIMES">
                      <children>
                               <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="  Players" textAlignment="CENTER" wrapText="false">
                                   <font>
@@ -144,26 +145,31 @@
                               <ImageView fx:id="Player1Card1" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player1card1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player1Card2" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player1card2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player1Card3" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player1card3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player1Card4" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player1card4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player1Card5" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player1card5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <Label fx:id="player1Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 1" textAlignment="CENTER" textFill="#8f8f8f" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="17.0" fx:id="x12" />
+                                    <Font size="15.0" fx:id="x12" />
                                  </font>
                               </Label>
                            </children>
@@ -189,26 +195,31 @@
                               <ImageView fx:id="Player2Card1" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player2card1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player2Card2" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player2card2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player2Card3" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player2card3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player2Card4" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player2card4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player2Card5" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player2card5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <Label fx:id="player2Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 2" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="17.0" fx:id="x121" />
+                                    <Font size="15.0" fx:id="x121" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x221" />
@@ -237,26 +248,31 @@
                               <ImageView fx:id="Player3Card1" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player3card1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player3Card2" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player3card2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player3Card3" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player3card3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player3Card4" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player3card4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player3Card5" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player3card5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <Label fx:id="player3Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 3" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="17.0" fx:id="x122" />
+                                    <Font size="15.0" fx:id="x122" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x222" />
@@ -285,26 +301,31 @@
                               <ImageView fx:id="Player4Card1" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player4card1Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player4Card2" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player4card2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player4Card3" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player4card3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player4Card4" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player4card4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <ImageView fx:id="Player4Card5" fitHeight="102.0" fitWidth="64.0" onMouseClicked="#player4card5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                  <image>
                                     <Image url="@../../Images/TreasureCards/Pressed.png" />
-                                 </image></ImageView>
+                                 </image>
+                              </ImageView>
                               <Label fx:id="player4Role" alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Player 4" textAlignment="CENTER" wrapText="false" GridPane.columnIndex="1">
                                  <font>
-                                    <Font size="17.0" fx:id="x123" />
+                                    <Font size="15.0" fx:id="x123" />
                                  </font>
                                  <textFill>
                                     <Color red="0.624" green="0.624" blue="0.624" fx:id="x223" />
@@ -844,6 +865,22 @@
                               <Font size="18.0" />
                            </font>
                         </Button>
+                        <AnchorPane fx:id="waterRisePane" layoutX="116.0" layoutY="249.0" prefHeight="197.0" prefWidth="448.0" visible="false">
+                           <children>
+                              <ImageView fitHeight="226.0" fitWidth="448.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Images/TreasureCards/WaterRise.png" />
+                                 </image>
+                                 <effect>
+                                    <DropShadow height="100.14" radius="49.57" width="100.14">
+                                       <color>
+                                          <Color green="0.28776979446411133" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
                             </children>
                         </AnchorPane>
                     </content>
@@ -978,7 +1015,7 @@
                               <Image url="@../../Images/TreasureCards/Card_Back@2x.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="135.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="treasureDiscardImage" fitHeight="201.0" fitWidth="130.0" layoutX="135.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/TreasureCards/Pressed.png" />
                            </image>
@@ -1038,6 +1075,7 @@
                   </ImageView>
                   <ToggleButton fx:id="abilityButton" layoutX="415.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#abilityButtonClicked" prefHeight="34.0" prefWidth="59.0" text="Ability" />
                   <ToggleButton fx:id="tradeButton" layoutX="150.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="59.0" text="Trade" />
+                  <Button fx:id="drawCardsButton" layoutX="14.0" layoutY="142.0" mnemonicParsing="false" onAction="#drawCards" prefHeight="34.0" prefWidth="78.0" text="Draw Cards" visible="false" />
                </children></Pane>
             </children>
             <padding>

@@ -19,10 +19,13 @@ public class Initialize {
     public static Map<String, Image> roles;
     public static ArrayList tilesList = new ArrayList(Arrays.asList("Breakers Bridge", "Bronze Gate", "Cave of Embers", "Cave of Shadows", "Cliffs of Abandon", "Copper Gate", "Coral Palace", "Crimson Forest", "Dunes of Deception", "Fools Landing", "Gold Gate", "Howling Garden", "Iron Gate", "Lost Lagoon", "Misty Marsh", "Observatory", "Phantom Rock", "Silver Gate", "Temple of the Moon", "Temple of the Sun", "Tidal Palace", "Twilight Hollow", "Watchtower", "Whispering Garden"));
     public static Map.Entry waterrise;
+    public static Image blankCard;
 
     public static void init() throws IOException {
 
         waterrise = Map.entry("WaterRise", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Waters_Rise.png")));
+        blankCard = new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Pressed.png"));
+
 
         treasures = Map.ofEntries(
                 Map.entry("OceansChalice", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/Treasures/EAU.png"))),
@@ -41,7 +44,7 @@ public class Initialize {
         );
 
         floodcards = Map.ofEntries(
-                Map.entry("BeakersBridge", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/FloodCards/Flood_Card_Breakers Bridge@2x.png"))),
+                Map.entry("BreakersBridge", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/FloodCards/Flood_Card_Breakers Bridge@2x.png"))),
                 Map.entry("BronzeGate", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/FloodCards/Flood_Card_Bronze Gate@2x.png"))),
                 Map.entry("CaveOfEmbers", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/FloodCards/Flood_Card_Cave of Embers@2x.png"))),
                 Map.entry("CaveOfShadows", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/FloodCards/Flood_Card_Cave of Shadows@2x.png"))),
@@ -73,7 +76,8 @@ public class Initialize {
                 Map.entry("EarthStone", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Earth_Stone.png"))),
                 Map.entry("StatueOfWind", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Statue_of_the_Wind.png"))),
                 Map.entry("HelicopterLift", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Helicopter.png"))),
-                Map.entry("Sandbag", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Sand_Bag.png")))
+                Map.entry("Sandbag", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Sand_Bag.png"))),
+                Map.entry("WatersRise", new Image(Initialize.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Card_Waters_Rise.png")))
         );
 
         tiles = Map.ofEntries(

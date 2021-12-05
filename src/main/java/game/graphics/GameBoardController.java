@@ -1,5 +1,6 @@
 package game.graphics;
 
+import game.simulation.board.WaterLevelMeter;
 import game.simulation.brains.*;
 import game.simulation.player.Player;
 import javafx.event.ActionEvent;
@@ -11,19 +12,18 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GameBoardController {
 
@@ -452,8 +452,13 @@ public class GameBoardController {
     private ImageView nextPlayer3;
 
     @FXML
+    private AnchorPane waterRisePane;
+
+    @FXML
+    private Button drawCardsButton;
+
+    @FXML
     public void initialize() throws FileNotFoundException {
-        waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         playerCards = Map.ofEntries(
@@ -500,6 +505,19 @@ public class GameBoardController {
         nextPlayer.setVisible(false);
         nextPlayer2.setVisible(false);
         nextPlayer3.setVisible(false);
+
+    }
+
+    public void playWaterRiseAnimation(){
+        waterRisePane.setVisible(true);
+        FadeTransition.applyFadeTransition2(waterRisePane, Duration.seconds(3), (e) ->{
+            waterRisePane.setVisible(false);
+            try {
+                updateTiles();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -536,9 +554,8 @@ public class GameBoardController {
             for(int j = 0; j < playerdecksize; j++){
                 imageviewdeck[j].setImage(Initialize.treasurecards.get(playerdeck.get(j)));
             }
-            updateDiscard();
         }
-
+        updateDiscard();
         checkNavigator();
 //        System.out.println(GameState.allPlayers.get(0).getStartingPos());
 //        gridMap.get(GameState.allPlayers.get(0).getStartingPos()).add(pawn,GameState.allPlayers.get(0).getIndex(),0,1,1);
@@ -559,6 +576,12 @@ public class GameBoardController {
         Player1Inv.setEffect(dropShadow);
         resetActionCounter();
 
+        GameState.currentPlayer.tradeablePlayers();
+
+        for(Player p: GameState.allPlayers){
+            System.out.println(p.getIndex());
+        }
+
     }
 
     void checkNavigator(){
@@ -566,10 +589,20 @@ public class GameBoardController {
             abilityButton.setVisible(true);
         }
     }
-
     public void updateDiscard(){
-        floodDiscardImage.setImage(Initialize.floodcards.get(GameState.floodDiscard.peek()));
-//        treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
+        try{
+            System.out.println(GameState.floodDiscard.peek());
+            floodDiscardImage.setImage(Initialize.floodcards.get(GameState.floodDiscard.peek()));
+        }
+        catch (EmptyStackException ex){
+            floodDiscardImage.setImage(Initialize.blankCard);
+        }
+        try{
+            treasureDiscardImage.setImage(Initialize.treasurecards.get(GameState.discardPile.peek()));
+        }
+        catch (EmptyStackException ignored){
+            treasureDiscardImage.setImage(Initialize.blankCard);
+        }
     }
 
     void drawBoard() throws FileNotFoundException {
@@ -628,7 +661,7 @@ public class GameBoardController {
         }
     }
 
-    void updateCards() throws FileNotFoundException {
+    public static void updateCards() throws FileNotFoundException {
         for(int i = 0; i < GameState.numPlayers; i++){
             ImageView[] imageviewdeck = playerCards.get(i+1);
             for(int j = 0; j < 5; j++){
@@ -650,9 +683,7 @@ public class GameBoardController {
         ParentPanel.helpPanel.show();
     }
 
-    public void nextTurn(){
-        resetActionCounter();
-    }
+
 
     public void moveClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
@@ -669,7 +700,6 @@ public class GameBoardController {
         GameState.currentPlayer.setActivePawn("move");
         drawPawns();
         boolean[][] moveableTiles = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
-        System.out.println(Arrays.deepToString(moveableTiles));
         int i = 0;
         DropShadow dropShadow = new DropShadow();
         dropShadow.setHeight(5.0);
@@ -775,7 +805,6 @@ public class GameBoardController {
                     useHelicopter = true;
                     cards[player-1][card-1].setEffect(highlight);
                     int[] pos = GameState.allPlayers.get(player-1).getPos();
-                    System.out.println(Arrays.toString(pos));
                     int iu = 0;
                     removePawns();
                     GameState.allPlayers.get(player-1).setActivePawn("move");
@@ -887,8 +916,9 @@ public class GameBoardController {
             useButton.setSelected(false);
             cancelButton.setVisible(false);
 
-            System.out.println(GameState.allPlayers.get(useCardPlayer).getDeck());
             GameState.allPlayers.get(useCardPlayer).getDeck().remove("HelicopterLift");
+            GameState.discardPile.push("HelicopterLift");
+            updateDiscard();
             updateCards();
 
             ImageView[][] cards = {
@@ -913,6 +943,8 @@ public class GameBoardController {
         for(int i = 0; i < GameState.currentPlayer.getMoveNumber(); i++){
             circles[i].setFill(Color.rgb(142,208,85));
         }
+        if(GameState.currentPlayer.getMoveNumber() == 3)
+        drawCardsButton.setVisible(true);
     }
 
     void resetActionCounter(){
@@ -1019,6 +1051,61 @@ public class GameBoardController {
         }
     }
 
+    @FXML
+    void drawCards(ActionEvent event) throws FileNotFoundException {
+        boolean waterRose = true;
+        GameState.addCards();
+        updateCards();
+        for(int i = GameState.currentPlayer.getDeck().size()-1; i >= 0; i--){
+            String card = GameState.currentPlayer.getDeck().get(i);
+            if(card.equals("WatersRise") && waterRose){
+                waterRise();
+                GameState.currentPlayer.getDeck().remove(i);
+                GameState.discardPile.push("WatersRise");
+                updateCards();
+                updateDiscard();
+                waterRose = false;
+            }else if(card.equals("WatersRise")){
+                GameState.currentPlayer.getDeck().remove(i);
+                GameState.discardPile.push("WatersRise");
+                updateDiscard();
+            }
+        }
+        nextTurn();
+        drawCardsButton.setVisible(false);
+
+    }
+
+    public void nextTurn() throws FileNotFoundException {
+        resetActionCounter();
+        abilityButton.setVisible(false);
+        removePawns();
+        GameState.currentPlayer.setActivePawn("pawn");
+        System.out.println(GameState.nextTurn());
+        GameState.currentPlayer.setActivePawn("active");
+        drawPawns();
+        GameState.floodTiles();
+        updateDiscard();
+        updateTiles();
+
+        GridPane[] invs = {Player1Inv,Player2Inv,Player3Inv,Player4Inv};
+        for(GridPane gp : invs) gp.setEffect(null);
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setColor(Color.GREEN);
+        dropShadow.setHeight(21);
+        invs[GameState.currentPlayer.getIndex()].setEffect(dropShadow);
+    }
+
+    void waterRise(){
+        GameState.raiseWater();
+        for(ImageView im : waterlevels){
+            im.setVisible(false);
+        }
+        waterlevels[GameState.waterLevel-1].setVisible(true);
+        playWaterRiseAnimation();
+        updateDiscard();
+    }
+
     public void useSandbag(int pos[]) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         if(useSandbag){
@@ -1045,6 +1132,8 @@ public class GameBoardController {
             }
             GameState.allPlayers.get(useCardPlayer).getDeck().remove("Sandbag");
             updateCards();
+            GameState.discardPile.push("Sandbag");
+            updateDiscard();
             useSandbag = false;
             useCardPlayer = -1;
         }
@@ -1344,7 +1433,7 @@ public class GameBoardController {
                 navigatorPawnChoosen = false;
                 abilityButton.setSelected(false);
                 abilityButtonClicked(mouseEvent);
-                //GameState.actionsRemaining++;
+                GameState.currentPlayer.setMoveNumber(GameState.currentPlayer.getMoveNumber()+1);
                 updateActionCounter();
             }
         }

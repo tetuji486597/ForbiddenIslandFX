@@ -27,4 +27,12 @@ public class WaterLevelMeter extends JPanel {
     public int getNumCards(){
         return waterLevelTracker[waterLevel];
     }
+
+    public void raiseWater(){
+        waterLevel++;
+    }
+
+    public void setWaterLevel(int waterLevel) {
+        this.waterLevel = waterLevel;
+    }
 }

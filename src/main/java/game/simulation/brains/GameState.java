@@ -39,7 +39,7 @@ public class GameState {
     private ArrayList<GameTile>             moveableSpaces;
     public static String[]                  allTiles;
     public static int[][]                   pos;
-    Iterator<Player> playerIterator;
+    static Iterator<Player> playerIterator;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
@@ -61,6 +61,7 @@ public class GameState {
         posMap = new HashMap<>();
         floodDeck = new Stack<>();
         floodDiscard = new Stack<>();
+        discardPile = new Stack<>();
         for(int i = 0; i < 24; i++){
             floodDeck.push(allTiles[i]);
             GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]), pos[i]);
@@ -75,10 +76,10 @@ public class GameState {
         waterLevelMeter = new WaterLevelMeter(difficulty);
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-        allRoles = new String[]{"Navigator", "Explorer", "Messenger", "Engineer"};
-//        List<String> roleShuffle = Arrays.asList(allRoles);
-//        Collections.shuffle(roleShuffle);
-//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+//        allRoles = new String[]{"Navigator", "Messenger", "Messenger", "Engineer"};
+        List<String> roleShuffle = Arrays.asList(allRoles);
+        Collections.shuffle(roleShuffle);
+        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -115,6 +116,7 @@ public class GameState {
         for(int i = 0; i < 3; i++) cardDeck.push("WatersRise");
         Collections.shuffle(cardDeck);
         playerIterator = allPlayers.iterator();
+        System.out.println(playerIterator.next().getRole());
         for(int i = 0; i < 6; i++){
             floodDiscard.push(floodDeck.pop());
             for(int j = 0; j < 24; j++){
@@ -140,29 +142,32 @@ public class GameState {
         }
     }
 
-    public void addCards() {
+    public static void addCards() {
         ArrayList<String> cardsToAdd = new ArrayList<>();
         if(cardDeck.isEmpty()) {
             Collections.shuffle(discardPile);
             while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
         }
-        cardsToAdd.add(discardPile.push(cardDeck.pop()));
-        cardsToAdd.add(discardPile.push(cardDeck.pop()));
+        cardsToAdd.add(cardDeck.pop());
+//        cardsToAdd.add("WatersRise");
+        cardsToAdd.add(cardDeck.pop());
         currentPlayer.addCards(cardsToAdd);
-        if(currentPlayer.getMoveNumber() == 3) {
-            currentPlayer = nextTurn();
-            currentPlayer.setMoveNumber(0);
-        }
     }
 
-    public void floodTiles() {
+    public static void floodTiles() {
         if(floodDeck.isEmpty()) {
             Collections.shuffle(floodDiscard);
             while(!floodDiscard.isEmpty()) floodDeck.push(floodDeck.pop());
         }
         for(int i = 0; i < waterLevelMeter.getNumCards(); i++) {
-            tilesMap.get(floodDeck.peek()).setFlooded(true);
-            floodDiscard.push(floodDeck.pop());
+            if(tilesMap.get(floodDeck.peek()).getFloodState()) {
+                tilesMap.get(floodDeck.peek()).setGone(true);
+                System.out.println(floodDeck.pop());
+            }
+            else {
+                tilesMap.get(floodDeck.peek()).setFlooded(true);
+                System.out.println(floodDiscard.push(floodDeck.pop()));
+            }
         }
     }
 
@@ -175,15 +180,23 @@ public class GameState {
 
     public void setWater(int waterLevel) {
         this.waterLevel = waterLevel;
+        waterLevelMeter.setWaterLevel(waterLevel);
     }
 
-    public void raiseWater() {
-        ++waterLevel;
+    public static void raiseWater() {
+        waterLevelMeter.raiseWater();
+        waterLevel = waterLevelMeter.getLevel();
+        Collections.shuffle(floodDiscard);
+        while(!floodDiscard.isEmpty()) floodDeck.push(floodDiscard.pop());
     }
 
-    public Player nextTurn() {
-        if(!playerIterator.hasNext()) playerIterator = allPlayers.iterator();
-        return playerIterator.next();
+    public static boolean nextTurn() {
+        if(!playerIterator.hasNext()){
+            System.out.println("iterator diff");
+            playerIterator = allPlayers.iterator();
+        }
+        currentPlayer = playerIterator.next();
+        return true;
     }
 
     public static void drawFlood(GameTile gameTile) throws FileNotFoundException {

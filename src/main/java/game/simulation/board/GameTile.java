@@ -1,5 +1,6 @@
 package game.simulation.board;
 
+import game.simulation.brains.GameState;
 import game.simulation.brains.Initialize;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,7 +51,7 @@ public class GameTile {
             return sunkTile;
         else if(isFlooded)
             return floodedTile;
-        return new Image(new FileInputStream("/Images/Tiles/extra/Tile_Moat@2x.png"));
+        return new Image(GameTile.class.getResourceAsStream("Images/Tiles/extra/Tile_Moat@2x.png"));
     }
 
     public int[] getPosition(){

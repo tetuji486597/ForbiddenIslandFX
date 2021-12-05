@@ -1,5 +1,6 @@
 package game.simulation.player;
 //import game.simulation.brains.GameState;
+import game.graphics.GameBoardController;
 import game.simulation.board.*;
 import game.simulation.brains.GameState;
 import game.simulation.card.TreasureCard;
@@ -43,45 +44,45 @@ public class Player
         position = new int[2];
         switch (role){
             case "Diver":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Diver_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Diver_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Diver_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Diver_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Diver_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("IronGate").getPosition();
                 break;
             case "Engineer":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_active@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Engineer_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Engineer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Engineer_Adventurer_Icon_active@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Engineer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Engineer_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("BronzeGate").getPosition();
                 break;
             case "Explorer":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Explorer_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Explorer_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Explorer_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Explorer_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Explorer_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("CopperGate").getPosition();
                 break;
             case "Messenger":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Messenger_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Messenger_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Messenger_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Messenger_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Messenger_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("SilverGate").getPosition();
                 break;
             case "Navigator":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Navigator_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Navigator_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Navigator_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Navigator_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Navigator_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("GoldGate").getPosition();
                 break;
             case "Pilot":
-                pawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon@2x.png"));
-                activePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_IconSelect@2x.png"));
-                givePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon_give@2x.png"));
-                movePawn = new Image(new FileInputStream("/Images/Pawns/Pilot_Adventurer_Icon_move@2x.png"));
+                pawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Pilot_Adventurer_Icon@2x.png"));
+                activePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Pilot_Adventurer_IconSelect@2x.png"));
+                givePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Pilot_Adventurer_Icon_give@2x.png"));
+                movePawn = new Image(Player.class.getClassLoader().getResourceAsStream("Images/Pawns/Pilot_Adventurer_Icon_move@2x.png"));
                 startingPos = GameState.tilesMap.get("FoolsLanding").getPosition();
                 break;
         }
@@ -201,49 +202,36 @@ public class Player
     }
 
 
-    public ArrayList<Player> tradeablePlayers (Player sender){
-        ArrayList<Player> tradePlayer = new ArrayList<>();
-        if(sender.getRole().equals("Messenger")){
-          for(int i = 0; i<GameState.allPlayers.size(); i++){
-              if(GameState.allPlayers.get(i).equals(sender.getRole())){
-                  continue;
-              }
-              else{
-                  tradePlayer.add(GameState.allPlayers.get(i));
-              }
-
-          }
+    public ArrayList<Player> tradeablePlayers (){
+        ArrayList<Player> tradeablePlayers = (ArrayList<Player>) GameState.allPlayers.clone();
+        if(getRole().equals("Messenger")){
+            tradeablePlayers.remove(GameState.currentPlayer);
+            System.out.println(tradeablePlayers);
+            return tradeablePlayers;
         }
 
-        else{
-            for(int i = 0; i<GameState.allPlayers.size(); i++){
-                if(GameState.allPlayers.get(i).equals(sender.getRole())){
-                    continue;
-                }
-                else if(GameState.allPlayers.get(i).getPosition().equals(sender.getPosition())){
-                    tradePlayer.add(GameState.allPlayers.get(i));
-                }
-
-            }
-        }
-        return tradePlayer;
+//        else{
+//            t
+//            for(int i = 0; i<GameState.allPlayers.size(); i++){
+//                if(GameState.allPlayers.get(i).equals(sender.getRole())){
+//                    continue;
+//                }
+//                else if(GameState.allPlayers.get(i).getPosition().equals(sender.getPosition())){
+//                    tradePlayer.add(GameState.allPlayers.get(i));
+//                }
+//
+//            }
+//        }
+        return tradeablePlayers;
     }
 
-    public void giveTreasure(String treasure, Player send, Player receive)
-    {
+    public void giveTreasure(int treasure, Player send, Player receive) throws FileNotFoundException {
         ArrayList<String> rec = receive.getDeck();
         ArrayList<String> sen = send.getDeck();
 
-        for(String card: sen)
-        {
-            if(card.equals(treasure))
-            {
-                sen.remove(card);
-                rec.add(card);
-                setMoveNumber(moveNumber+1);
-                break;
-            }
-        }
+        rec.add(sen.get(treasure));
+        sen.get(treasure);
+        GameBoardController.updateCards();
     }
 
     public boolean[][] getNavigableTile(){
