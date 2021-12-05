@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 //import java.lang.reflect.Array;
+import javax.swing.*;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -189,10 +190,21 @@ public class Player
 
     public void disposeCard()
     {
-        ArrayList<String> player = this.playerDeck;
+        String[] filledDeck = playerDeck.toArray(new String[0]);
+        String cardToRemove;
         if(deckFilled)
         {
-           player.remove(player.size()-1);
+            cardToRemove = filledDeck[JOptionPane.showOptionDialog(
+                    null,
+                    "Choose one of these cards to discard from your deck.",
+                    "Deck Filled!",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    filledDeck,
+                    0
+            )];
+           playerDeck.remove(playerDeck.indexOf(cardToRemove));
         }
     }
 
