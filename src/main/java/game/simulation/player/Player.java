@@ -192,9 +192,7 @@ public class Player
     {
         String[] filledDeck = playerDeck.toArray(new String[0]);
         String cardToRemove;
-        if(deckFilled)
-        {
-            cardToRemove = filledDeck[JOptionPane.showOptionDialog(
+        cardToRemove = filledDeck[JOptionPane.showOptionDialog(
                     null,
                     "Choose one of these cards to discard from your deck.",
                     "Deck Filled!",
@@ -205,7 +203,6 @@ public class Player
                     0
             )];
            playerDeck.remove(playerDeck.indexOf(cardToRemove));
-        }
     }
 
     public ArrayList<String> getDeck()
