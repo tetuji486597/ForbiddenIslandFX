@@ -1,12 +1,16 @@
 package game.simulation.brains;
 //
 import game.graphics.GameBoardController;
+import game.graphics.GameRunner;
 import game.graphics.ParentPanel;
 import game.simulation.board.*;
 import game.simulation.card.Card;
 import game.simulation.player.*;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -137,8 +141,9 @@ public class GameState {
             Collections.shuffle(discardPile);
             while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
         }
+        if(cardDeck.peek().equals("WatersRise")) raiseWater();
         cardsToAdd.add(cardDeck.pop());
-//        cardsToAdd.add("WatersRise");
+        if(cardDeck.peek().equals("WatersRise")) raiseWater();
         cardsToAdd.add(cardDeck.pop());
         currentPlayer.addCards(cardsToAdd);
     }
@@ -160,8 +165,23 @@ public class GameState {
         }
     }
 
-    public void shuffle(Stack<Card> pile) {
-        Collections.shuffle(pile);
+    public static void checkAllGone() {
+        for(GameTile gt: tiles) {
+            if(gt.getTreasureState() && !gt.isGone()) return;
+        }
+        Stage lose = new Stage();
+        FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
+        lose.setTitle("The Ship has Sunk!");
+        Scene loseScene = null;
+        try {
+            loseScene = new Scene(menuLoader.load(), 600, 800);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        lose.setScene(loseScene);
+        lose.setResizable(false);
+        loseScene.getStylesheets().add("moderna-darl.css");
+        ParentPanel.setLosingPanel(lose);
     }
 
     public void drawCard(Graphics g) {
@@ -175,6 +195,21 @@ public class GameState {
     public static void raiseWater() {
         waterLevelMeter.raiseWater();
         waterLevel = waterLevelMeter.getLevel();
+        if(waterLevel == 9) {
+            Stage lose = new Stage();
+            FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
+            lose.setTitle("Players have drowned!");
+            Scene loseScene = null;
+            try {
+                loseScene = new Scene(menuLoader.load(), 600, 800);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            lose.setScene(loseScene);
+            lose.setResizable(false);
+            loseScene.getStylesheets().add("moderna-darl.css");
+            ParentPanel.setLosingPanel(lose);
+        }
         Collections.shuffle(floodDiscard);
         while(!floodDiscard.isEmpty()) floodDeck.push(floodDiscard.pop());
     }

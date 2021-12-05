@@ -939,7 +939,7 @@ public class GameBoardController {
             if(GameState.posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
         if(count == GameState.numPlayers)  {
             Stage win = new Stage();
-            FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("victcory.fxml"));
+            FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("victory.fxml"));
             win.setTitle("Congratulations");
             Scene winScene = null;
             try {

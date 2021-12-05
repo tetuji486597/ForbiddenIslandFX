@@ -1,14 +1,20 @@
 package game.simulation.board;
 
+import game.graphics.GameRunner;
+import game.graphics.ParentPanel;
 import game.simulation.brains.GameState;
 import game.simulation.brains.Initialize;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class GameTile {
     private String name;
@@ -69,7 +75,24 @@ public class GameTile {
     public void flood(){
         if(isFlooded){
             isGone = true;
-        }else{
+            if(name.equals("FoolsLanding")) {
+                Stage lose = new Stage();
+                FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
+                lose.setTitle("Fools Landing has Sunk!");
+                Scene loseScene = null;
+                try {
+                    loseScene = new Scene(menuLoader.load(), 600, 800);
+                } catch(IOException e) {
+                    e.printStackTrace();
+                }
+                lose.setScene(loseScene);
+                lose.setResizable(false);
+                loseScene.getStylesheets().add("moderna-darl.css");
+                ParentPanel.setLosingPanel(lose);
+                return;
+            }
+            GameState.checkAllGone();
+        } else {
             isFlooded = true;
         }
     }
