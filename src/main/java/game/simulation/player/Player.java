@@ -91,18 +91,6 @@ public class Player
         currentPawn = new ImageView(pawn);
     }
 
-    public void drawCard(String c)
-    {
-        if(deckFilled){
-            this.disposeCard();
-
-        }
-        playerDeck.add(c);
-        if(playerDeck.size()==5){
-            this.setDeckFilled(true);
-        }
-    }
-
     public boolean[][] getShoreableTiles(GameTile gameTile){
         shoreableTiles = new boolean[6][6];
         int[] pos = gameTile.getPosition();
@@ -192,9 +180,7 @@ public class Player
     {
         String[] filledDeck = playerDeck.toArray(new String[0]);
         String cardToRemove;
-        if(deckFilled)
-        {
-            cardToRemove = filledDeck[JOptionPane.showOptionDialog(
+        cardToRemove = filledDeck[JOptionPane.showOptionDialog(
                     null,
                     "Choose one of these cards to discard from your deck.",
                     "Deck Filled!",
@@ -204,8 +190,8 @@ public class Player
                     filledDeck,
                     0
             )];
-           playerDeck.remove(cardToRemove);
-        }
+           playerDeck.remove(playerDeck.indexOf(cardToRemove));
+
     }
 
     public ArrayList<String> getDeck()
@@ -392,7 +378,11 @@ public class Player
 
 
     public void addCards(ArrayList<String> cardsToAdd) {
-        for(String card: cardsToAdd) playerDeck.add(card);
+        for(String card: cardsToAdd) {
+            if(playerDeck.size() >= 5) disposeCard();
+            playerDeck.add(card);
+        }
+
     }
 
 }
