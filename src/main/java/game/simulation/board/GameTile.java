@@ -76,19 +76,7 @@ public class GameTile {
         if(isFlooded){
             isGone = true;
             if(name.equals("FoolsLanding")) {
-                Stage lose = new Stage();
-                FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
-                lose.setTitle("Fools Landing has Sunk!");
-                Scene loseScene = null;
-                try {
-                    loseScene = new Scene(menuLoader.load(), 600, 800);
-                } catch(IOException e) {
-                    e.printStackTrace();
-                }
-                lose.setScene(loseScene);
-                lose.setResizable(false);
-                loseScene.getStylesheets().add("moderna-darl.css");
-                ParentPanel.setLosingPanel(lose);
+                GameState.loseGame("Players have been stranded!");
                 return;
             }
             GameState.checkAllGone();
