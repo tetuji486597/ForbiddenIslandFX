@@ -176,23 +176,23 @@ public class Player
         }
     }
 
-    public void disposeCard()
-    {
-        String[] filledDeck = playerDeck.toArray(new String[0]);
-        String cardToRemove;
-        cardToRemove = filledDeck[JOptionPane.showOptionDialog(
-                    null,
-                    "Choose one of these cards to discard from your deck.",
-                    "Deck Filled!",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null,
-                    filledDeck,
-                    0
-            )];
-           playerDeck.remove(playerDeck.indexOf(cardToRemove));
-
-    }
+//    public void disposeCard()
+//    {
+//        String[] filledDeck = playerDeck.toArray(new String[0]);
+//        String cardToRemove;
+//        cardToRemove = filledDeck[JOptionPane.showOptionDialog(
+//                    null,
+//                    "Choose one of these cards to discard from your deck.",
+//                    "Deck Filled!",
+//                    JOptionPane.YES_NO_CANCEL_OPTION,
+//                    JOptionPane.INFORMATION_MESSAGE,
+//                    null,
+//                    filledDeck,
+//                    0
+//            )];
+//           playerDeck.remove(playerDeck.indexOf(cardToRemove));
+//
+//    }
 
     public ArrayList<String> getDeck()
     {
@@ -379,7 +379,7 @@ public class Player
 
     public void addCards(ArrayList<String> cardsToAdd) {
         for(String card: cardsToAdd) {
-            if(playerDeck.size() >= 5) disposeCard();
+//            if(playerDeck.size() >= 5) disposeCard();
             playerDeck.add(card);
         }
 

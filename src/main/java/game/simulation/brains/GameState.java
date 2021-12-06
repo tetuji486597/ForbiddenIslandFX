@@ -43,7 +43,11 @@ public class GameState {
     private ArrayList<GameTile>             moveableSpaces;
     public static String[]                  allTiles;
     public static int[][]                   pos;
-    static Iterator<Player> playerIterator;
+    static Iterator<Player>                 playerIterator;
+    public static TreasurePiece             StatueOfWind;
+    public static TreasurePiece             OceansChalice;
+    public static TreasurePiece             EarthStone;
+    public static TreasurePiece             CrystalOfFire;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
@@ -81,10 +85,10 @@ public class GameState {
         waterLevelMeter = new WaterLevelMeter(difficulty);
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-//        allRoles = new String[]{"Navigator", "Messenger", "Messenger", "Engineer"};
-        List<String> roleShuffle = Arrays.asList(allRoles);
-        Collections.shuffle(roleShuffle);
-        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+        allRoles = new String[]{"Engineer", "Messenger", "Diver", "Navigator"};
+//        List<String> roleShuffle = Arrays.asList(allRoles);
+//        Collections.shuffle(roleShuffle);
+//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -131,6 +135,10 @@ public class GameState {
         }
         currentPlayer = allPlayers.get(0);
         currentPlayer.setActivePawn("active");
+        StatueOfWind = new TreasurePiece("StatueOfWind");
+        OceansChalice = new TreasurePiece("OceansChalice");
+        EarthStone = new TreasurePiece("EarthStone");
+        CrystalOfFire = new TreasurePiece("CrystalOfFire");
 
 
 

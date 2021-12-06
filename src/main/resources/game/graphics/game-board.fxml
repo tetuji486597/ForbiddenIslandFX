@@ -38,12 +38,8 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -62,45 +58,6 @@
 
 <VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
     <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Open…" />
-                        <Menu mnemonicParsing="false" text="Open Recent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                        <MenuItem mnemonicParsing="false" text="Revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Preferences…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Undo" />
-                        <MenuItem mnemonicParsing="false" text="Redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Cut" />
-                        <MenuItem mnemonicParsing="false" text="Copy" />
-                        <MenuItem mnemonicParsing="false" text="Paste" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Select All" />
-                        <MenuItem mnemonicParsing="false" text="Unselect All" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <HBox prefHeight="709.0" prefWidth="1414.0">
             <children>
             <HBox prefHeight="100.0" prefWidth="386.0" HBox.hgrow="SOMETIMES">
@@ -481,7 +438,7 @@
                                                 <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fx:id="statueOfTheWindUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <ImageView fx:id="statueOfWindUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <image>
                                                 <Image url="@../../Images/Treasures/AIR.png" />
                                             </image>
@@ -1086,7 +1043,7 @@
                   </Label>
                   <Pane layoutX="682.0">
                      <children>
-                        <Separator orientation="VERTICAL" prefHeight="193.0" prefWidth="5.0" />
+                        <Separator layoutX="-1.0" orientation="VERTICAL" prefHeight="217.0" prefWidth="7.0" />
                         <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/TreasureCards/Card_Back@2x.png" />
@@ -1155,6 +1112,26 @@
                   <Button fx:id="drawCardsButton" layoutX="90.0" layoutY="142.0" mnemonicParsing="false" onAction="#drawCards" prefHeight="34.0" prefWidth="78.0" text="Draw Cards" />
                   <Button fx:id="endTurnButton" layoutX="14.0" layoutY="142.0" mnemonicParsing="false" onAction="#drawCards" prefHeight="34.0" prefWidth="66.0" text="End Turn" />
                   <Button fx:id="confirmButton" layoutX="178.0" layoutY="142.0" mnemonicParsing="false" onAction="#confirmClicked" prefHeight="34.0" prefWidth="66.0" text="Confirm" />
+                  <ImageView fx:id="statueOfWindClaimed" fitHeight="80.0" fitWidth="80.0" layoutX="108.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../Images/Treasures/AIR.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="oceansChaliceClaimed" fitHeight="80.0" fitWidth="80.0" layoutX="187.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../Images/Treasures/EAU.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="crystalOfFireClaimed" fitHeight="80.0" fitWidth="80.0" layoutX="265.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../Images/Treasures/FEU.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="earthStoneClaimed" fitHeight="80.0" fitWidth="80.0" layoutX="345.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../Images/Treasures/TERRE.png" />
+                     </image>
+                  </ImageView>
                </children></Pane>
             </children>
             <padding>

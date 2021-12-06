@@ -497,6 +497,30 @@ public class GameBoardController {
     private Button discardUseButton;
 
     @FXML
+    private ImageView statueOfWindUnclaimed;
+
+    @FXML
+    private ImageView statueOfWindClaimed;
+
+    @FXML
+    private ImageView oceansChaliceUnclaimed;
+
+    @FXML
+    private ImageView oceansChaliceClaimed;
+
+    @FXML
+    private ImageView crystalOfFireUnclaimed;
+
+    @FXML
+    private ImageView crystalOfFireClaimed;
+
+    @FXML
+    private ImageView earthStoneUnclaimed;
+
+    @FXML
+    private ImageView earthStoneClaimed;
+
+    @FXML
     public void initialize() throws FileNotFoundException {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -559,6 +583,7 @@ public class GameBoardController {
         drawCardsButton.setVisible(false);
         confirmButton.setVisible(false);
         discardPanel.setVisible(false);
+        abilityButton.setVisible(true);
     }
 
     public void playWaterRiseAnimation(){
@@ -828,6 +853,7 @@ public class GameBoardController {
     }
     private boolean useHelicopter;
     private boolean useSandbag;
+    private boolean shoreUpEngineer;
     private int useCardPlayer;
 
     private int[] cardSelected;
@@ -871,6 +897,30 @@ public class GameBoardController {
                     dropShadow1.setColor(Color.GREEN);
                     dropShadow1.setWidth(5.0);
                     dropShadow1.setSpread(1.0);
+
+                    actionUsedText.setTranslateY(-21);
+                    action1.setTranslateY(-21);
+                    action2.setTranslateY(-21);
+                    action3.setTranslateY(-21);
+                    ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+                    choosePlayerText.setVisible(true);
+
+                    Player players[] = new Player[GameState.numPlayers -1];
+                    int index = 0;
+                    for(int x = 0; x < GameState.numPlayers; x++){
+                        if(GameState.allPlayers.get(x).equals(GameState.currentPlayer)) System.out.println(x);
+                        else {
+                            System.out.println(x);
+                            players[index] = GameState.allPlayers.get(x);
+                            index++;
+                        }
+                    }
+
+                    for(int q = 0; q < players.length; q++){
+                        playerPawns[q].setVisible(true);
+                        playerPawns[q].setImage(players[q].getPawn());
+                    }
+
                     cancelButton.setVisible(true);
                     useHelicopter = true;
                     cards[player-1][card-1].setEffect(highlight);
@@ -908,6 +958,26 @@ public class GameBoardController {
         }
     }
 
+    private Player helicopterPlayer;
+    public void helicopterPawnChosen(int x){
+        if(!useHelicopter) return;
+        Player players[] = new Player[GameState.numPlayers -1];
+        int index = 0;
+        for(int i = 0; i < GameState.numPlayers; i++){
+            if(GameState.allPlayers.get(i).equals(GameState.currentPlayer)) System.out.println(i);
+            else {
+                System.out.println(i);
+                players[index] = GameState.allPlayers.get(i);
+                index++;
+            }
+        }
+        helicopterPlayer = players[x];
+        ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+        DropShadow highlight = new DropShadow();
+        highlight.setColor(Color.YELLOW);
+        playerPawns[x].setEffect(highlight);
+    }
+
     @FXML
     void cancelUseCard(ActionEvent event){
         if(useButton.isSelected()) {
@@ -934,7 +1004,22 @@ public class GameBoardController {
             for (ImageView iv : imageViews) {
                 iv.setEffect(null);
             }
+
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            for(ImageView p: playerPawns){
+                p.setEffect(null);
+            }
+            helicopterPlayer = null;
+            actionUsedText.setTranslateY(42);
+            action1.setTranslateY(42);
+            action2.setTranslateY(42);
+            action3.setTranslateY(42);
             cancelButton.setVisible(false);
+
+            choosePlayerText.setVisible(false);
+            nextPlayer.setVisible(false);
+            nextPlayer2.setVisible(false);
+            nextPlayer3.setVisible(false);
         }
         else if(abilityButton.isSelected()){
             ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
@@ -1015,6 +1100,69 @@ public class GameBoardController {
         }
     }
 
+    public void useHelicopterLift(int[] pos, Player p) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        if(useHelicopter){
+            actionUsedText.setTranslateY(-21);
+            action1.setTranslateY(-21);
+            action2.setTranslateY(-21);
+            action3.setTranslateY(-21);
+            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
+            choosePlayerText.setVisible(true);
+
+            p.setPosition(pos);
+            removePawns();
+            p.setActivePawn("pawn");
+            drawPawns();
+            ImageView pawn = p.getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
+            p.getCurrentTile().getChildren().remove(pawn);
+            p.setCurrentTile(gridMap.get(Arrays.toString(pos)));
+            p.getCurrentTile().add(pawn,p.getIndex(),0,1,1);
+
+            for (ImageView im : imageViews)
+                im.setEffect(null);
+            useButton.setSelected(false);
+            cancelButton.setVisible(false);
+
+            p.getDeck().remove("HelicopterLift");
+            GameState.discardPile.push("HelicopterLift");
+            updateDiscard();
+            updateCards();
+
+            ImageView[][] cards = {
+                    {Player1Card1,Player1Card2,Player1Card3,Player1Card4,Player1Card5},
+                    {Player2Card1,Player2Card2,Player2Card3,Player2Card4,Player2Card5},
+                    {Player3Card1,Player3Card2,Player3Card3,Player3Card4,Player3Card5},
+                    {Player4Card1,Player4Card2,Player4Card3,Player4Card4,Player4Card5}
+            };
+            for(int i = 0; i < cards.length; i++){
+                for(int j = 0; j < cards[i].length; j++){
+                    cards[i][j].setEffect(null);
+                }
+            }
+
+            for(ImageView s: playerPawns){
+                s.setEffect(null);
+            }
+
+            actionUsedText.setTranslateY(42);
+            action1.setTranslateY(42);
+            action2.setTranslateY(42);
+            action3.setTranslateY(42);
+            cancelButton.setVisible(false);
+
+            choosePlayerText.setVisible(false);
+            nextPlayer.setVisible(false);
+            nextPlayer2.setVisible(false);
+            nextPlayer3.setVisible(false);
+
+            useHelicopter = false;
+            useCardPlayer = -1;
+        }
+    }
+
     void updateActionCounter(){
         Circle[] circles = {action1,action2,action3};
         for(int i = 0; i < GameState.currentPlayer.getMoveNumber(); i++){
@@ -1039,30 +1187,57 @@ public class GameBoardController {
     }
 
     public void abilityButtonClicked(MouseEvent mouseEvent) {
-        if(abilityButton.isSelected()){
-            actionUsedText.setTranslateY(-21);
-            action1.setTranslateY(-21);
-            action2.setTranslateY(-21);
-            action3.setTranslateY(-21);
-            ImageView playerPawns[] = {nextPlayer,nextPlayer2,nextPlayer3};
-            choosePlayerText.setVisible(true);
+        if (abilityButton.isSelected()) {
+            if (GameState.currentPlayer.getRole().equals("Messenger")) {
 
-            Player players[] = new Player[GameState.numPlayers -1];
-            int index = 0;
-            for(int i = 0; i < GameState.numPlayers; i++){
-                if(GameState.allPlayers.get(i).equals(GameState.currentPlayer)) System.out.println(i);
-                else {
-                    System.out.println(i);
-                    players[index] = GameState.allPlayers.get(i);
-                    index++;
+                actionUsedText.setTranslateY(-21);
+                action1.setTranslateY(-21);
+                action2.setTranslateY(-21);
+                action3.setTranslateY(-21);
+                ImageView playerPawns[] = {nextPlayer, nextPlayer2, nextPlayer3};
+                choosePlayerText.setVisible(true);
+
+                Player players[] = new Player[GameState.numPlayers - 1];
+                int index = 0;
+                for (int i = 0; i < GameState.numPlayers; i++) {
+                    if (GameState.allPlayers.get(i).equals(GameState.currentPlayer)) System.out.println(i);
+                    else {
+                        System.out.println(i);
+                        players[index] = GameState.allPlayers.get(i);
+                        index++;
+                    }
+                }
+
+                for (int i = 0; i < players.length; i++) {
+                    playerPawns[i].setVisible(true);
+                    playerPawns[i].setImage(players[i].getPawn());
+                }
+
+            } else if (GameState.currentPlayer.getRole().equals("Engineer")) {
+                shoreUpEngineer = true;
+                ImageView[] imageViews = new ImageView[]{r0c2, r0c3, r1c1, r1c2, r1c3, r1c4, r2c0, r2c1, r2c2, r2c3, r2c4, r2c5, r3c0, r3c1, r3c2, r3c3, r3c4, r3c5, r4c1, r4c2, r4c3, r4c4, r5c2, r5c3};
+                for (ImageView im : imageViews)
+                    im.setEffect(null);
+                boolean[][] shoreableTiles = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
+                int i = 0;
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setHeight(5.0);
+                dropShadow.setColor(Color.YELLOW);
+                dropShadow.setWidth(5.0);
+                dropShadow.setSpread(1.0);
+                for (int r = 0; r < shoreableTiles.length; r++) {
+                    for (int c = 0; c < shoreableTiles[r].length; c++) {
+                        if (r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                        else if (r == 1 && c == 0 || r == 1 && c == 5) continue;
+                        else if (r == 4 && c == 0 || r == 4 && c == 5) continue;
+                        else if (r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                        else if (shoreableTiles[r][c]) {
+                            imageViews[i].setEffect(dropShadow);
+                            i++;
+                        } else i++;
+                    }
                 }
             }
-
-            for(int i = 0; i < players.length; i++){
-                playerPawns[i].setVisible(true);
-                playerPawns[i].setImage(players[i].getPawn());
-            }
-
         }else{
             actionUsedText.setTranslateY(42);
             action1.setTranslateY(42);
@@ -1085,6 +1260,7 @@ public class GameBoardController {
             }
 
         }
+
     }
 
     private boolean navigatorPawnChoosen;
@@ -1345,6 +1521,7 @@ public class GameBoardController {
     }
 
     public void nextTurn(){
+        shoreUpEngineer = true;
         removePawns();
         GameState.currentPlayer.setActivePawn("pawn");
         GameState.currentPlayer.setMoveNumber(0);
@@ -1352,6 +1529,8 @@ public class GameBoardController {
         GameState.currentPlayer.setMoveNumber(0);
         GameState.currentPlayer.setActivePawn("active");
         drawPawns();
+        if(GameState.currentPlayer.getRole().equals("Messenger"))
+            abilityButton.setVisible(true);
 
         moveButton.setDisable(false);
         shoreButton.setDisable(false);
@@ -1370,18 +1549,47 @@ public class GameBoardController {
 
     @FXML
     void retrieveClicked(ActionEvent event){
+        if(GameState.currentPlayer.getRetrievable() == null) return;
         switch (GameState.currentPlayer.getRetrievable()){
             case "CrystalOfFire":
-
+                if(GameState.posMap.get(GameState.currentPlayer.getPos()).equals("CaveOfEmbers") || GameState.posMap.get(GameState.currentPlayer.getPos()).equals("CaveOfShadows"))
+                    for(int i = 0; i < 4; i++){
+                        GameState.discardPile.push("CrystalOfFire");
+                        GameState.currentPlayer.getDeck().remove("CrystalOfFire");
+                    }
+                GameState.CrystalOfFire.setCaptured(GameState.currentPlayer);
+                    crystalOfFireClaimed.setVisible(true);
+                    crystalOfFireUnclaimed.setVisible(false);
                 break;
             case "StatueOfWind":
-
+                if(GameState.posMap.get(GameState.currentPlayer.getPos()).equals("HowlingGarden") || GameState.posMap.get(GameState.currentPlayer.getPos()).equals("WhisperingGarden"))
+                    for(int i = 0; i < 4; i++){
+                        GameState.discardPile.push("StatueOfWind");
+                        GameState.currentPlayer.getDeck().remove("StatueOfWind");
+                    }
+                GameState.StatueOfWind.setCaptured(GameState.currentPlayer);
+                    statueOfWindClaimed.setVisible(true);
+                    statueOfWindUnclaimed.setVisible(false);
                 break;
             case "OceansChalice":
-
+                if(GameState.posMap.get(GameState.currentPlayer.getPos()).equals("TidalPalace") || GameState.posMap.get(GameState.currentPlayer.getPos()).equals("CoralForest"))
+                    for(int i = 0; i < 4; i++){
+                        GameState.discardPile.push("OceansChalice");
+                        GameState.currentPlayer.getDeck().remove("OceansChalice");
+                    }
+                GameState.OceansChalice.setCaptured(GameState.currentPlayer);
+                    oceansChaliceClaimed.setVisible(true);
+                    oceansChaliceUnclaimed.setVisible(false);
                 break;
             case "EarthStone":
-
+                if(GameState.posMap.get(GameState.currentPlayer.getPos()).equals("TempleOfTheSun") || GameState.posMap.get(GameState.currentPlayer.getPos()).equals("TempleOfTheMoon"))
+                    for(int i = 0; i < 4; i++){
+                        GameState.discardPile.push("EarthStone");
+                        GameState.currentPlayer.getDeck().remove("EarthStone");
+                    }
+                GameState.EarthStone.setCaptured(GameState.currentPlayer);
+                    earthStoneClaimed.setVisible(true);
+                    earthStoneClaimed.setVisible(false);
                 break;
         }
     }
@@ -1548,6 +1756,8 @@ public class GameBoardController {
             }
         }
     }
+
+
 
     public void useSandbag(int pos[]) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
@@ -1878,16 +2088,19 @@ public class GameBoardController {
     public void nextPlayerClicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 1 Clicked");
         navigatorPawnChosen(0);
+        helicopterPawnChosen(0);
         tradePawnChosen(0);
     }
     public void nextPlayer2Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 2 Clicked");
         navigatorPawnChosen(1);
+        helicopterPawnChosen(0);
         tradePawnChosen(1);
     }
     public void nextPlayer3Clicked(MouseEvent mouseEvent) throws FileNotFoundException {
         System.out.println("Player 3 Clicked");
         navigatorPawnChosen(2);
+        helicopterPawnChosen(0);
         tradePawnChosen(2);
     }
 
@@ -1926,6 +2139,7 @@ public class GameBoardController {
         else if(playerDrowning){
             moveDrowning(pos);
         }
+        else if(useHelicopter && helicopterPlayer!=null) useHelicopterLift(pos,helicopterPlayer);
         else if(useHelicopter) useHelicopterLift(pos);
         else if(discardUseCardHeli){
             useDiscardHeli(pos);
@@ -1976,6 +2190,23 @@ public class GameBoardController {
             }
         }
         else if(abilityButton.isSelected()){
+            if(GameState.currentPlayer.getRole().equals("Engineer")){
+                System.out.println(shoreUpEngineer);
+                if(shoreUpEngineer){
+                    GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
+                    GameState.posMap.get(Arrays.toString(pos)).setGone(false);
+                    updateTiles();
+                    shoreUpEngineer = false;
+                }else{
+                    GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
+                    GameState.posMap.get(Arrays.toString(pos)).setGone(false);
+                    updateTiles();
+                    abilityButton.setSelected(false);
+                    abilityButtonClicked(mouseEvent);
+                    GameState.currentPlayer.setMoveNumber(GameState.currentPlayer.getMoveNumber()+1);
+                    updateActionCounter();
+                }
+            }
             if(navigatorPawnChoosen){
 
                 ImageView pawn = navigatorChoosenPlayer.getCurrentPawn();
