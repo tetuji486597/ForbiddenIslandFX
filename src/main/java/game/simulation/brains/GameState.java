@@ -61,7 +61,7 @@ public class GameState {
         allTiles = tileShuffle.toArray(new String[tileShuffle.size()]);
         tiles = new GameTile[24];
         this.numPlayers = numPlayers;
-        tilesMap = new HashMap<>();
+        tilesMap = new HashMap<String, GameTile>();
         posMap = new HashMap<>();
         floodDeck = new Stack<>();
         floodDiscard = new Stack<>();
@@ -71,6 +71,7 @@ public class GameState {
             GameTile gameTile = new GameTile(allTiles[i], Initialize.tiles.get(allTiles[i]), pos[i]);
             tiles[i] = gameTile;
             tilesMap.put(allTiles[i], gameTile);
+            System.out.println("\"" + Arrays.toString(pos[i]) + "\"" + tiles[i].getName());
             posMap.put(Arrays.toString(pos[i]),tiles[i]);
         }
         Collections.shuffle(floodDeck);
@@ -133,6 +134,7 @@ public class GameState {
 
 
 
+
     }
 
     public static void addCards() {
@@ -151,17 +153,12 @@ public class GameState {
     public static void floodTiles() {
         if(floodDeck.isEmpty()) {
             Collections.shuffle(floodDiscard);
-            while(!floodDiscard.isEmpty()) floodDeck.push(floodDeck.pop());
+            while(!floodDiscard.isEmpty()) floodDeck.push(floodDiscard.pop());
         }
         for(int i = 0; i < waterLevelMeter.getNumCards(); i++) {
-            if(tilesMap.get(floodDeck.peek()).getFloodState()) {
-                tilesMap.get(floodDeck.peek()).setGone(true);
-                System.out.println(floodDeck.pop());
-            }
-            else {
-                tilesMap.get(floodDeck.peek()).setFlooded(true);
-                System.out.println(floodDiscard.push(floodDeck.pop()));
-            }
+            tilesMap.get(floodDeck.peek()).flood();
+            if(tilesMap.get("FoolsLanding").isGone()) System.out.println("GAME OVER!!");
+            System.out.println(floodDiscard.push(floodDeck.pop()));
         }
     }
 

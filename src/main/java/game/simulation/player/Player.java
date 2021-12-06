@@ -204,7 +204,7 @@ public class Player
                     filledDeck,
                     0
             )];
-           playerDeck.remove(playerDeck.indexOf(cardToRemove));
+           playerDeck.remove(cardToRemove);
         }
     }
 

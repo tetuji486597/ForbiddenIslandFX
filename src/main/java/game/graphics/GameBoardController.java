@@ -1,5 +1,6 @@
 package game.graphics;
 
+import game.simulation.board.GameTile;
 import game.simulation.board.WaterLevelMeter;
 import game.simulation.brains.*;
 import game.simulation.player.Player;
@@ -463,6 +464,39 @@ public class GameBoardController {
     private Button confirmButton;
 
     @FXML
+    private Button endTurnButton;
+
+    @FXML
+    private ImageView discard1;
+
+    @FXML
+    private ImageView discard2;
+
+    @FXML
+    private ImageView discard3;
+
+    @FXML
+    private ImageView discard4;
+
+    @FXML
+    private ImageView discard5;
+
+    @FXML
+    private ImageView discard6;
+
+    @FXML
+    private ImageView discard7;
+
+    @FXML
+    private Button discardDisposeButton;
+
+    @FXML
+    private DialogPane discardPanel;
+
+    @FXML
+    private Button discardUseButton;
+
+    @FXML
     public void initialize() throws FileNotFoundException {
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
@@ -524,23 +558,12 @@ public class GameBoardController {
         cancelButton.setVisible(false);
         drawCardsButton.setVisible(false);
         confirmButton.setVisible(false);
-
+        discardPanel.setVisible(false);
     }
 
     public void playWaterRiseAnimation(){
         waterRisePane.setVisible(true);
-        Task<Void> sleeper = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                try {
-                    Thread.sleep(3500);
-                } catch (InterruptedException e) {
-                }
-                return null;
-            }
-        };
-        new Thread(sleeper).start();
-        FadeTransition.applyFadeTransition2(waterRisePane, Duration.seconds(3), (e) ->{
+        FadeTransition.applyFadeTransition2(waterRisePane, Duration.seconds(1), (e) ->{
             waterRisePane.setVisible(false);
             try {
                 updateTiles();
@@ -997,8 +1020,15 @@ public class GameBoardController {
         for(int i = 0; i < GameState.currentPlayer.getMoveNumber(); i++){
             circles[i].setFill(Color.rgb(142,208,85));
         }
-        if(GameState.currentPlayer.getMoveNumber() == 3)
-        drawCardsButton.setVisible(true);
+        if(GameState.currentPlayer.getMoveNumber() == 3) {
+            drawCardsButton.setVisible(true);
+            moveButton.setDisable(true);
+            shoreButton.setDisable(true);
+            tradeButton.setDisable(true);
+            useButton.setDisable(true);
+            retrieveButton.setDisable(true);
+            endTurnButton.setDisable(true);
+        }
     }
 
     void resetActionCounter(){
@@ -1108,7 +1138,42 @@ public class GameBoardController {
     @FXML
     void drawCards(ActionEvent event) throws FileNotFoundException {
         boolean waterRose = true;
+        boolean waterRose2 = true;
         GameState.addCards();
+        if(GameState.currentPlayer.getDeck().size()>5) {
+            for(int i = GameState.currentPlayer.getDeck().size()-1; i >= 0; i--){
+                String card = GameState.currentPlayer.getDeck().get(i);
+                if(card.equals("WatersRise") && waterRose){
+                    waterRise();
+                    GameState.currentPlayer.getDeck().remove(i);
+                    GameState.discardPile.push("WatersRise");
+                    updateDiscard();
+                    waterRose = false;
+                }else if(card.equals("WatersRise") && waterRose2){
+                    waterRise();
+                    GameState.currentPlayer.getDeck().remove(i);
+                    GameState.discardPile.push("WatersRise");
+                    updateDiscard();
+                    waterRose2 = false;
+                }else if(card.equals("WatersRise")){
+                    GameState.currentPlayer.getDeck().remove(i);
+                    GameState.discardPile.push("WatersRise");
+                    updateDiscard();
+                }
+            }
+            System.out.println("check for waterrise");
+        }
+        if(GameState.currentPlayer.getDeck().size()>5) {
+            discard();
+        }else{
+            updateCards();
+            drawCards2();
+        }
+    }
+
+    void drawCards2() throws FileNotFoundException {
+        boolean waterRose = true;
+        boolean waterRose2 = true;
         updateCards();
         for(int i = GameState.currentPlayer.getDeck().size()-1; i >= 0; i--){
             String card = GameState.currentPlayer.getDeck().get(i);
@@ -1119,15 +1184,142 @@ public class GameBoardController {
                 updateCards();
                 updateDiscard();
                 waterRose = false;
+            }else if(card.equals("WatersRise") && waterRose2){
+                waterRise();
+                GameState.currentPlayer.getDeck().remove(i);
+                GameState.discardPile.push("WatersRise");
+                updateCards();
+                updateDiscard();
+                waterRose2 = false;
             }else if(card.equals("WatersRise")){
                 GameState.currentPlayer.getDeck().remove(i);
                 GameState.discardPile.push("WatersRise");
+                updateCards();
                 updateDiscard();
             }
         }
         floodTiles();
         drawCardsButton.setVisible(false);
+    }
 
+    private boolean discarding;
+    public void discard() throws FileNotFoundException {
+        ArrayList<String> cards = GameState.currentPlayer.getDeck();
+        if(cards.size()<=5){
+            discardPanel.setVisible(false);
+            updateCards();
+            moveButton.setDisable(false);
+            shoreButton.setDisable(false);
+            tradeButton.setDisable(false);
+            useButton.setDisable(false);
+            retrieveButton.setDisable(false);
+            endTurnButton.setDisable(false);
+            return;
+        }
+        moveButton.setDisable(true);
+        shoreButton.setDisable(true);
+        tradeButton.setDisable(true);
+        useButton.setDisable(true);
+        retrieveButton.setDisable(true);
+        endTurnButton.setDisable(true);
+        ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
+        for(ImageView im: imageViews) {
+            im.setImage(null);
+            im.setEffect(null);
+        }
+        discarding = true;
+        discardPanel.setVisible(true);
+        for(int i = 0; i < cards.size(); i++){
+            imageViews[i].setImage(Initialize.treasurecards.get(cards.get(i)));
+        }
+    }
+
+    private int discardCardChoosen;
+    void chooseDiscardCard(int x){
+        if(x == -1) return;
+        DropShadow highlight = new DropShadow();
+        highlight.setColor(Color.YELLOW);
+        ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
+        imageViews[x].setEffect(highlight);
+        discardCardChoosen = x;
+    }
+
+    @FXML
+    public void discardDisposeClicked(ActionEvent event) throws FileNotFoundException {
+        GameState.discardPile.push(GameState.currentPlayer.getDeck().get(discardCardChoosen));
+        GameState.currentPlayer.getDeck().remove(discardCardChoosen);
+        if(GameState.currentPlayer.getDeck().size()<=5){
+            discardPanel.setVisible(false);
+            drawCards2();
+        }else{
+            discard();
+        }
+    }
+
+    private boolean discardUseCardHeli;
+    private boolean discardUseCardSand;
+    @FXML
+    public void discardUseClicked(ActionEvent event) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        String[] tiles = new String[]{"[0, 2]","[0, 3]","[1, 1]","[1, 2]","[1, 3]","[1, 4]","[2, 0]","[2, 1]","[2, 2]","[2, 3]","[2, 4]","[2, 5]","[3, 0]","[3, 1]","[3, 2]","[3, 3]","[3, 4]","[3, 5]","[4, 1]","[4, 2]","[4, 3]","[4, 4]","[5, 2]","[5, 3]"};
+        DropShadow highlight = new DropShadow();
+        highlight.setColor(Color.YELLOW);
+        switch (GameState.discardPile.push(GameState.currentPlayer.getDeck().get(discardCardChoosen))){
+            case "Sandbag":
+                discardPanel.setVisible(false);
+                discardUseCardSand = true;
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setHeight(5.0);
+                dropShadow.setColor(Color.YELLOW);
+                dropShadow.setWidth(5.0);
+                dropShadow.setSpread(1.0);
+                char[][] shoreableTiles = GameState.getCurrentState();
+                int i = 0;
+                for(int r = 0; r < shoreableTiles.length; r++){
+                    for(int c = 0; c < shoreableTiles[r].length; c++){
+                        if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                        else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                        else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                        else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                        else if(shoreableTiles[r][c] == 'F') {
+                            imageViews[i].setEffect(dropShadow);
+                        }
+                        i++;
+                    }
+                }
+                GameState.discardPile.push(GameState.currentPlayer.getDeck().get(discardCardChoosen));
+                GameState.currentPlayer.getDeck().remove(discardCardChoosen);
+                break;
+            case "HelicopterLift":
+                discardPanel.setVisible(false);
+                discardUseCardHeli = true;
+                DropShadow dropShadow1 = new DropShadow();
+                dropShadow1.setHeight(5.0);
+                dropShadow1.setColor(Color.GREEN);
+                dropShadow1.setWidth(5.0);
+                dropShadow1.setSpread(1.0);
+                int[] pos = GameState.currentPlayer.getPos();
+                int iu = 0;
+                removePawns();
+                GameState.currentPlayer.setActivePawn("move");
+                drawPawns();
+                for(int r = 0; r < 6; r++){
+                    for(int c = 0; c < 6; c++){
+                        if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                        else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                        else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                        else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                        else if(tiles[iu].equals(Arrays.toString(pos))) iu++;
+                        else {
+                            imageViews[iu].setEffect(dropShadow1);
+                            iu++;
+                        }
+                    }
+                }
+                GameState.discardPile.push(GameState.currentPlayer.getDeck().get(discardCardChoosen));
+                GameState.currentPlayer.getDeck().remove(discardCardChoosen);
+                break;
+        }
     }
 
     private boolean playerDrowning;
@@ -1137,12 +1329,16 @@ public class GameBoardController {
         GameState.floodTiles();
         ArrayList<Player> drowning = new ArrayList<>();
         for(int i = 0; i < GameState.numPlayers; i++){
-            if(GameState.tilesMap.get(Arrays.toString(GameState.allPlayers.get(i).getPos())).isGone()){
-                drowning.add(GameState.allPlayers.get(i));
-                playerDrowning = true;
+            int pos[] = GameState.allPlayers.get(i).getPos();
+            for(GameTile t: GameState.tiles) {
+                if (Arrays.equals(t.getPosition(), pos) && t.isGone()) {
+                    drowning.add(GameState.allPlayers.get(i));
+                    playerDrowning = true;
+                }
             }
         }
-        if(!drowning.isEmpty()) swim(drowning);
+        playersWhoAbtToDrown = drowning;
+        if(!drowning.isEmpty()) swim();
         else nextTurn();
         updateDiscard();
         updateTiles();
@@ -1157,6 +1353,13 @@ public class GameBoardController {
         GameState.currentPlayer.setActivePawn("active");
         drawPawns();
 
+        moveButton.setDisable(false);
+        shoreButton.setDisable(false);
+        tradeButton.setDisable(false);
+        useButton.setDisable(false);
+        retrieveButton.setDisable(false);
+        endTurnButton.setDisable(false);
+
         GridPane[] invs = {Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         for(GridPane gp : invs) gp.setEffect(null);
         DropShadow dropShadow = new DropShadow();
@@ -1167,29 +1370,183 @@ public class GameBoardController {
 
     @FXML
     void retrieveClicked(ActionEvent event){
+        switch (GameState.currentPlayer.getRetrievable()){
+            case "CrystalOfFire":
 
-    }
+                break;
+            case "StatueOfWind":
 
-    private Thread mutex;
-    void swim(ArrayList<Player> players){
+                break;
+            case "OceansChalice":
 
-        for (int i = 0; i < players.size(); i++) {
+                break;
+            case "EarthStone":
 
+                break;
         }
     }
 
-    void moveDrowning(){
 
+    private Player currentDrowner;
+    private ArrayList<Player> playersWhoAbtToDrown;
+    void swim(){
+        if(playersWhoAbtToDrown.isEmpty()){
+            playerDrowning = false;
+            nextTurn();
+            moveButton.setDisable(false);
+            shoreButton.setDisable(false);
+            tradeButton.setDisable(false);
+            useButton.setDisable(false);
+            retrieveButton.setDisable(false);
+            endTurnButton.setDisable(false);
+            return;
+        }
+        moveButton.setDisable(true);
+        shoreButton.setDisable(true);
+        tradeButton.setDisable(true);
+        useButton.setDisable(true);
+        retrieveButton.setDisable(true);
+        endTurnButton.setDisable(true);
+        Player p = playersWhoAbtToDrown.get(0);
+        currentDrowner = p;
+        boolean[][] moveableTiles = p.getMoveableTiles(GameState.posMap.get(Arrays.toString(p.getPos())));
+        boolean possibleToSwim = false;
+        for(int r = 0; r < 6; r++){
+            for(int c = 0; c < 6; c++){
+                if(moveableTiles[r][c]) possibleToSwim = true;
+            }
+        }
+        if(!possibleToSwim) System.out.println("GAME OVER!!");
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        for (ImageView im : imageViews)
+            im.setEffect(null);
+        removePawns();
+        p.setActivePawn("move");
+        drawPawns();
+        int i = 0;
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setHeight(5.0);
+        dropShadow.setColor(Color.GREENYELLOW);
+        dropShadow.setWidth(5.0);
+        dropShadow.setSpread(1.0);
+        for(int r = 0; r < moveableTiles.length; r++){
+            for(int c = 0; c < moveableTiles[r].length; c++){
+                if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
+                else if(r == 1 && c == 0 || r == 1 && c == 5) continue;
+                else if(r == 4 && c == 0 || r == 4 && c == 5) continue;
+                else if(r == 5 && c == 0 || r == 5 && c == 1 || r == 5 && c == 4 || r == 5 && c == 5) continue;
+                else if(moveableTiles[r][c]) {
+                    imageViews[i].setEffect(dropShadow);
+                    i++;
+                }
+                else i++;
+            }
+        }
+        playersWhoAbtToDrown.remove(p);
+
+    }
+
+    void moveDrowning(int pos[]){
+        boolean[][] moveable = currentDrowner.getMoveableTiles(GameState.posMap.get(Arrays.toString(currentDrowner.getPos())));
+
+        if(moveable[pos[0]][pos[1]]){
+            ImageView pawn = currentDrowner.getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
+            currentDrowner.setPosition(pos);
+
+            currentDrowner.getCurrentTile().getChildren().remove(pawn);
+            currentDrowner.setCurrentTile(gridMap.get(Arrays.toString(pos)));
+            currentDrowner.getCurrentTile().add(pawn,GameState.currentPlayer.getIndex(),0,1,1);
+
+            removePawns();
+            currentDrowner.setActivePawn("pawn");
+            GameState.currentPlayer.setActivePawn("active");
+            drawPawns();
+
+            ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+            for (ImageView im : imageViews)
+                im.setEffect(null);
+            swim();
+        }
     }
 
     void waterRise(){
         GameState.raiseWater();
         for(ImageView im : waterlevels){
-            im.setVisible(false);
+            try {
+                im.setVisible(false);
+            }catch (ArrayIndexOutOfBoundsException ex){
+                System.out.println("GAME OVER!!!");
+            }
         }
         waterlevels[GameState.waterLevel-1].setVisible(true);
         playWaterRiseAnimation();
         updateDiscard();
+    }
+
+    public void useDiscardSand(int pos[]) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        if(GameState.posMap.get(Arrays.toString(pos)).getFloodState()){
+            GameState.posMap.get(Arrays.toString(pos)).setFlooded(false);
+            updateTiles();
+            for (ImageView im : imageViews)
+                im.setEffect(null);
+            discardUseCardSand = false;
+            if(GameState.currentPlayer.getDeck().size()<=5){
+                discardPanel.setVisible(false);
+                drawCards2();
+            }else{
+                discard();
+            }
+        }else{
+            discard();
+        }
+    }
+
+    public void useDiscardHeli(int pos[]) throws FileNotFoundException {
+        ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
+        int count = 0;
+        for(Player p : GameState.allPlayers)
+            if(GameState.posMap.get(Arrays.toString(p.getPos())).equals("FoolsLanding")) count++;
+        if(count == GameState.numPlayers)  {
+            Stage win = new Stage();
+            FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("victory.fxml"));
+            win.setTitle("Congratulations");
+            Scene winScene = null;
+            try {
+                winScene = new Scene(menuLoader.load(), 600, 800);
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+            win.setScene(winScene);
+            win.setResizable(false);
+            winScene.getStylesheets().add("moderna-darl.css");
+            ParentPanel.setVictoryPanel(win);
+        }
+        if(discardUseCardHeli){
+            GameState.currentPlayer.setPosition(pos);
+            removePawns();
+            GameState.currentPlayer.setActivePawn("active");
+            GameState.currentPlayer.setActivePawn("pawn");
+            drawPawns();
+            ImageView pawn = GameState.currentPlayer.getCurrentPawn();
+            pawn.setFitWidth(34);
+            pawn.setFitHeight(50);
+            GameState.currentPlayer.getCurrentTile().getChildren().remove(pawn);
+            GameState.currentPlayer.setCurrentTile(gridMap.get(Arrays.toString(pos)));
+            GameState.currentPlayer.getCurrentTile().add(pawn,GameState.currentPlayer.getIndex(),0,1,1);
+            for (ImageView im : imageViews)
+                im.setEffect(null);
+
+            discardUseCardHeli = false;
+            if(GameState.currentPlayer.getDeck().size()<=5){
+                discardPanel.setVisible(false);
+                drawCards2();
+            }else{
+                discard();
+            }
+        }
     }
 
     public void useSandbag(int pos[]) throws FileNotFoundException {
@@ -1534,9 +1891,59 @@ public class GameBoardController {
         tradePawnChosen(2);
     }
 
+
+    public void discardClicked1(MouseEvent mouseEvent) {
+        System.out.println("Discard 1 Clicked");
+        chooseDiscardCard(0);
+    }
+    public void discardClicked2(MouseEvent mouseEvent) {
+        System.out.println("Discard 2 Clicked");
+        chooseDiscardCard(1);
+    }
+    public void discardClicked3(MouseEvent mouseEvent) {
+        System.out.println("Discard 3 Clicked");
+        chooseDiscardCard(2);
+    }
+    public void discardClicked4(MouseEvent mouseEvent) {
+        System.out.println("Discard 4 Clicked");
+        chooseDiscardCard(3);
+    }
+    public void discardClicked5(MouseEvent mouseEvent) {
+        System.out.println("Discard 5 Clicked");
+        chooseDiscardCard(4);
+    }
+    public void discardClicked6(MouseEvent mouseEvent) {
+        System.out.println("Discard 6 Clicked");
+        chooseDiscardCard(5);
+    }
+    public void discardClicked7(MouseEvent mouseEvent) {
+        System.out.println("Discard 7 Clicked");
+        chooseDiscardCard(6);
+    }
+
     public void movePawn(int[] pos, MouseEvent mouseEvent) throws FileNotFoundException {
         if(useSandbag) useSandbag(pos);
+        else if(playerDrowning){
+            moveDrowning(pos);
+        }
         else if(useHelicopter) useHelicopterLift(pos);
+        else if(discardUseCardHeli){
+            useDiscardHeli(pos);
+            if(GameState.currentPlayer.getDeck().size()<=5){
+                discardPanel.setVisible(false);
+                drawCards2();
+            }else{
+                discard();
+            }
+        }else if(discardUseCardSand){
+            useDiscardSand(pos);
+            if(GameState.currentPlayer.getDeck().size()<=5){
+                discardPanel.setVisible(false);
+                drawCards2();
+            }else{
+                discard();
+            }
+        }
         else if(moveButton.isSelected()){
             boolean[][] move = GameState.currentPlayer.getMoveableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
             System.out.println(move[pos[0]][pos[1]]);

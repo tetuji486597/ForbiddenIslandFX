@@ -35,6 +35,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -479,22 +481,22 @@
                                                 <Image url="@../../Images/Tiles/extra/Tile_Moat@2x.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <ImageView fx:id="statueOfTheWindUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <image>
                                                 <Image url="@../../Images/Treasures/AIR.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                        <ImageView fx:id="oceansChaliceUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                             <image>
                                                 <Image url="@../../Images/Treasures/EAU.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                        <ImageView fx:id="crystalOfFireUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <image>
                                                 <Image url="@../../Images/Treasures/FEU.png" />
                                             </image>
                                         </ImageView>
-                                        <ImageView fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                                        <ImageView fx:id="earthStoneUnclaimed" fitHeight="100.0" fitWidth="100.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                                             <image>
                                                 <Image url="@../../Images/Treasures/TERRE.png" />
                                             </image>
@@ -734,6 +736,7 @@
                               </GridPane>
                               <GridPane fx:id="g3p3" onMouseClicked="#r3c3Clicked" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                  <columnConstraints>
+                                    <ColumnConstraints />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -881,6 +884,80 @@
                               </ImageView>
                            </children>
                         </AnchorPane>
+                        <DialogPane fx:id="discardPanel" layoutX="100.0" layoutY="230.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="480.0" visible="false">
+                            <header>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+                                 <children>
+                                    <GridPane layoutY="17.0" prefHeight="150.0" prefWidth="482.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fx:id="discard1" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked1" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard2" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked2" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard3" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked3" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard4" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked4" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard5" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked5" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard6" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked6" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                          <ImageView fx:id="discard7" fitHeight="121.0" fitWidth="66.0" onMouseClicked="#discardClicked7" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+                                             <image>
+                                                <Image url="@../../Images/TreasureCards/Pressed.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                            </header>
+                            <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
+                                 <children>
+                                    <ButtonBar layoutX="1.0" layoutY="5.0" prefHeight="40.0" prefWidth="327.0">
+                                      <buttons>
+                                          <Button fx:id="discardUseButton" mnemonicParsing="false" onAction="#discardUseClicked" text="Use" />
+                                          <Button fx:id="discardDisposeButton" alignment="CENTER" mnemonicParsing="false" onAction="#discardDisposeClicked" text="Dispose" />
+                                      </buttons>
+                                    </ButtonBar>
+                                 </children>
+                              </AnchorPane>
+                            </content>
+                            <expandableContent>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0" />
+                            </expandableContent>
+                        </DialogPane>
                             </children>
                         </AnchorPane>
                     </content>
@@ -1042,7 +1119,7 @@
                         <Color red="0.624" green="0.624" blue="0.624" fx:id="x811" />
                      </textFill>
                   </Label>
-                  <Button fx:id="retrieveButton" layoutX="315.0" layoutY="88.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
+                  <Button fx:id="retrieveButton" layoutX="315.0" layoutY="88.0" mnemonicParsing="false" onAction="#retrieveClicked" prefHeight="34.0" prefWidth="111.0" text="Retrieve Treasure" />
                   <Circle fx:id="action1" fill="#dd5454" layoutX="542.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fx:id="action2" fill="#dd5454" layoutX="581.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fx:id="action3" fill="#dd5454" layoutX="620.0" layoutY="74.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" />
@@ -1076,7 +1153,7 @@
                   <ToggleButton fx:id="abilityButton" layoutX="436.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#abilityButtonClicked" prefHeight="34.0" prefWidth="59.0" text="Ability" />
                   <ToggleButton fx:id="tradeButton" layoutX="158.0" layoutY="88.0" mnemonicParsing="false" onAction="#tradeButtonClicked" onMouseClicked="#shoreClicked" prefHeight="34.0" prefWidth="59.0" text="Trade" />
                   <Button fx:id="drawCardsButton" layoutX="90.0" layoutY="142.0" mnemonicParsing="false" onAction="#drawCards" prefHeight="34.0" prefWidth="78.0" text="Draw Cards" />
-                  <Button layoutX="14.0" layoutY="142.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="66.0" text="End Turn" />
+                  <Button fx:id="endTurnButton" layoutX="14.0" layoutY="142.0" mnemonicParsing="false" onAction="#drawCards" prefHeight="34.0" prefWidth="66.0" text="End Turn" />
                   <Button fx:id="confirmButton" layoutX="178.0" layoutY="142.0" mnemonicParsing="false" onAction="#confirmClicked" prefHeight="34.0" prefWidth="66.0" text="Confirm" />
                </children></Pane>
             </children>
