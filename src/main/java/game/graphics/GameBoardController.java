@@ -1095,6 +1095,12 @@ public class GameBoardController {
                 }
             }
 
+            actionUsedText.setTranslateY(-21);
+            action1.setTranslateY(-21);
+            action2.setTranslateY(-21);
+            action3.setTranslateY(-21);
+            choosePlayerText.setVisible(true);
+
             useHelicopter = false;
             useCardPlayer = -1;
         }
@@ -1160,6 +1166,12 @@ public class GameBoardController {
 
             useHelicopter = false;
             useCardPlayer = -1;
+
+            actionUsedText.setTranslateY(-21);
+            action1.setTranslateY(-21);
+            action2.setTranslateY(-21);
+            action3.setTranslateY(-21);
+            choosePlayerText.setVisible(true);
         }
     }
 
@@ -1171,6 +1183,7 @@ public class GameBoardController {
         if(GameState.currentPlayer.getMoveNumber() == 3) {
             drawCardsButton.setVisible(true);
             moveButton.setDisable(true);
+            abilityButton.setDisable(true);
             shoreButton.setDisable(true);
             tradeButton.setDisable(true);
             useButton.setDisable(true);
@@ -1390,12 +1403,14 @@ public class GameBoardController {
             useButton.setDisable(false);
             retrieveButton.setDisable(false);
             endTurnButton.setDisable(false);
+            abilityButton.setDisable(false);
             return;
         }
         moveButton.setDisable(true);
         shoreButton.setDisable(true);
         tradeButton.setDisable(true);
         useButton.setDisable(true);
+        abilityButton.setDisable(true);
         retrieveButton.setDisable(true);
         endTurnButton.setDisable(true);
         ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
@@ -1533,6 +1548,7 @@ public class GameBoardController {
             abilityButton.setVisible(true);
 
         moveButton.setDisable(false);
+        abilityButton.setDisable(false);
         shoreButton.setDisable(false);
         tradeButton.setDisable(false);
         useButton.setDisable(false);
@@ -1602,6 +1618,7 @@ public class GameBoardController {
             playerDrowning = false;
             nextTurn();
             moveButton.setDisable(false);
+            abilityButton.setDisable(false);
             shoreButton.setDisable(false);
             tradeButton.setDisable(false);
             useButton.setDisable(false);
@@ -1611,6 +1628,7 @@ public class GameBoardController {
         }
         moveButton.setDisable(true);
         shoreButton.setDisable(true);
+        abilityButton.setDisable(true);
         tradeButton.setDisable(true);
         useButton.setDisable(true);
         retrieveButton.setDisable(true);
@@ -2139,7 +2157,9 @@ public class GameBoardController {
         else if(playerDrowning){
             moveDrowning(pos);
         }
-        else if(useHelicopter && helicopterPlayer!=null) useHelicopterLift(pos,helicopterPlayer);
+        else if(useHelicopter && helicopterPlayer!=null){
+            useHelicopterLift(pos,helicopterPlayer);
+        }
         else if(useHelicopter) useHelicopterLift(pos);
         else if(discardUseCardHeli){
             useDiscardHeli(pos);
