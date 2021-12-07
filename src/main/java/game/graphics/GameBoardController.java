@@ -535,8 +535,8 @@ public class GameBoardController {
         for(ImageView im : waterlevels){
             im.setVisible(false);
         }
-        ImageView helpImg = new ImageView(new Image("/Images/help.png"));
-        ImageView settingsImg = new ImageView(new Image("/Images/settings.png"));
+        ImageView helpImg = new ImageView(new Image("Images/help.png"));
+        ImageView settingsImg = new ImageView(new Image("Images/settings.png"));
         helpButton.setGraphic(helpImg);
         helpButton.setStyle(
                 "-fx-background-radius: 5em; " +
@@ -744,7 +744,7 @@ public class GameBoardController {
         for(int i = 0; i < GameState.numPlayers; i++){
             ImageView[] imageviewdeck = playerCards.get(i+1);
             for(int j = 0; j < 5; j++){
-                imageviewdeck[j].setImage(new Image(new FileInputStream("/Images/TreasureCards/Pressed.png")));
+                imageviewdeck[j].setImage(new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/TreasureCards/Pressed.png")));
             }
         }
         for(int i = 0; i < GameState.numPlayers; i++){
@@ -806,7 +806,7 @@ public class GameBoardController {
         dropShadow.setColor(Color.GREENYELLOW);
         dropShadow.setWidth(5.0);
         dropShadow.setSpread(1.0);
-        Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+        Image image = new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
         for(int r = 0; r < moveableTiles.length; r++){
             for(int c = 0; c < moveableTiles[r].length; c++){
                 if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -829,7 +829,7 @@ public class GameBoardController {
         if(!shoreButton.isSelected()) {
             return;
         }
-        Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+        Image image = new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
         boolean[][] shoreableTiles = GameState.currentPlayer.getShoreableTiles(GameState.posMap.get(Arrays.toString(GameState.currentPlayer.getPos())));
         int i = 0;
         DropShadow dropShadow = new DropShadow();
@@ -874,7 +874,7 @@ public class GameBoardController {
                     cancelButton.setVisible(true);
                     useSandbag = true;
                     cards[player-1][card-1].setEffect(highlight);
-                    Image image = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
+                    Image image = new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/Tiles/extra/Tile_Flood_Icon@2x.png"));
                     char[][] shoreableTiles = GameState.getCurrentState();
                     int i = 0;
                     for(int r = 0; r < shoreableTiles.length; r++){
@@ -929,7 +929,7 @@ public class GameBoardController {
                     removePawns();
                     GameState.allPlayers.get(player-1).setActivePawn("move");
                     drawPawns();
-                    Image imagee = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+                    Image imagee = new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
                     for(int r = 0; r < 6; r++){
                         for(int c = 0; c < 6; c++){
                             if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -1185,6 +1185,7 @@ public class GameBoardController {
             moveButton.setDisable(true);
             abilityButton.setDisable(true);
             shoreButton.setDisable(true);
+            abilityButton.setDisable(true);
             tradeButton.setDisable(true);
             useButton.setDisable(true);
             retrieveButton.setDisable(true);
@@ -1307,7 +1308,7 @@ public class GameBoardController {
             ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
             boolean navigableTiles[][] = players[x].getNavigableTile();
             int iu = 0;
-            Image imagee = new Image(new FileInputStream("/Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
+            Image imagee = new Image(GameBoardController.class.getClassLoader().getResourceAsStream("Images/Tiles/extra/Tile_Movement_Icon@2x.png"));
             for(int r = 0; r < 6; r++){
                 for(int c = 0; c < 6; c++){
                     if(r == 0 && c == 0 || r == 0 && c == 1 || r == 0 && c == 4 || r == 0 && c == 5) continue;
@@ -1401,6 +1402,7 @@ public class GameBoardController {
             shoreButton.setDisable(false);
             tradeButton.setDisable(false);
             useButton.setDisable(false);
+            abilityButton.setDisable(false);
             retrieveButton.setDisable(false);
             endTurnButton.setDisable(false);
             abilityButton.setDisable(false);
@@ -1409,6 +1411,7 @@ public class GameBoardController {
         moveButton.setDisable(true);
         shoreButton.setDisable(true);
         tradeButton.setDisable(true);
+        abilityButton.setDisable(true);
         useButton.setDisable(true);
         abilityButton.setDisable(true);
         retrieveButton.setDisable(true);
@@ -1431,6 +1434,8 @@ public class GameBoardController {
         DropShadow highlight = new DropShadow();
         highlight.setColor(Color.YELLOW);
         ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
+        for(ImageView im:imageViews)
+            im.setEffect(null);
         imageViews[x].setEffect(highlight);
         discardCardChoosen = x;
     }
@@ -1544,7 +1549,7 @@ public class GameBoardController {
         GameState.currentPlayer.setMoveNumber(0);
         GameState.currentPlayer.setActivePawn("active");
         drawPawns();
-        if(GameState.currentPlayer.getRole().equals("Messenger"))
+        if(GameState.currentPlayer.getRole().equals("Navigator") || GameState.currentPlayer.getRole().equals("Engineer"))
             abilityButton.setVisible(true);
 
         moveButton.setDisable(false);
@@ -1627,6 +1632,7 @@ public class GameBoardController {
             return;
         }
         moveButton.setDisable(true);
+        abilityButton.setDisable(true);
         shoreButton.setDisable(true);
         abilityButton.setDisable(true);
         tradeButton.setDisable(true);
