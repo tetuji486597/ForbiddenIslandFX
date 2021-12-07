@@ -6,8 +6,8 @@ public class ParentPanel {
     static Stage menuPanel;
     static Stage helpPanel;
     static Stage gamePanel;
-    static Stage victoryPanel;
-    static Stage losingPanel;
+    public static Stage victoryPanel;
+    public static Stage losingPanel;
 
     public static void setMenuPanel(Stage s){
         menuPanel = s;

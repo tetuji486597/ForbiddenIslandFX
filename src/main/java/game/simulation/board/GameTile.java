@@ -72,7 +72,7 @@ public class GameTile {
         this.isFlooded = floodState;
     }
 
-    public void flood(){
+    public void flood() {
         if(isFlooded){
             isGone = true;
             if(name.equals("FoolsLanding")) {

@@ -9,10 +9,14 @@ import game.simulation.player.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -85,10 +89,10 @@ public class GameState {
         waterLevelMeter = new WaterLevelMeter(difficulty);
 
         allRoles = new String[]{"Navigator", "Messenger", "Engineer", "Pilot", "Explorer", "Diver"};
-        allRoles = new String[]{"Engineer", "Messenger", "Diver", "Navigator"};
-//        List<String> roleShuffle = Arrays.asList(allRoles);
-//        Collections.shuffle(roleShuffle);
-//        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
+//        allRoles = new String[]{"Engineer", "Messenger", "Diver", "Navigator"};
+        List<String> roleShuffle = Arrays.asList(allRoles);
+        Collections.shuffle(roleShuffle);
+        allRoles = roleShuffle.toArray(new String[roleShuffle.size()]);
 
         cardDeck = new Stack<>();
         for(int i = 0; i < 5; i++) cardDeck.push("CrystalOfFire");
@@ -177,19 +181,8 @@ public class GameState {
         loseGame("Treasures have sunk!");
     }
     public static void loseGame(String message) {
-        Stage lose = new Stage();
-        FXMLLoader menuLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
-        lose.setTitle(message);
-        Scene loseScene = null;
-        try {
-            loseScene = new Scene(menuLoader.load(), 600, 800);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        lose.setScene(loseScene);
-        lose.setResizable(false);
-        loseScene.getStylesheets().add("moderna-darl.css");
-        ParentPanel.setLosingPanel(lose);
+        ParentPanel.losingPanel.setTitle(message);
+        ParentPanel.losingPanel.show();
     }
     public void drawCard(Graphics g) {
     }

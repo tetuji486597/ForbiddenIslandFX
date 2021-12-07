@@ -4,6 +4,8 @@ import game.simulation.brains.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -38,6 +40,25 @@ public class GameRunner extends Application {
         Stage settings = new Stage();
         settings.setTitle("Settings");
 
+
+        FXMLLoader defeatLoader = new FXMLLoader(GameRunner.class.getResource("defeat.fxml"));
+        Stage lose = new Stage();
+        lose.setTitle("Game Over!");
+        Scene loseScene = null;
+        try {
+            loseScene = new Scene(defeatLoader.load(), 800, 450);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        lose.setScene(loseScene);
+        lose.setResizable(true);
+        loseScene.getStylesheets().add("moderna-darl.css");
+        ParentPanel.setLosingPanel(lose);
+        lose.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()== KeyCode.SPACE) {
+                System.exit(0);
+            }
+        });
     }
 
     public static void main(String[] args) {
