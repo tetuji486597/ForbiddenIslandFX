@@ -952,6 +952,9 @@ public class GameBoardController {
         else if(tradeButton.isSelected() && tradePawnChoosen){
             System.out.println("check 3");
             if(player-1 != GameState.currentPlayer.getIndex()) return;
+            for(ImageView[] im: cards)
+                for(ImageView ex: im)
+                    ex.setEffect(null);
             cards[player-1][card-1].setEffect(highlight);
             cardSelected = new int[]{player-1,card-1};
             confirmButton.setVisible(true);
