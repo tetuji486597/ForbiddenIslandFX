@@ -8,21 +8,17 @@ import game.simulation.card.Card;
 import game.simulation.player.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 //
 public class GameState {
@@ -52,6 +48,7 @@ public class GameState {
     public static TreasurePiece             OceansChalice;
     public static TreasurePiece             EarthStone;
     public static TreasurePiece             CrystalOfFire;
+    public static String                    defeatMessage;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
@@ -151,7 +148,7 @@ public class GameState {
 
     public static void addCards() {
         ArrayList<String> cardsToAdd = new ArrayList<>();
-        if(cardDeck.isEmpty()) {
+        if(cardDeck.size() < 2) {
             Collections.shuffle(discardPile);
             while(!discardPile.isEmpty()) cardDeck.push(discardPile.pop());
         }
@@ -181,8 +178,33 @@ public class GameState {
         loseGame("Treasures have sunk!");
     }
     public static void loseGame(String message) {
-        ParentPanel.losingPanel.setTitle(message);
-        ParentPanel.losingPanel.show();
+        defeatMessage = message;
+
+        FXMLLoader defeatLoader = new FXMLLoader(GameRunner.class.getResource("defeatt.fxml"));
+        Stage lose = new Stage();
+        lose.setTitle("Game Over!");
+        Scene loseScene = null;
+        try {
+            loseScene = new Scene(defeatLoader.load(), 800, 450);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        lose.setScene(loseScene);
+        lose.setResizable(true);
+        loseScene.getStylesheets().add("moderna-darl.css");
+//        ParentPanel.setLosingPanel(lose);
+        lose.addEventHandler(MouseEvent.MOUSE_MOVED, (mouseEvent -> {
+
+        }));
+        lose.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            if(key.getCode()== KeyCode.SPACE) {
+                System.exit(0);
+            }
+        });
+        lose.show();
+        lose.setTitle(message);
+//        ParentPanel.losingPanel.setTitle(message);
+//        ParentPanel.losingPanel.show();
     }
     public void drawCard(Graphics g) {
     }

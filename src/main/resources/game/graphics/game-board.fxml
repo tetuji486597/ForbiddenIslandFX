@@ -56,7 +56,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="930.0" minWidth="1375.0" prefHeight="930.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
+<VBox minHeight="911.0" minWidth="1375.0" prefHeight="911.0" prefWidth="1375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.graphics.GameBoardController">
     <children>
         <HBox prefHeight="709.0" prefWidth="1414.0">
             <children>
@@ -1043,7 +1043,7 @@
                   </Label>
                   <Pane layoutX="682.0">
                      <children>
-                        <Separator layoutX="-1.0" orientation="VERTICAL" prefHeight="217.0" prefWidth="7.0" />
+                        <Separator layoutX="-1.0" orientation="VERTICAL" prefHeight="197.0" prefWidth="7.0" />
                         <ImageView fitHeight="201.0" fitWidth="130.0" layoutX="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/TreasureCards/Card_Back@2x.png" />

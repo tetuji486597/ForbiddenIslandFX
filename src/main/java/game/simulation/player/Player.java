@@ -199,10 +199,18 @@ public class Player
         return playerDeck;
     }
 
+    public boolean[][] getPilotTiles(GameTile tile){
+        return null;
+    }
 
     public ArrayList<Player> tradeablePlayers (){
         ArrayList<Player> tradeablePlayers = (ArrayList<Player>) GameState.allPlayers.clone();
         tradeablePlayers.remove(GameState.currentPlayer);
+        for(int i = tradeablePlayers.size()-1; i>=0; i--){
+            if(tradeablePlayers.get(i).getDeck().size()==5){
+                tradeablePlayers.remove(i);
+            }
+        }
         String playerPos = Arrays.toString(getPos());
         if(getRole().equals("Messenger")){
             System.out.println(tradeablePlayers);
@@ -211,13 +219,9 @@ public class Player
 
         else{
             for(int i = tradeablePlayers.size()-1; i>=0 ; i--){
-                if(Arrays.toString(tradeablePlayers.get(i).getPos()).equals(playerPos)){
-                    continue;
-                }
-                else if(!Arrays.toString(tradeablePlayers.get(i).getPos()).equals(playerPos)){
+                if(!Arrays.toString(tradeablePlayers.get(i).getPos()).equals(playerPos)){
                     tradeablePlayers.remove(i);
                 }
-
             }
         }
         return tradeablePlayers;
