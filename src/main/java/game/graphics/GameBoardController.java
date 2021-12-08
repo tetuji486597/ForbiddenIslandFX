@@ -589,6 +589,21 @@ public class GameBoardController {
         nextPlayer2.setVisible(false);
         nextPlayer3.setVisible(false);
 
+        choosePlayerText.setTooltip(new Tooltip("Players with full inventories do not show up here"));
+        actionUsedText.setTooltip(new Tooltip("Indicates the amount of actions used/left"));
+        moveButton.setTooltip(new Tooltip("Move your player piece"));
+        shoreButton.setTooltip(new Tooltip("Shore up surrounding tiles"));
+        tradeButton.setTooltip(new Tooltip("Trade with nearby players"));
+        useButton.setTooltip(new Tooltip("Use Sandbag and Helicopter Lift cards at anytime without counting as a turn"));
+        retrieveButton.setTooltip(new Tooltip("Retrieve a treasure by trading in 4 corresponding treasure cards"));
+        endTurnButton.setTooltip(new Tooltip("End your turn"));
+        abilityButton.setTooltip(new Tooltip("Use your player's ability"));
+        confirmButton.setTooltip(new Tooltip("Confirm selection"));
+        cancelButton.setTooltip(new Tooltip("Cancel selection"));
+        drawCardsButton.setTooltip(new Tooltip("Draw treasure and flood cards"));
+        startButton.setTooltip(new Tooltip("Starts the game"));
+        helpButton.setTooltip(new Tooltip("Open the help menu to view the instructions"));
+
         cancelButton.setVisible(false);
         drawCardsButton.setVisible(false);
         confirmButton.setVisible(false);
@@ -1455,6 +1470,39 @@ public class GameBoardController {
         abilityButton.setDisable(true);
         useButton.setDisable(true);
         abilityButton.setDisable(true);
+        retrieveButton.setDisable(true);
+        endTurnButton.setDisable(true);
+        ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
+        for(ImageView im: imageViews) {
+            im.setImage(null);
+            im.setEffect(null);
+        }
+        discarding = true;
+        discardPanel.setVisible(true);
+        for(int i = 0; i < cards.size(); i++){
+            imageViews[i].setImage(Initialize.treasurecards.get(cards.get(i)));
+        }
+    }
+
+    public void discard(Player p) throws FileNotFoundException {
+        ArrayList<String> cards = p.getDeck();
+        if(cards.size()<=5){
+            discardPanel.setVisible(false);
+            updateCards();
+            moveButton.setDisable(false);
+            shoreButton.setDisable(false);
+            tradeButton.setDisable(false);
+            useButton.setDisable(false);
+            abilityButton.setDisable(false);
+            retrieveButton.setDisable(false);
+            endTurnButton.setDisable(false);
+            return;
+        }
+        moveButton.setDisable(true);
+        shoreButton.setDisable(true);
+        tradeButton.setDisable(true);
+        abilityButton.setDisable(true);
+        useButton.setDisable(true);
         retrieveButton.setDisable(true);
         endTurnButton.setDisable(true);
         ImageView[] imageViews = {discard1,discard2,discard3,discard4,discard5,discard6,discard7};
