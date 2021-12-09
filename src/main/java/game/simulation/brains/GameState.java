@@ -171,6 +171,7 @@ public class GameState {
             if(tilesMap.get("FoolsLanding").isGone()) System.out.println("GAME OVER!!");
             System.out.println(floodDiscard.push(floodDeck.pop()));
         }
+        checkAllGone();
     }
 
     public static void checkAllGone() {
@@ -191,7 +192,6 @@ public class GameState {
             System.out.println(  "CheckGone" +  tilesMap.get("HowlingGarden").isGone() + tilesMap.get("WhisperingGarden").isGone());
         }
         GameState.controller.disableButtons();
-        loseGame("Treasures have sunk!");
     }
     public static void loseGame(String message) {
         GameState.controller.disableButtons();

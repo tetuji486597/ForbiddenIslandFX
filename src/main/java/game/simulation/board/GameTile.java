@@ -80,7 +80,6 @@ public class GameTile {
                 GameState.loseGame("Players have been stranded!");
                 return;
             }
-            GameState.checkAllGone();
         } else {
             isFlooded = true;
         }
