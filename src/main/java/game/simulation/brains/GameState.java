@@ -174,14 +174,22 @@ public class GameState {
     }
 
     public static void checkAllGone() {
-        if(tilesMap.get("CaveOfShadows").isGone() && tilesMap.get("CaveOfEmbers").isGone())
+        if(tilesMap.get("CaveOfShadows").isGone() && tilesMap.get("CaveOfEmbers").isGone()) {
             loseGame("Treasures have sunk!");
-        else if(tilesMap.get("CoralForest").isGone() && tilesMap.get("TidalPalace").isGone())
+            System.out.println(  "CheckGone" +  tilesMap.get("CaveOfShadows").isGone() + tilesMap.get("CaveOfEmbers").isGone());
+        }
+        else if(tilesMap.get("CoralPalace").isGone() && tilesMap.get("TidalPalace").isGone()) {
             loseGame("Treasures have sunk!");
-        else if(tilesMap.get("TempleOfTheSun").isGone() && tilesMap.get("TempleOfTheMoon").isGone())
+            System.out.println(  "CheckGone" +  tilesMap.get("CoralPalace").isGone() + tilesMap.get("TidalPalace").isGone());
+        }
+        else if(tilesMap.get("TempleOfTheSun").isGone() && tilesMap.get("TempleOfTheMoon").isGone()) {
             loseGame("Treasures have sunk!");
-        else if(tilesMap.get("HowlingGarden").isGone() && tilesMap.get("WhisperingGarden").isGone())
+            System.out.println(  "CheckGone" +  tilesMap.get("TempleOfTheSun").isGone() + tilesMap.get("TempleOfTheMoon").isGone());
+        }
+        else if(tilesMap.get("HowlingGarden").isGone() && tilesMap.get("WhisperingGarden").isGone()) {
             loseGame("Treasures have sunk!");
+            System.out.println(  "CheckGone" +  tilesMap.get("HowlingGarden").isGone() + tilesMap.get("WhisperingGarden").isGone());
+        }
         GameState.controller.disableButtons();
         loseGame("Treasures have sunk!");
     }
