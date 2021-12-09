@@ -823,6 +823,8 @@ public class GameBoardController {
             }
             tradeButton.setSelected(false);
             tradeButtonClicked(event);
+            tradeChoosenPlayer = null;
+            tradePawnChoosen = false;
             confirmButton.setVisible(false);
         }
     }
@@ -950,7 +952,7 @@ public class GameBoardController {
                     Player players[] = new Player[GameState.numPlayers -1];
                     int index = 0;
                     for(int x = 0; x < GameState.numPlayers; x++){
-                        if(GameState.allPlayers.get(x).equals(GameState.currentPlayer)) System.out.println(x);
+                        if(GameState.allPlayers.get(x).equals(GameState.allPlayers.get(player-1))) System.out.println(x);
                         else {
                             System.out.println(x);
                             players[index] = GameState.allPlayers.get(x);
@@ -2008,17 +2010,15 @@ public class GameBoardController {
     private Player tradeChoosenPlayer;
     void tradePawnChosen(int x) throws FileNotFoundException {
         if(!tradeButton.isSelected()) return;
-        else if(!tradePawnChoosen){
-            tradePawnChoosen = true;
-            ImageView[] imageViews = {nextPlayer,nextPlayer2,nextPlayer3};
-            Player[] players = GameState.currentPlayer.tradeablePlayers().toArray(new Player[0]);
-            tradeChoosenPlayer = players[x];
-            DropShadow highlight = new DropShadow();
-            for(ImageView im: imageViews)
-                im.setEffect(null);
-            highlight.setColor(Color.YELLOW);
-            imageViews[x].setEffect(highlight);
-        }
+        tradePawnChoosen = true;
+        ImageView[] imageViews = {nextPlayer,nextPlayer2,nextPlayer3};
+        Player[] players = GameState.currentPlayer.tradeablePlayers().toArray(new Player[0]);
+        tradeChoosenPlayer = players[x];
+        DropShadow highlight = new DropShadow();
+        for(ImageView im: imageViews)
+            im.setEffect(null);
+        highlight.setColor(Color.YELLOW);
+        imageViews[x].setEffect(highlight);
     }
 
     public void r0c2Clicked(MouseEvent mouseEvent){

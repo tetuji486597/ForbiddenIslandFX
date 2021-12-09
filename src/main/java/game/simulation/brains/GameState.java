@@ -174,9 +174,14 @@ public class GameState {
     }
 
     public static void checkAllGone() {
-        for(GameTile gt: tiles) {
-            if(gt.getTreasureState() && !gt.isGone()) return;
-        }
+        if(tilesMap.get("CaveOfShadows").isGone() && tilesMap.get("CaveOfEmbers").isGone())
+            loseGame("Treasures have sunk!");
+        else if(tilesMap.get("CoralForest").isGone() && tilesMap.get("TidalPalace").isGone())
+            loseGame("Treasures have sunk!");
+        else if(tilesMap.get("TempleOfTheSun").isGone() && tilesMap.get("TempleOfTheMoon").isGone())
+            loseGame("Treasures have sunk!");
+        else if(tilesMap.get("HowlingGarden").isGone() && tilesMap.get("WhisperingGarden").isGone())
+            loseGame("Treasures have sunk!");
         GameState.controller.disableButtons();
         loseGame("Treasures have sunk!");
     }

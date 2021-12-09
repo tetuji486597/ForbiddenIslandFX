@@ -46,6 +46,12 @@ public class Diver extends Player {
         checkedTiles = new boolean[6][6];
         setSurroundings(r,c);
         moveableTiles[r][c] = false;
+        for(boolean b[]: moveableTiles) {
+            for (boolean bb : b) {
+                System.out.print(b + "\t\t");
+            }
+            System.out.println();
+        }
         return moveableTiles;
     }
 
