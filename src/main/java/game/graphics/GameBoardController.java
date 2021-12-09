@@ -7,6 +7,7 @@ import game.simulation.player.Pilot;
 import game.simulation.player.Player;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -580,6 +581,13 @@ public class GameBoardController {
                 {Player4Card1, Player4Card2, Player4Card3, Player4Card4, Player4Card5}
         };
 
+        for(ImageView[] im: cards){
+            for(ImageView pp : im){
+                pp.setPreserveRatio(true);
+                pp.setFitHeight(90);
+            }
+        }
+
         actionUsedText.setTranslateY(42);
         action1.setTranslateY(42);
         action2.setTranslateY(42);
@@ -634,7 +642,10 @@ public class GameBoardController {
         for(int i =0;i<24;i++) {
             tilesMap.put(pos[i],imageViews[i]);
             gridMap.put(Arrays.toString(pos[i]),gridPanes[i]);
+            imageViews[i].setPreserveRatio(true);
+            imageViews[i].setFitHeight(105);
         }
+
         for(GridPane gp : playerInv){
             gp.setVisible(false);
         }
@@ -645,6 +656,10 @@ public class GameBoardController {
         String tiles[] = GameState.allTiles;
         System.out.println(Arrays.toString(tiles));
         drawBoard();
+
+
+        hoverEffects();
+
         waterlevels[GameState.waterLevel-1].setVisible(true);
         int numPlayers = GameState.numPlayers;
         for(int i = 0; i < numPlayers; i++){
@@ -1126,11 +1141,16 @@ public class GameBoardController {
                 }
             }
 
-            actionUsedText.setTranslateY(-21);
-            action1.setTranslateY(-21);
-            action2.setTranslateY(-21);
-            action3.setTranslateY(-21);
-            choosePlayerText.setVisible(true);
+            actionUsedText.setTranslateY(42);
+            action1.setTranslateY(42);
+            action2.setTranslateY(42);
+            action3.setTranslateY(42);
+            cancelButton.setVisible(false);
+
+            choosePlayerText.setVisible(false);
+            nextPlayer.setVisible(false);
+            nextPlayer2.setVisible(false);
+            nextPlayer3.setVisible(false);
 
             useHelicopter = false;
             useCardPlayer = -1;
@@ -1198,11 +1218,6 @@ public class GameBoardController {
             useHelicopter = false;
             useCardPlayer = -1;
 
-            actionUsedText.setTranslateY(-21);
-            action1.setTranslateY(-21);
-            action2.setTranslateY(-21);
-            action3.setTranslateY(-21);
-            choosePlayerText.setVisible(true);
         }
     }
 
@@ -2399,6 +2414,416 @@ public class GameBoardController {
                 }
             }
         }
+    }
+
+    void onHover(ImageView im){
+        im.setFitHeight(105);
+    }
+
+    void onHoverExit(ImageView im){
+        im.setFitHeight(110);
+    }
+
+    void onCard(ImageView im){
+        im.setFitHeight(115);
+    }
+
+    void onCardExit(ImageView im){
+        im.setFitHeight(90);
+    }
+
+    void hoverEffects(){
+        g0p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r0c2);}});
+        g0p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r0c2);}});
+
+        g0p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r0c3);}});
+        g0p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r0c3);}});
+
+        g1p1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r1c1);}});
+        g1p1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r1c1);}});
+
+        g1p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r1c2);}});
+        g1p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r1c2);}});
+
+        g1p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r1c3);}});
+        g1p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r1c3);}});
+
+        g1p4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r1c4);}});
+        g1p4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r1c4);}});
+
+        g2p0.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c0);}});
+        g2p0.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c0);}});
+
+        g2p1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c1);}});
+        g2p1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c1);}});
+        g2p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c2);}});
+        g2p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c2);}});
+
+        g2p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c3);}});
+        g2p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c3);}});
+
+        g2p4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c4);}});
+        g2p4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c4);}});
+
+        g2p5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r2c5);}});
+        g2p5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r2c5);}});
+
+        g3p0.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c0);}});
+        g3p0.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c0);}});
+
+        g3p1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c1);}});
+        g3p1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c1);}});
+
+        g3p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c2);}});
+        g3p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c2);}});
+
+        g3p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c3);}});
+        g3p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c3);}});
+        g3p4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c4);}});
+        g3p4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c4);}});
+
+        g3p5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r3c5);}});
+        g3p5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r3c5);}});
+
+        g4p1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r4c1);}});
+        g4p1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r4c1);}});
+
+        g4p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r4c2);}});
+        g4p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r4c2);}});
+
+        g4p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r4c3);}});
+        g4p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r4c3);}});
+
+        g4p4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r4c4);}});
+        g4p4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r4c4);}});
+
+        g5p2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r5c2);}});
+        g5p2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r5c2);}});
+
+        g5p3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHover(r5c3);}});
+        g5p3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onHoverExit(r5c3);}});
+
+        Player2Card5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player2Card5);}});
+        Player2Card5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player2Card5);}});
+
+        Player4Card5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player4Card5);}});
+        Player4Card5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player4Card5);}});
+
+        Player1Card1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player1Card1);}});
+        Player1Card1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player1Card1);}});
+
+        Player1Card2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player1Card2);}});
+        Player1Card2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player1Card2);}});
+
+        Player3Card5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player3Card5);}});
+        Player3Card5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player3Card5);}});
+
+        Player1Card3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player1Card3);}});
+        Player1Card3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player1Card3);}});
+
+        Player1Card4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player1Card4);}});
+        Player1Card4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player1Card4);}});
+
+        Player1Card5.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player1Card5);}});
+        Player1Card5.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player1Card5);}});
+        Player2Card1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player2Card1);}});
+        Player2Card1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player2Card1);}});
+
+        Player2Card2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player2Card2);}});
+        Player2Card2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player2Card2);}});
+
+        Player2Card3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player2Card3);}});
+        Player2Card3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player2Card3);}});
+
+        Player2Card4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player2Card4);}});
+        Player2Card4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player2Card4);}});
+
+        Player3Card1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player3Card1);}});
+        Player3Card1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player3Card1);}});
+
+        Player3Card2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player3Card2);}});
+        Player3Card2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player3Card2);}});
+
+        Player3Card3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player3Card3);}});
+        Player3Card3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player3Card3);}});
+
+        Player3Card4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player3Card4);}});
+        Player3Card4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player3Card4);}});
+        Player4Card1.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player4Card1);}});
+        Player4Card1.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player4Card1);}});
+
+        Player4Card2.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player4Card2);}});
+        Player4Card2.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player4Card2);}});
+
+        Player4Card3.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player4Card3);}});
+        Player4Card3.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player4Card3);}});
+
+        Player4Card4.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCard(Player4Card4);}});
+        Player4Card4.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent t) {
+                onCardExit(Player4Card4);}});
     }
 
 }
