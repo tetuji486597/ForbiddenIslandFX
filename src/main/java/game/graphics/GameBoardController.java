@@ -532,6 +532,7 @@ public class GameBoardController {
 
     @FXML
     public void initialize() throws FileNotFoundException {
+        GameState.controller = this;
         waterlevels = new ImageView[]{waterLevel1,waterLevel2,waterLevel3,waterLevel4,waterLevel5,waterLevel6,waterLevel7,waterLevel8,waterLevel9,waterLevel10};
         playerInv = new GridPane[]{Player1Inv,Player2Inv,Player3Inv,Player4Inv};
         playerCards = Map.ofEntries(
@@ -1738,7 +1739,17 @@ public class GameBoardController {
             }
         }
         System.out.println("Possible Swim: " + possibleToSwim);
-        if(!possibleToSwim) GameState.loseGame("Player Drowned!");
+        if(!possibleToSwim){
+            moveButton.setDisable(false);
+            shoreButton.setDisable(false);
+            tradeButton.setDisable(false);
+            useButton.setDisable(false);
+            abilityButton.setDisable(false);
+            retrieveButton.setDisable(false);
+            endTurnButton.setDisable(false);
+            abilityButton.setDisable(false);
+            GameState.loseGame("Player Drowned!");
+        }
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         for (ImageView im : imageViews)
             im.setEffect(null);
@@ -1799,6 +1810,14 @@ public class GameBoardController {
             try {
                 im.setVisible(false);
             }catch (ArrayIndexOutOfBoundsException ex){
+                moveButton.setDisable(false);
+                shoreButton.setDisable(false);
+                tradeButton.setDisable(false);
+                useButton.setDisable(false);
+                abilityButton.setDisable(false);
+                retrieveButton.setDisable(false);
+                endTurnButton.setDisable(false);
+                abilityButton.setDisable(false);
                 GameState.loseGame("The Island Sank");
             }
         }
@@ -1806,6 +1825,19 @@ public class GameBoardController {
         playWaterRiseAnimation();
         updateDiscard();
     }
+
+    public void disableButtons(){
+        moveButton.setDisable(true);
+        shoreButton.setDisable(true);
+        tradeButton.setDisable(true);
+        useButton.setDisable(true);
+        abilityButton.setDisable(true);
+        retrieveButton.setDisable(true);
+        endTurnButton.setDisable(true);
+        abilityButton.setDisable(true);
+        discardPanel.setVisible(false);
+    }
+
 
     public void useDiscardSand(int pos[]) throws FileNotFoundException {
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};

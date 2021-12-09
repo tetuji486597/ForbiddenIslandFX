@@ -49,6 +49,8 @@ public class GameState {
     public static TreasurePiece             EarthStone;
     public static TreasurePiece             CrystalOfFire;
     public static String                    defeatMessage;
+    public static GameBoardController       controller;
+    public static Stage                     lose;
 
     public GameState(int difficulty, int numPlayers) throws IOException {
         this.numPlayers = numPlayers;
@@ -175,13 +177,15 @@ public class GameState {
         for(GameTile gt: tiles) {
             if(gt.getTreasureState() && !gt.isGone()) return;
         }
+        GameState.controller.disableButtons();
         loseGame("Treasures have sunk!");
     }
     public static void loseGame(String message) {
+        GameState.controller.disableButtons();
         defeatMessage = message;
 
         FXMLLoader defeatLoader = new FXMLLoader(GameRunner.class.getResource("defeatt.fxml"));
-        Stage lose = new Stage();
+        lose = new Stage();
         lose.setTitle("Game Over!");
         Scene loseScene = null;
         try {
@@ -217,7 +221,8 @@ public class GameState {
     public static void raiseWater() {
         waterLevelMeter.raiseWater();
         waterLevel = waterLevelMeter.getLevel();
-        if(waterLevel == 9) {
+        if(waterLevel == 10) {
+            GameState.controller.disableButtons();
             loseGame("Players have drowned!");
         }
         Collections.shuffle(floodDiscard);

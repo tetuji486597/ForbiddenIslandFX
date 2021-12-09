@@ -76,6 +76,7 @@ public class GameTile {
         if(isFlooded){
             isGone = true;
             if(name.equals("FoolsLanding")) {
+                GameState.controller.disableButtons();
                 GameState.loseGame("Players have been stranded!");
                 return;
             }
