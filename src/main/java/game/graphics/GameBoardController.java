@@ -634,6 +634,11 @@ public class GameBoardController {
 
     @FXML
     void startGame(ActionEvent event) throws FileNotFoundException {
+
+        GameTile[] fdsa = GameState.tiles;
+        for(GameTile asdf: fdsa) {
+            System.out.println(asdf.getName());
+        }
         ImageView[] imageViews = new ImageView[]{r0c2,r0c3,r1c1,r1c2,r1c3,r1c4,r2c0,r2c1,r2c2,r2c3,r2c4,r2c5,r3c0,r3c1,r3c2,r3c3,r3c4,r3c5,r4c1,r4c2,r4c3,r4c4,r5c2,r5c3};
         GridPane[] gridPanes = new GridPane[]{g0p2,g0p3,g1p1,g1p2,g1p3,g1p4,g2p0,g2p1,g2p2,g2p3,g2p4,g2p5,g3p0,g3p1,g3p2,g3p3,g3p4,g3p5,g4p1,g4p2,g4p3,g4p4,g5p2,g5p3};
         int[][] pos = GameState.pos;
